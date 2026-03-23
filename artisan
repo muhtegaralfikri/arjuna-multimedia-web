@@ -1,0 +1,31 @@
+<?php
+
+use Illuminate\Support\Facades\Facade;
+
+define('LARAVEL_START', microtime(true));
+
+require_once __DIR__.'/vendor/autoload.php';
+
+$app = require_once __DIR__.'/bootstrap/app.php';
+
+$kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
+
+$status = $kernel->handle(
+    $input = new Symfony\Component\Console\Input\ArgvInput,
+    new Symfony\Component\Console\Output\ConsoleOutput
+);
+
+/*
+|--------------------------------------------------------------------------
+| Shutdown The Application
+|--------------------------------------------------------------------------
+|
+| Once Artisan has finished running, we will fire off the shutdown commands
+| which are used by the framework to do any clean up work after a command
+| is executed.
+|
+*/
+
+$kernel->terminate($input, $status);
+
+exit($status);

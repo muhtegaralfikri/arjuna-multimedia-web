@@ -1,0 +1,30 @@
+/node_modules
+node_modules/
+/public/css
+/public/js
+/public/hot
+/public/storage
+/public/build
+/vendor
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+/.idea
+/.vscode
+*.log
+*.sql
+*.sqlite
+.DS_Store
+Thumbs.db
+
+# Ignore all markdown files except README.md
+*.md
+!README.md
+
+# Keep docs folder
+!docs/
