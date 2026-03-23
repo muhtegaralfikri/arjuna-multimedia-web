@@ -160,8 +160,8 @@
             <div class="absolute top-0 left-0 right-0 h-48 bg-indigo-600 z-0 hidden lg:block"></div>
 
             {{-- Header (Desktop mostly, adjusted for mobile) --}}
-            <header class="relative z-10 px-4 sm:px-6 py-5 sm:py-5 lg:mt-4">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-indigo-600 lg:bg-white/10 lg:backdrop-blur-md lg:border lg:border-white/20 p-5 rounded-2xl shadow-sm lg:shadow-sm text-white space-y-4 sm:space-y-0">
+            <header class="relative z-10 px-4 sm:px-6 pt-6 pb-2 lg:pt-8 lg:pb-4 lg:mb-2 text-white">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-indigo-600 lg:bg-white/10 lg:backdrop-blur-md lg:border lg:border-white/20 p-5 lg:p-6 rounded-2xl shadow-sm lg:shadow-sm space-y-4 sm:space-y-0 text-white">
                     <div>
                         <h1 class="text-2xl font-bold tracking-tight">{{ $pageTitle ?? 'Dashboard' }}</h1>
                         <p class="text-indigo-100 text-sm mt-0.5 opacity-90 block">Kelola dan pantau kinerja website Anda</p>
@@ -178,7 +178,7 @@
             </header>
 
             {{-- Page Content --}}
-            <div class="relative z-10 p-6 sm:p-8 pt-2">
+            <div class="relative z-10 px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
                 @yield('content')
             </div>
         </main>
