@@ -15,7 +15,11 @@
 <body class="font-sans antialiased bg-slate-50 text-slate-900">
     <div class="flex h-screen overflow-hidden">
         
-        <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col shadow-2xl z-20 flex-shrink-0 transition-all duration-300">
+        
+        <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 hidden lg:hidden transition-opacity opacity-0" aria-hidden="true"></div>
+
+        
+        <aside id="mainSidebar" class="w-64 bg-slate-900 text-slate-300 flex flex-col shadow-2xl z-40 flex-shrink-0 transition-transform duration-300 ease-in-out fixed inset-y-0 left-0 -translate-x-full lg:relative lg:translate-x-0">
             
             <div class="p-6 border-b border-slate-800/60">
                 <div class="flex items-center space-x-3">
@@ -136,13 +140,29 @@
         </aside>
 
         
-        <main class="flex-1 overflow-y-auto bg-slate-50 relative">
+        <main class="flex-1 flex flex-col overflow-y-auto bg-slate-50 relative w-full">
             
-            <div class="absolute top-0 left-0 right-0 h-48 bg-indigo-600 z-0 sm:h-40"></div>
+            
+            <div class="lg:hidden sticky top-0 z-20 flex items-center justify-between px-4 py-3 bg-indigo-600 text-white shadow-md">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h1 class="text-base font-bold tracking-tight">Arjuna Multi</h1>
+                </div>
+                <button id="openSidebarBtn" class="p-2 -mr-2 text-white hover:bg-indigo-700 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-white/50">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
 
             
-            <header class="relative z-10 px-6 py-5 sm:px-8 mt-4">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl shadow-sm text-white space-y-4 sm:space-y-0">
+            <div class="absolute top-0 left-0 right-0 h-48 bg-indigo-600 z-0 hidden lg:block"></div>
+
+            
+            <header class="relative z-10 px-4 sm:px-6 pt-6 pb-2 lg:pt-8 lg:pb-4 lg:mb-2 text-white">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-indigo-600 lg:bg-white/10 lg:backdrop-blur-md lg:border lg:border-white/20 p-5 lg:p-6 rounded-2xl shadow-sm lg:shadow-sm space-y-4 sm:space-y-0 text-white">
                     <div>
                         <h1 class="text-2xl font-bold tracking-tight"><?php echo e($pageTitle ?? 'Dashboard'); ?></h1>
                         <p class="text-indigo-100 text-sm mt-0.5 opacity-90 block">Kelola dan pantau kinerja website Anda</p>
@@ -159,7 +179,7 @@
             </header>
 
             
-            <div class="relative z-10 p-6 sm:p-8 pt-2">
+            <div class="relative z-10 px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
                 <?php echo $__env->yieldContent('content'); ?>
             </div>
         </main>
@@ -180,6 +200,52 @@
             background: rgba(255, 255, 255, 0.2);
         }
     </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('mainSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const openBtn = document.getElementById('openSidebarBtn');
+
+            function openSidebar() {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                // Use a tiny timeout to allow display:block to apply before animating opacity
+                setTimeout(() => {
+                    overlay.classList.remove('opacity-0');
+                    overlay.classList.add('opacity-100');
+                }, 10);
+                document.body.classList.add('overflow-hidden'); // Prevent background scrolling
+            }
+
+            function closeSidebar() {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.remove('opacity-100');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 300); // match duration-300
+                document.body.classList.remove('overflow-hidden');
+            }
+
+            if(openBtn) {
+                openBtn.addEventListener('click', openSidebar);
+            }
+            if(overlay) {
+                overlay.addEventListener('click', closeSidebar);
+            }
+            
+            // Close sidebar when clicking links on mobile
+            const links = sidebar.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 1024) { // lg breakpoint
+                        closeSidebar();
+                    }
+                });
+            });
+        });
+    </script>
     <?php echo $__env->yieldPushContent('scripts'); ?>
 </body>
 </html>

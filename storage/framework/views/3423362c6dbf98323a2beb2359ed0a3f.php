@@ -72,7 +72,7 @@
 
     
     <header class="sticky top-0 z-50 bg-white shadow-sm">
-        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8" x-data="{ open: false }">
             <div class="flex items-center justify-between h-16">
                 
                 <a href="<?php echo e(route('home')); ?>" class="flex items-center space-x-2">
@@ -106,17 +106,17 @@
                 <?php endif; ?>
 
                 
-                <button type="button" x-data="{ open: false }" @click="open = !open" class="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                <button type="button" @click="open = !open" class="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                        <path x-show="open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        <path x-show="open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" style="display: none;"/>
                     </svg>
                 </button>
             </div>
 
             
-            <div x-data="{ open: false }" @click.away="open = false" class="md:hidden hidden" :class="open ? 'block' : 'hidden'">
-                <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t">
+            <div x-show="open" @click.away="open = false" class="md:hidden" style="display: none;" x-transition>
+                <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-100 shadow-md">
                     <a href="<?php echo e(route('home')); ?>" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 <?php if(request()->is('/')): ?> bg-primary-50 text-primary-600 <?php endif; ?>">Beranda</a>
                     <a href="<?php echo e(route('about')); ?>" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 <?php if(request()->is('tentang')): ?> bg-primary-50 text-primary-600 <?php endif; ?>">Tentang Kami</a>
                     <a href="<?php echo e(route('packages')); ?>" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 <?php if(request()->is('paket')): ?> bg-primary-50 text-primary-600 <?php endif; ?>">Paket</a>

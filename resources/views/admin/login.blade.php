@@ -12,104 +12,186 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="font-sans antialiased text-gray-900 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 min-h-screen flex items-center justify-center p-4">
+<body class="font-sans antialiased text-slate-900 bg-white min-h-screen">
 
-    <div class="w-full max-w-md">
-        @if(session('error'))
-        <div class="mb-4 p-4 bg-red-500/10 border border-red-500/20 text-red-700 rounded-lg backdrop-blur-sm">
-            {{ session('error') }}
-        </div>
-        @endif
-
-        @if(session('success'))
-        <div class="mb-4 p-4 bg-green-500/10 border border-green-500/20 text-green-700 rounded-lg backdrop-blur-sm">
-            {{ session('success') }}
-        </div>
-        @endif
-
-        <div class="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-white/10">
-            <!-- Logo & Branding -->
-            <div class="text-center mb-8">
-                <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
+    <div class="flex flex-col lg:flex-row-reverse w-full min-h-screen relative overflow-hidden">
+        
+        {{-- Form Side (Now on the Right on Desktop) --}}
+        <div class="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-16 relative z-10 bg-white">
+            <div class="w-full max-w-md">
+                
+                {{-- Session Alerts --}}
+                @if(session('error'))
+                <div class="mb-6 p-4 bg-rose-50 border border-rose-200 text-rose-700 rounded-2xl flex items-center shadow-sm">
+                    <svg class="w-5 h-5 mr-3 text-rose-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span class="font-medium text-sm">{{ session('error') }}</span>
                 </div>
-                <h1 class="text-2xl font-bold text-gray-900 mb-1">Arjuna Multimedia</h1>
-                <p class="text-gray-600">Login Admin Panel</p>
-            </div>
+                @endif
 
-            <form method="POST" action="{{ route('admin.login.submit') }}" class="space-y-5">
-                @csrf
+                @if(session('success'))
+                <div class="mb-6 p-4 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-2xl flex items-center shadow-sm">
+                    <svg class="w-5 h-5 mr-3 text-emerald-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span class="font-medium text-sm">{{ session('success') }}</span>
+                </div>
+                @endif
 
-                <!-- Email Field -->
-                <div>
-                    <label for="email" class="block text-gray-700 text-sm font-medium mb-2">Email Address</label>
-                    <div class="relative">
-                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                {{-- Logo & Brand Intro --}}
+                <div class="mb-10 text-left">
+                    <div class="flex items-center space-x-3 mb-8">
+                        <div class="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-600/30">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                             </svg>
-                        </span>
-                        <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus
-                            class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition text-gray-900 placeholder-gray-400"
-                            placeholder="admin@example.com">
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-bold text-slate-900 tracking-tight">Arjuna Multi</h1>
+                            <p class="text-[0.65rem] font-medium text-slate-500 uppercase tracking-widest">Admin Panel</p>
+                        </div>
                     </div>
-                    @error('email')
-                        <p class="mt-2 text-sm text-red-600 flex items-center">
-                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            {{ $message }}
-                        </p>
-                    @enderror
+                    
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-3">Selamat Datang 👋</h2>
+                    <p class="text-slate-500 text-sm sm:text-base leading-relaxed">Silakan masuk menggunakan email dan kata sandi Anda untuk mengakses dashboard manajemen.</p>
                 </div>
 
-                <!-- Password Field -->
-                <div>
-                    <label for="password" class="block text-gray-700 text-sm font-medium mb-2">Password</label>
-                    <div class="relative">
-                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                            </svg>
-                        </span>
-                        <input type="password" id="password" name="password" required
-                            class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition text-gray-900 placeholder-gray-400"
-                            placeholder="••••••••">
+                <form method="POST" action="{{ route('admin.login.submit') }}" class="space-y-6">
+                    @csrf
+
+                    {{-- Email Field --}}
+                    <div>
+                        <label for="email" class="block text-slate-700 text-sm font-semibold mb-2">Alamat Email</label>
+                        <div class="relative group">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-indigo-600">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/>
+                                </svg>
+                            </span>
+                            <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus
+                                class="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:bg-white focus:border-transparent transition-all text-slate-900 placeholder-slate-400 font-medium text-sm"
+                                placeholder="nama@email.com">
+                        </div>
+                        @error('email')
+                            <p class="mt-2 text-xs text-rose-600 font-medium flex items-center">
+                                <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </div>
-                    @error('password')
-                        <p class="mt-2 text-sm text-red-600 flex items-center">
-                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            {{ $message }}
-                        </p>
-                    @enderror
+
+                    {{-- Password Field with Toggle --}}
+                    <div x-data="{ showPassword: false }">
+                        <div class="flex items-center justify-between mb-2">
+                            <label for="password" class="block text-slate-700 text-sm font-semibold">Kata Sandi</label>
+                        </div>
+                        <div class="relative group">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-indigo-600">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                </svg>
+                            </span>
+                            <input :type="showPassword ? 'text' : 'password'" id="password" name="password" required
+                                class="w-full pl-12 pr-12 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:bg-white focus:border-transparent transition-all text-slate-900 placeholder-slate-400 font-medium text-sm"
+                                placeholder="••••••••">
+                            
+                            {{-- Toggle Visiblity Button --}}
+                            <button type="button" @click="showPassword = !showPassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-indigo-600 focus:outline-none focus:text-indigo-600 transition-colors p-1 rounded-md">
+                                {{-- Eye Icon (Show) --}}
+                                <svg x-show="!showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                </svg>
+                                {{-- Eye Slash Icon (Hide) --}}
+                                <svg x-show="showPassword" style="display: none;" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+                                </svg>
+                            </button>
+                        </div>
+                        @error('password')
+                            <p class="mt-2 text-xs text-rose-600 font-medium flex items-center">
+                                <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                {{ $message }}
+                            </p>
+                        @enderror
+                    </div>
+
+                    {{-- Login Button --}}
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 shadow-md shadow-indigo-600/20 hover:shadow-indigo-600/40 hover:-translate-y-0.5 flex items-center justify-center space-x-2 group mt-2">
+                        <span>Masuk ke Dashboard</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </button>
+                    
+                    {{-- Back Link --}}
+                    <div class="pt-4 text-center">
+                        <a href="{{ route('home') }}" class="inline-flex items-center justify-center text-sm text-slate-500 hover:text-indigo-600 font-medium transition-colors">
+                            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                            Kembali ke Halaman Publik
+                        </a>
+                    </div>
+                </form>
+
+                {{-- Copyright --}}
+                <div class="mt-12 text-center">
+                    <p class="text-[0.7rem] text-slate-400 font-medium uppercase tracking-wider">
+                        &copy; {{ date('Y') }} Arjuna Multimedia. Terhubung Penuh.
+                    </p>
                 </div>
-
-                <!-- Login Button -->
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl transition duration-200 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2">
-                    <span>Login</span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                    </svg>
-                </button>
-            </form>
-
-            <!-- Footer Links -->
-            <div class="mt-8 pt-6 border-t border-gray-200 text-center">
-                <a href="{{ route('home') }}" class="text-sm text-blue-600 hover:text-blue-700 font-medium transition">
-                    ← Kembali ke Website
-                </a>
             </div>
         </div>
 
-        <!-- Copyright -->
-        <p class="text-center text-white/60 text-sm mt-6">
-            &copy; {{ date('Y') }} Arjuna Multimedia. All rights reserved.
-        </p>
+        {{-- Imagery / Branding Side (Now on the Left on Desktop) --}}
+        <div class="hidden lg:flex lg:w-1/2 relative bg-indigo-900 border-r border-slate-200 shadow-inner overflow-hidden flex-col items-center justify-center">
+            
+            {{-- Background Image Overlay (Unsplash abstract IT background) --}}
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2070" 
+                 class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-30 object-center" 
+                 alt="Teknologi dan Jaringan Server">
+            
+            {{-- Deep Gradient Mesh --}}
+            <div class="absolute inset-0 bg-gradient-to-tr from-indigo-900/95 via-indigo-800/80 to-indigo-500/30 backdrop-blur-[2px]"></div>
+            
+            {{-- Glassmorphism Glow Orbs --}}
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl mix-blend-screen animate-pulse duration-10000"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl mix-blend-screen animate-pulse duration-7000"></div>
+            
+            {{-- Center Visual Content --}}
+            <div class="relative z-10 px-12 lg:px-24 flex flex-col justify-center h-full">
+                
+                {{-- Decorative Quote/Badge --}}
+                <div class="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-indigo-200 text-xs font-bold uppercase tracking-widest backdrop-blur-md mb-8 w-max">
+                    <span class="w-1.5 h-1.5 rounded-full bg-green-400 mr-2 animate-pulse"></span>
+                    Sistem Manajemen Terpadu
+                </div>
+                
+                <h2 class="text-4xl text-white font-bold leading-tight mb-6">
+                    Membangun Konektivitas<br/><span class="text-indigo-300">Tanpa Batas.</span>
+                </h2>
+                
+                <p class="text-indigo-100/80 text-lg leading-relaxed mb-12 max-w-lg">
+                    Pantau kinerja jaringan, kelola area pelanggan, dan kembangkan bisnis internet Anda melalui alat kendali super canggih.
+                </p>
+                
+                {{-- Statistics Cards Simulation underneath --}}
+                <div class="grid grid-cols-2 gap-4 max-w-lg">
+                    <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-6 relative overflow-hidden group hover:bg-white/15 transition-all">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 transform translate-x-1/4 -translate-y-1/4 group-hover:scale-110 transition-transform">
+                            <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        </div>
+                        <p class="text-indigo-200 font-medium text-xs uppercase tracking-widest mb-2 relative z-10">Kecepatan</p>
+                        <p class="text-white font-bold text-3xl relative z-10">Real-time</p>
+                    </div>
+                    
+                    <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-6 relative overflow-hidden group hover:bg-white/15 transition-all">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 transform translate-x-1/4 -translate-y-1/4 group-hover:scale-110 transition-transform">
+                            <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                        </div>
+                        <p class="text-indigo-200 font-medium text-xs uppercase tracking-widest mb-2 relative z-10">Keamanan</p>
+                        <p class="text-white font-bold text-3xl relative z-10">Terjamin</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
-
 </body>
 </html>

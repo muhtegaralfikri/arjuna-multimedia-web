@@ -10,13 +10,19 @@ class SettingController extends Controller
 {
     public function edit()
     {
-        $settings = SiteSettings::firstOrFail();
+        $settings = SiteSettings::first();
+        
+        // Provide an empty model to avoid view errors if database is empty on production
+        if (!$settings) {
+            $settings = new SiteSettings();
+        }
+        
         return view('admin.settings.edit', compact('settings'));
     }
 
     public function update(Request $request)
     {
-        $settings = SiteSettings::firstOrFail();
+        $settings = SiteSettings::first();
 
         $validated = $request->validate([
             'site_name' => 'required|string|max:255',
@@ -31,7 +37,11 @@ class SettingController extends Controller
             'maintenance_mode' => 'boolean',
         ]);
 
-        $settings->update($validated);
+        if ($settings) {
+            $settings->update($validated);
+        } else {
+            SiteSettings::create($validated);
+        }
 
         return redirect()->route('admin.settings.edit')->with('success', 'Pengaturan berhasil disimpan');
     }
