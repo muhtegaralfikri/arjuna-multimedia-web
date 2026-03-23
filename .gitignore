@@ -5,6 +5,8 @@ node_modules/
 /public/hot
 /public/storage
 /public/build
+/storage/framework/sessions/*
+/storage/framework/views/*
 /vendor
 .env
 .env.backup
@@ -22,9 +24,7 @@ yarn-error.log
 .DS_Store
 Thumbs.db
 
-# Ignore all markdown files except README.md
+# Ignore all markdown files except README.md and docs/
 *.md
 !README.md
-
-# Keep docs folder
-!docs/
+!docs/*.md
