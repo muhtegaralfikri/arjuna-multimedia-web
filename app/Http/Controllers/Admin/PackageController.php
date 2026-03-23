@@ -94,4 +94,19 @@ class PackageController extends Controller
 
         return redirect()->route('admin.packages.index')->with('success', 'Paket berhasil dihapus');
     }
+
+    public function reorder(Request $request)
+    {
+        $request->validate([
+            'order' => 'required|array',
+            'order.*.id' => 'required|string|exists:packages,id',
+            'order.*.position' => 'required|integer',
+        ]);
+
+        foreach ($request->order as $item) {
+            Package::where('id', $item['id'])->update(['sort_order' => $item['position']]);
+        }
+
+        return response()->json(['success' => true]);
+    }
 }

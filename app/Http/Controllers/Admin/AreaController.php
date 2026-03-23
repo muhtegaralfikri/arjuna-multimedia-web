@@ -76,4 +76,19 @@ class AreaController extends Controller
 
         return redirect()->route('admin.areas.index')->with('success', 'Area berhasil dihapus');
     }
+
+    public function reorder(Request $request)
+    {
+        $request->validate([
+            'order' => 'required|array',
+            'order.*.id' => 'required|string|exists:service_areas,id',
+            'order.*.position' => 'required|integer',
+        ]);
+
+        foreach ($request->order as $item) {
+            ServiceArea::where('id', $item['id'])->update(['sort_order' => $item['position']]);
+        }
+
+        return response()->json(['success' => true]);
+    }
 }

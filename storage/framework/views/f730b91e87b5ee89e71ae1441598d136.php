@@ -33,9 +33,9 @@
                     <th class="py-4 px-6 text-right text-slate-500 text-xs font-bold uppercase tracking-wider">Aksi</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100">
+            <tbody class="divide-y divide-slate-100" id="sortable-list">
                 <?php $__currentLoopData = $packages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $package): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <tr class="hover:bg-slate-50/80 transition-colors group">
+                    <tr class="hover:bg-slate-50/80 transition-colors group" data-id="<?php echo e($package->id); ?>">
                         <td class="py-4 px-6 whitespace-nowrap">
                             <div class="flex flex-col">
                                 <span class="font-bold text-slate-900"><?php echo e($package->name); ?></span>
@@ -82,7 +82,11 @@
                             <?php endif; ?>
                         </td>
                         <td class="py-4 px-6 whitespace-nowrap text-center">
-                            <span class="text-slate-500 font-medium bg-slate-50 px-2 py-1 rounded-md text-sm border border-slate-100"><?php echo e($package->sort_order ?? '-'); ?></span>
+                            <div class="inline-flex items-center justify-center p-2 hover:bg-slate-100 rounded-lg cursor-move drag-handle" title="Tarik untuk Mengurutkan">
+                                <svg class="w-5 h-5 text-slate-400 group-hover:text-indigo-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/>
+                                </svg>
+                            </div>
                         </td>
                         <td class="py-4 px-6 whitespace-nowrap text-right">
                             <div class="flex items-center justify-end space-x-2">
@@ -118,6 +122,43 @@
         </div>
     <?php endif; ?>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var el = document.getElementById('sortable-list');
+        if (el) {
+            Sortable.create(el, {
+                handle: '.drag-handle',
+                animation: 150,
+                ghostClass: 'bg-indigo-50',
+                onEnd: function (evt) {
+                    let order = [];
+                    document.querySelectorAll('#sortable-list > tr').forEach((row, index) => {
+                        order.push({
+                            id: row.dataset.id,
+                            position: index + 1
+                        });
+                    });
+                    
+                    fetch('<?php echo e(route("admin.packages.reorder")); ?>', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({ order: order })
+                    }).then(res => res.json()).then(data => {
+                        if(data.success) {
+                            console.log('Order saved successfully.');
+                        }
+                    });
+                }
+            });
+        }
+    });
+</script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('admin.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\github_project\arjuna-multimedia-web\resources\views/admin/packages/index.blade.php ENDPATH**/ ?>

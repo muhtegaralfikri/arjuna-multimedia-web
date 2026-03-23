@@ -34,9 +34,9 @@
                         <th class="py-4 px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100">
+                <tbody class="divide-y divide-slate-100" id="sortable-list">
                     @foreach($faqs as $faq)
-                        <tr class="hover:bg-slate-50/50 transition-colors group">
+                        <tr class="hover:bg-slate-50/50 transition-colors group" data-id="{{ $faq->id }}">
                             <td class="py-4 px-6">
                                 <div class="font-bold text-slate-900 mb-1 max-w-lg truncate">{{ $faq->question }}</div>
                                 <div class="text-sm text-slate-500 max-w-lg truncate">{{ \Illuminate\Support\Str::limit($faq->answer, 80) }}</div>
@@ -61,7 +61,11 @@
                                 @endif
                             </td>
                             <td class="py-4 px-6 whitespace-nowrap text-center text-slate-600 font-medium">
-                                {{ $faq->sort_order ?? '-' }}
+                                <div class="inline-flex items-center justify-center p-2 hover:bg-slate-100 rounded-lg cursor-move drag-handle" title="Tarik untuk Mengurutkan">
+                                    <svg class="w-5 h-5 text-slate-400 group-hover:text-indigo-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/>
+                                    </svg>
+                                </div>
                             </td>
                             <td class="py-4 px-6 whitespace-nowrap">
                                 @if($faq->is_published)
@@ -109,4 +113,41 @@
         </div>
     @endif
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var el = document.getElementById('sortable-list');
+        if (el) {
+            Sortable.create(el, {
+                handle: '.drag-handle',
+                animation: 150,
+                ghostClass: 'bg-indigo-50',
+                onEnd: function (evt) {
+                    let order = [];
+                    document.querySelectorAll('#sortable-list > tr').forEach((row, index) => {
+                        order.push({
+                            id: row.dataset.id,
+                            position: index + 1
+                        });
+                    });
+                    
+                    fetch('{{ route("admin.faqs.reorder") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({ order: order })
+                    }).then(res => res.json()).then(data => {
+                        if(data.success) {
+                            console.log('Order saved successfully.');
+                        }
+                    });
+                }
+            });
+        }
+    });
+</script>
 @endsection

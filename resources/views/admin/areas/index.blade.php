@@ -33,13 +33,13 @@
                     <th class="py-4 px-6 text-right text-slate-500 text-xs font-bold uppercase tracking-wider">Aksi</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100">
+            <tbody class="divide-y divide-slate-100" id="sortable-list">
                 @foreach($areas as $area)
-                    <tr class="hover:bg-slate-50/80 transition-colors group">
+                    <tr class="hover:bg-slate-50/80 transition-colors group" data-id="{{ $area->id }}">
                         <td class="py-4 px-6 whitespace-nowrap">
                             <div class="flex items-center">
-                                <div class="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center mr-3 text-indigo-600">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                <div class="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center mr-3 text-indigo-600 cursor-move drag-handle hover:bg-indigo-100 transition-colors" title="Tarik untuk Mengurutkan">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/></svg>
                                 </div>
                                 <div class="flex flex-col">
                                     <span class="font-bold text-slate-900">{{ $area->name }}</span>
@@ -111,4 +111,41 @@
         </div>
     @endif
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var el = document.getElementById('sortable-list');
+        if (el) {
+            Sortable.create(el, {
+                handle: '.drag-handle',
+                animation: 150,
+                ghostClass: 'bg-indigo-50',
+                onEnd: function (evt) {
+                    let order = [];
+                    document.querySelectorAll('#sortable-list > tr').forEach((row, index) => {
+                        order.push({
+                            id: row.dataset.id,
+                            position: index + 1
+                        });
+                    });
+                    
+                    fetch('{{ route("admin.areas.reorder") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({ order: order })
+                    }).then(res => res.json()).then(data => {
+                        if(data.success) {
+                            console.log('Order saved successfully.');
+                        }
+                    });
+                }
+            });
+        }
+    });
+</script>
 @endsection
