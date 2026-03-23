@@ -1,0 +1,31 @@
+name: Auto Deploy to Server
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 157.15.124.246
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script_stop: true
+          script: |
+            cd /www/wwwroot/arjuna-multimedia-web
+            git pull origin master
+            composer install --no-interaction --optimize-autoloader --no-dev
+            php artisan migrate --force
+            php artisan storage:link
+            chmod -R 775 storage bootstrap/cache
+            chown -R www-data:www-data storage bootstrap/cache
+            npm install --legacy-peer-deps
+            npm run build
+            echo "Deployment completed successfully!"

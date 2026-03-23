@@ -1,10 +1,10 @@
-<?php $__env->startSection('pageTitle', 'Tambah Area'); ?>
+<?php $__env->startSection('pageTitle', 'Edit Area'); ?>
 
 <?php $__env->startSection('content'); ?>
 <div class="mb-6 flex items-center justify-between">
     <div>
-        <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Tambah Area Layanan</h1>
-        <p class="text-slate-500 text-sm mt-1">Buat cakupan wilayah layanan internet baru.</p>
+        <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Edit Area Layanan</h1>
+        <p class="text-slate-500 text-sm mt-1">Lakukan perubahan pada data area <strong class="text-slate-700"><?php echo e($area->name); ?></strong>.</p>
     </div>
     <a href="<?php echo e(route('admin.areas.index')); ?>" class="inline-flex items-center px-4 py-2 bg-white border border-slate-200 rounded-xl font-medium text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors shadow-sm">
         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
@@ -14,8 +14,9 @@
 
 <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden">
     <div class="p-6 sm:p-8">
-        <form method="POST" action="<?php echo e(route('admin.areas.store')); ?>">
+        <form method="POST" action="<?php echo e(route('admin.areas.update', $area->id)); ?>">
             <?php echo csrf_field(); ?>
+            <?php echo method_field('PUT'); ?>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                 <div class="col-span-1 md:col-span-2">
@@ -24,7 +25,7 @@
 
                 <div class="col-span-1 md:col-span-2">
                     <label for="name" class="block text-slate-700 text-sm font-bold mb-2">Nama Area <span class="text-rose-500">*</span></label>
-                    <input type="text" id="name" name="name" required
+                    <input type="text" id="name" name="name" value="<?php echo e(old('name', $area->name)); ?>" required
                         class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm"
                         placeholder="Contoh: Desa Sukamaju, Kecamatan ABC">
                     <?php $__errorArgs = ['name'];
@@ -41,7 +42,7 @@ unset($__errorArgs, $__bag); ?>
 
                 <div>
                     <label for="slug" class="block text-slate-700 text-sm font-bold mb-2">Slug (URL) <span class="text-rose-500">*</span></label>
-                    <input type="text" id="slug" name="slug" required
+                    <input type="text" id="slug" name="slug" value="<?php echo e(old('slug', $area->slug)); ?>" required
                         class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm"
                         placeholder="desa-sukamaju">
                     <p class="mt-1.5 text-xs text-slate-500">Hanya huruf kecil, angka, dan strip (-).</p>
@@ -62,9 +63,9 @@ unset($__errorArgs, $__bag); ?>
                     <div class="relative">
                         <select id="status" name="status" required
                             class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm appearance-none">
-                            <option value="available">Bisa Dipasang (Tersedia)</option>
-                            <option value="coming_soon">Pembangunan Jaringan (Segera Hadir)</option>
-                            <option value="paused">Jaringan Penuh / Dibatasi (Jeda)</option>
+                            <option value="available" <?php echo e($area->status === 'available' ? 'selected' : ''); ?>>Bisa Dipasang (Tersedia)</option>
+                            <option value="coming_soon" <?php echo e($area->status === 'coming_soon' ? 'selected' : ''); ?>>Pembangunan Jaringan (Segera Hadir)</option>
+                            <option value="paused" <?php echo e($area->status === 'paused' ? 'selected' : ''); ?>>Jaringan Penuh / Dibatasi (Jeda)</option>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
@@ -85,6 +86,7 @@ unset($__errorArgs, $__bag); ?>
                 <div>
                     <label for="estimated_available" class="block text-slate-700 text-sm font-bold mb-2">Tanggal Estimasi (Jika Segera Hadir)</label>
                     <input type="date" id="estimated_available" name="estimated_available"
+                        value="<?php echo e(old('estimated_available', $area->estimated_available ? $area->estimated_available->format('Y-m-d') : '')); ?>"
                         class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm">
                     <?php $__errorArgs = ['estimated_available'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -100,7 +102,7 @@ unset($__errorArgs, $__bag); ?>
 
                 <div>
                     <label for="sort_order" class="block text-slate-700 text-sm font-bold mb-2">Urutan Tampilan</label>
-                    <input type="number" id="sort_order" name="sort_order"
+                    <input type="number" id="sort_order" name="sort_order" value="<?php echo e(old('sort_order', $area->sort_order)); ?>"
                         class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm"
                         placeholder="1">
                     <p class="mt-1.5 text-xs text-slate-500">Angka lebih kecil tampil lebih dulu.</p>
@@ -124,7 +126,7 @@ unset($__errorArgs, $__bag); ?>
                     <label for="description" class="block text-slate-700 text-sm font-bold mb-2">Deskripsi Singkat</label>
                     <textarea id="description" name="description" rows="3"
                         class="w-full px-4 py-3 bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm resize-y"
-                        placeholder="Deskripsi wilayah layanan atau pesan khusus untuk calon pelanggan di area ini..."></textarea>
+                        placeholder="Deskripsi wilayah layanan atau pesan khusus untuk calon pelanggan di area ini..."><?php echo e(old('description', $area->description)); ?></textarea>
                     <?php $__errorArgs = ['description'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -141,7 +143,7 @@ unset($__errorArgs, $__bag); ?>
                     <label for="coverage_detail" class="block text-slate-700 text-sm font-bold mb-2">Penyebutan Rincian Area (Coverages)</label>
                     <textarea id="coverage_detail" name="coverage_detail" rows="3"
                         class="w-full px-4 py-3 bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm resize-y"
-                        placeholder="Misalnya: RT 01-05 Desa A, Gang Flamboyan, Perumahan B Blok C..."></textarea>
+                        placeholder="Misalnya: RT 01-05 Desa A, Gang Flamboyan, Perumahan B Blok C..."><?php echo e(old('coverage_detail', $area->coverage_detail)); ?></textarea>
                     <p class="mt-1.5 text-xs text-slate-500">Rincian cakupan wilayah agar calon pelanggan tahu titik persis jaringan berada.</p>
                     <?php $__errorArgs = ['coverage_detail'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -161,7 +163,7 @@ unset($__errorArgs, $__bag); ?>
 
                 <div class="col-span-1 md:col-span-2">
                     <label class="relative flex items-center group cursor-pointer w-max">
-                        <input type="checkbox" name="is_active" value="1" checked class="peer sr-only">
+                        <input type="checkbox" name="is_active" value="1" <?php echo e($area->is_active ? 'checked' : ''); ?> class="peer sr-only">
                         <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-indigo-300 transition-all peer-checked:bg-emerald-500"></div>
                         <div class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-all peer-checked:translate-x-5"></div>
                         <span class="ml-3 text-sm font-semibold text-slate-700 group-hover:text-slate-900">Tayangkan Area Ini ke Publik</span>
@@ -174,7 +176,7 @@ unset($__errorArgs, $__bag); ?>
                     Batal
                 </a>
                 <button type="submit" class="px-6 py-2.5 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-200 transition-all shadow-sm">
-                    Simpan Area
+                    Update Area
                 </button>
             </div>
         </form>
@@ -182,4 +184,4 @@ unset($__errorArgs, $__bag); ?>
 </div>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('admin.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\github_project\arjuna-multimedia-web\resources\views/admin/areas/create.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\github_project\arjuna-multimedia-web\resources\views/admin/areas/edit.blade.php ENDPATH**/ ?>
