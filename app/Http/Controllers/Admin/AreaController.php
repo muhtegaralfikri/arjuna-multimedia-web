@@ -28,9 +28,12 @@ class AreaController extends Controller
             'status' => 'required|in:available,coming_soon,paused',
             'coverage_detail' => 'nullable|string',
             'estimated_available' => 'nullable|date',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
             'sort_order' => 'nullable|integer',
         ]);
+
+        // Handle checkbox
+        $validated['is_active'] = $request->has('is_active');
 
         ServiceArea::create($validated);
 
@@ -54,9 +57,12 @@ class AreaController extends Controller
             'status' => 'required|in:available,coming_soon,paused',
             'coverage_detail' => 'nullable|string',
             'estimated_available' => 'nullable|date',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
             'sort_order' => 'nullable|integer',
         ]);
+
+        // Handle checkbox
+        $validated['is_active'] = $request->has('is_active');
 
         $area->update($validated);
 

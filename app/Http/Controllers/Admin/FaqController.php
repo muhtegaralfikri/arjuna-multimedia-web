@@ -26,8 +26,11 @@ class FaqController extends Controller
             'answer' => 'required|string',
             'category' => 'required|in:general,technical,billing,installation',
             'sort_order' => 'nullable|integer',
-            'is_published' => 'boolean',
+            'is_published' => 'nullable|boolean',
         ]);
+
+        // Handle checkbox
+        $validated['is_published'] = $request->has('is_published');
 
         Faq::create($validated);
 
@@ -49,8 +52,11 @@ class FaqController extends Controller
             'answer' => 'required|string',
             'category' => 'required|in:general,technical,billing,installation',
             'sort_order' => 'nullable|integer',
-            'is_published' => 'boolean',
+            'is_published' => 'nullable|boolean',
         ]);
+
+        // Handle checkbox
+        $validated['is_published'] = $request->has('is_published');
 
         $faq->update($validated);
 

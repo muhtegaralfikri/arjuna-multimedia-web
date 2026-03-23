@@ -30,12 +30,19 @@ class PackageController extends Controller
             'installation_fee' => 'required|numeric',
             'quota' => 'nullable|string|max:100',
             'description' => 'nullable|string',
-            'features' => 'nullable|array',
+            'features' => 'nullable|string',
             'category' => 'required|in:home,business',
-            'is_popular' => 'boolean',
-            'is_active' => 'boolean',
+            'is_popular' => 'nullable|boolean',
+            'is_active' => 'nullable|boolean',
             'sort_order' => 'nullable|integer',
         ]);
+
+        // Convert features from comma-separated string to array
+        $validated['features'] = $validated['features'] ? array_map('trim', explode(',', $validated['features'])) : [];
+
+        // Handle checkboxes - default to false if not sent
+        $validated['is_popular'] = $request->has('is_popular');
+        $validated['is_active'] = $request->has('is_active');
 
         Package::create($validated);
 
@@ -61,12 +68,19 @@ class PackageController extends Controller
             'installation_fee' => 'required|numeric',
             'quota' => 'nullable|string|max:100',
             'description' => 'nullable|string',
-            'features' => 'nullable|array',
+            'features' => 'nullable|string',
             'category' => 'required|in:home,business',
-            'is_popular' => 'boolean',
-            'is_active' => 'boolean',
+            'is_popular' => 'nullable|boolean',
+            'is_active' => 'nullable|boolean',
             'sort_order' => 'nullable|integer',
         ]);
+
+        // Convert features from comma-separated string to array
+        $validated['features'] = $validated['features'] ? array_map('trim', explode(',', $validated['features'])) : [];
+
+        // Handle checkboxes - default to false if not sent
+        $validated['is_popular'] = $request->has('is_popular');
+        $validated['is_active'] = $request->has('is_active');
 
         $package->update($validated);
 
