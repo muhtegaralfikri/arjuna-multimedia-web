@@ -18,17 +18,6 @@
             <p class="mt-5 text-lg text-primary-100 max-w-2xl">
                 Pilih paket berdasarkan kebutuhan kecepatan. Semua paket tanpa batas kuota, tanpa batas download, dan tanpa batas upload.
             </p>
-            <div class="mt-8 flex flex-col sm:flex-row gap-3">
-                @if($contact)
-                    <a href="{{ $contact->whatsapp_link }}" target="_blank" class="inline-flex items-center justify-center px-6 py-3 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600 transition">
-                        @include('partials.whatsapp-icon', ['class' => 'w-6 h-6 mr-2 object-contain'])
-                        Konsultasi via WhatsApp
-                    </a>
-                @endif
-                <a href="#paket-list" class="inline-flex items-center justify-center px-6 py-3 border border-white/70 text-white rounded-lg font-bold hover:bg-white/10 transition">
-                    Lihat Paket
-                </a>
-            </div>
         </div>
     </div>
 </section>
