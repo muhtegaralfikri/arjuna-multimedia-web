@@ -85,7 +85,7 @@
 
                     @if($contact)
                     <div class="mt-auto pt-7">
-                        <a href="{{ route('wa.package', $package->slug) }}" target="_blank" class="inline-flex w-full items-center justify-center px-5 py-3 bg-primary-600 text-white rounded-lg font-bold hover:bg-primary-700 transition">
+                        <a href="{{ route('wa.package', $package->slug) }}" target="_blank" rel="noopener noreferrer" class="inline-flex w-full items-center justify-center px-5 py-3 bg-primary-600 text-white rounded-lg font-bold hover:bg-primary-700 transition">
                             Pesan {{ $package->speed }}
                         </a>
                     </div>
@@ -147,9 +147,9 @@
                     <div class="rounded-xl bg-gray-50 border border-gray-100 p-4">
                         <p class="text-xs text-gray-500 font-bold uppercase tracking-wide">WhatsApp</p>
                         <div class="mt-1 space-y-1">
-                            <a href="{{ route('wa.general') }}" target="_blank" class="block text-2xl font-black text-gray-950 hover:text-primary-700">{{ $primaryWa }}</a>
+                            <a href="{{ route('wa.general') }}" target="_blank" rel="noopener noreferrer" class="block text-2xl font-black text-gray-950 hover:text-primary-700">{{ $primaryWa }}</a>
                             @if($contact->phone_number)
-                                <a href="{{ $contact->whatsappLinkForNumber($contact->phone_number) }}" target="_blank" class="block text-2xl font-black text-gray-950 hover:text-primary-700">{{ $contact->phone_number }}</a>
+                                <a href="{{ $contact->whatsappLinkForNumber($contact->phone_number) }}" target="_blank" rel="noopener noreferrer" class="block text-2xl font-black text-gray-950 hover:text-primary-700">{{ $contact->phone_number }}</a>
                             @endif
                         </div>
                     </div>
@@ -163,7 +163,7 @@
                     </div>
                     @endif
                 </div>
-                <a href="{{ route('wa.general') }}" target="_blank" class="mt-6 inline-flex w-full items-center justify-center px-5 py-3 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600 transition">
+                <a href="{{ route('wa.general') }}" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex w-full items-center justify-center px-5 py-3 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600 transition">
                     @include('partials.whatsapp-icon', ['class' => 'w-6 h-6 mr-2 object-contain'])
                     Konsultasi via WhatsApp
                 </a>

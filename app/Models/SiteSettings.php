@@ -10,6 +10,8 @@ class SiteSettings extends Model
 {
     use HasFactory;
 
+    private static ?self $cachedSettings = null;
+
     protected $table = 'site_settings';
     protected $keyType = 'uuid';
     public $incrementing = false;
@@ -47,6 +49,6 @@ class SiteSettings extends Model
 
     public static function getSettings()
     {
-        return self::first();
+        return self::$cachedSettings ??= self::first();
     }
 }

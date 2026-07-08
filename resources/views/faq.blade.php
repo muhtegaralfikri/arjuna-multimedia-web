@@ -86,7 +86,15 @@
     </div>
 </section>
 
-{!! $page->content ?? '' !!}
+@if($page?->content)
+<section class="pb-16">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto rounded-xl border border-gray-200 bg-white p-6 text-gray-700 leading-relaxed">
+            {!! nl2br(e($page->content)) !!}
+        </div>
+    </div>
+</section>
+@endif
 
 @include('partials.customer-service-info')
 
@@ -97,7 +105,7 @@
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h3 class="text-2xl font-bold mb-4">Masih Ada Pertanyaan?</h3>
         <p class="text-gray-600 mb-8">Jangan ragu untuk menghubungi kami</p>
-        <a href="{{ route('wa.general') }}" target="_blank" class="inline-flex items-center px-6 py-3 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition">
+        <a href="{{ route('wa.general') }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition">
             @include('partials.whatsapp-icon', ['class' => 'w-5 h-5 mr-2 object-contain'])
             Tanya via WhatsApp
         </a>

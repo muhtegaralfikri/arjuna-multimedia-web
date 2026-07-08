@@ -159,7 +159,7 @@
                         Kirim nama, alamat lengkap, patokan rumah, dan paket diminati. Admin akan membantu mengecek ketersediaan jaringan dan jadwal pemasangan.
                     </p>
                 </div>
-                <a href="{{ route('wa.coverage') }}" target="_blank" class="inline-flex items-center justify-center rounded-xl bg-green-500 px-6 py-4 font-bold text-white transition hover:bg-green-600">
+                <a href="{{ route('wa.coverage') }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-xl bg-green-500 px-6 py-4 font-bold text-white transition hover:bg-green-600">
                     @include('partials.whatsapp-icon', ['class' => 'w-6 h-6 mr-2 object-contain'])
                     Cek Coverage via WhatsApp
                 </a>

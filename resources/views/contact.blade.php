@@ -62,11 +62,11 @@
                             </div>
                         </div>
                         <div class="space-y-2">
-                            <a href="{{ route('wa.general') }}" target="_blank" class="block rounded-lg bg-white px-3 py-2 text-lg font-black text-gray-950 hover:text-green-700 transition">
+                            <a href="{{ route('wa.general') }}" target="_blank" rel="noopener noreferrer" class="block rounded-lg bg-white px-3 py-2 text-lg font-black text-gray-950 hover:text-green-700 transition">
                                 {{ $contact->whatsapp_number }}
                             </a>
                             @if($contact->phone_number)
-                                <a href="{{ $contact->whatsappLinkForNumber($contact->phone_number) }}" target="_blank" class="block rounded-lg bg-white px-3 py-2 text-lg font-black text-gray-950 hover:text-green-700 transition">
+                                <a href="{{ $contact->whatsappLinkForNumber($contact->phone_number) }}" target="_blank" rel="noopener noreferrer" class="block rounded-lg bg-white px-3 py-2 text-lg font-black text-gray-950 hover:text-green-700 transition">
                                     {{ $contact->phone_number }}
                                 </a>
                             @endif
@@ -138,7 +138,7 @@
                     {!! $contact->safe_google_maps_embed !!}
                 </div>
                 @elseif($contact->google_maps_link)
-                <a href="{{ $contact->google_maps_link }}" target="_blank" class="block w-full h-64 bg-gray-200 rounded-xl flex items-center justify-center hover:bg-gray-300 transition">
+                <a href="{{ $contact->google_maps_link }}" target="_blank" rel="noopener noreferrer" class="block w-full h-64 bg-gray-200 rounded-xl flex items-center justify-center hover:bg-gray-300 transition">
                     <svg class="w-12 h-12 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -150,7 +150,7 @@
                         <strong>Alamat:</strong> {{ $contact->address }}
                     </p>
                 </div>
-                <a href="{{ route('wa.coverage') }}" target="_blank" class="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-green-500 px-5 py-3 font-bold text-white transition hover:bg-green-600">
+                <a href="{{ route('wa.coverage') }}" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-green-500 px-5 py-3 font-bold text-white transition hover:bg-green-600">
                     @include('partials.whatsapp-icon', ['class' => 'w-6 h-6 mr-2 object-contain'])
                     Cek Coverage via WhatsApp
                 </a>

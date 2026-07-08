@@ -72,7 +72,7 @@
                     Hubungi admin untuk memastikan biaya, jadwal penyambungan, atau ketentuan layanan sesuai alamat Anda.
                 </p>
                 @if($contact)
-                    <a href="{{ route('wa.general') }}" target="_blank" class="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-green-500 px-6 py-4 font-bold text-white transition hover:bg-green-600">
+                    <a href="{{ route('wa.general') }}" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-green-500 px-6 py-4 font-bold text-white transition hover:bg-green-600">
                         @include('partials.whatsapp-icon', ['class' => 'w-6 h-6 mr-2 object-contain'])
                         Tanya Admin
                     </a>

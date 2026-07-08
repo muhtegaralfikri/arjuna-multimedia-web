@@ -40,7 +40,7 @@
                 </div>
 
                 @if($contact)
-                    <a href="{{ route('wa.coverage') }}" target="_blank" class="mt-7 inline-flex w-full items-center justify-center rounded-xl bg-green-500 px-6 py-4 font-bold text-white transition hover:bg-green-600">
+                    <a href="{{ route('wa.coverage') }}" target="_blank" rel="noopener noreferrer" class="mt-7 inline-flex w-full items-center justify-center rounded-xl bg-green-500 px-6 py-4 font-bold text-white transition hover:bg-green-600">
                         @include('partials.whatsapp-icon', ['class' => 'w-6 h-6 mr-2 object-contain'])
                         Cek Coverage via WhatsApp
                     </a>

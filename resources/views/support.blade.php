@@ -69,7 +69,7 @@
                 <p class="mt-3 text-primary-100 leading-relaxed">
                     Gunakan tombol ini setelah pengecekan dasar dilakukan. Pesan WhatsApp sudah disiapkan agar data kendala lebih lengkap.
                 </p>
-                <a href="{{ route('wa.support') }}" target="_blank" class="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-green-500 px-6 py-4 font-bold text-white transition hover:bg-green-600">
+                <a href="{{ route('wa.support') }}" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-green-500 px-6 py-4 font-bold text-white transition hover:bg-green-600">
                     @include('partials.whatsapp-icon', ['class' => 'w-6 h-6 mr-2 object-contain'])
                     Laporkan Gangguan
                 </a>

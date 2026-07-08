@@ -9,6 +9,8 @@ class Contact extends Model
 {
     use HasFactory;
 
+    private static ?self $cachedContact = null;
+
     protected $table = 'contacts';
     protected $keyType = 'uuid';
     public $incrementing = false;
@@ -31,7 +33,7 @@ class Contact extends Model
 
     public static function getContact()
     {
-        return self::first();
+        return self::$cachedContact ??= self::first();
     }
 
     public function getWhatsappNumberAttribute($value)
