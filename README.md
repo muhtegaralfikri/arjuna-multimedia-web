@@ -1,12 +1,13 @@
-# Arjuna Multimedia - Website & CMS
+# Arjuna Net - Website & CMS
 
-Website profil perusahaan dan sistem manajemen konten (CMS) untuk **Arjuna Multimedia**, penyedia layanan internet (ISP) yang melayani area perumahan dan perkampungan.
+Website profil perusahaan dan sistem manajemen konten (CMS) untuk **Arjuna Net**, penyedia layanan internet (ISP) yang melayani area perumahan dan perkampungan.
 
-## ![Laravel](https://img.shields.io/badge/Laravel-10.10-FF2D20?style=flat&logo=laravel) ![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=flat&logo=php) ![MySQL](https://img.shields.io/badge/MySQL-8.0+-4479A1?style=flat&logo=mysql) ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-38B2AC?style=flat&logo=tailwind-css)
+## ![Laravel](https://img.shields.io/badge/Laravel-10.10-FF2D20?style=flat&logo=laravel) ![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=flat&logo=php) ![MySQL](https://img.shields.io/badge/MySQL-8.0+-4479A1?style=flat&logo=mysql) ![SQLite](https://img.shields.io/badge/SQLite-local-003B57?style=flat&logo=sqlite) ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-38B2AC?style=flat&logo=tailwind-css)
 
 ## Fitur Utama
 
 ### Website Publik
+
 - **Profil Perusahaan** - Halaman beranda dengan hero section dan highlight layanan
 - **Daftar Paket Internet** - Menampilkan berbagai paket internet dengan kecepatan, harga, dan fitur
 - **Area Layanan** - Menampilkan jangkauan area dengan status ketersediaan
@@ -17,6 +18,7 @@ Website profil perusahaan dan sistem manajemen konten (CMS) untuk **Arjuna Multi
 - **Responsive Design** - Tampilan mobile-friendly dengan floating WhatsApp button
 
 ### Admin CMS
+
 - **Dashboard** - Ringkasan statistik website
 - **Manajemen Paket** - Tambah, edit, hapus paket internet
 - **Manajemen Area** - Kelola area layanan dengan status ketersediaan
@@ -31,50 +33,64 @@ Website profil perusahaan dan sistem manajemen konten (CMS) untuk **Arjuna Multi
 ## Teknologi yang Digunakan
 
 ### Backend
+
 - **Laravel 10.10** - PHP Framework
-- **MySQL 8.0+** - Database
+- **MySQL 8.0+** - Database production
+- **SQLite** - Database lokal ringan untuk development
 - **Eloquent ORM** - Database interactions
 - **UUID Primary Keys** - Untuk semua model
-- **Laravel Vite** - Asset compilation
+- **Laravel Vite** - Asset compilation saat CSS/JS berubah
 
 ### Frontend
+
 - **Blade Template** - PHP templating engine
 - **Tailwind CSS 3.x** - Utility-first CSS framework
-- **Bootstrap 5** - UI components tambahan
 - **Alpine.js** - Reactive UI components
-- **Vite** - Build tool & dev server
+- **Vite** - Build tool, tidak perlu berjalan terus saat development biasa
 - **Inter Font** - Typography dari Google Fonts
 
 ## Persyaratan Sistem
 
 - PHP >= 8.2
-- MySQL >= 8.0
-- Node.js >= 18
+- MySQL >= 8.0 untuk production, atau SQLite untuk development lokal
+- Node.js >= 18 hanya saat install/rebuild asset
 - Composer
 - NPM atau Yarn
 
 ## Instalasi
 
 1. **Clone repository**
+
    ```bash
    git clone https://github.com/muhtegaralfikri/arjuna-multimedia-web.git
    cd arjuna-multimedia-web
    ```
 
 2. **Install dependencies**
+
    ```bash
    composer install
    npm install
    ```
 
 3. **Konfigurasi environment**
+
    ```bash
    cp .env.example .env
    php artisan key:generate
    ```
 
-   Edit `.env` dan sesuaikan:
+   Default development lokal memakai SQLite:
+
    ```env
+   DB_CONNECTION=sqlite
+   DB_DATABASE=database/database.sqlite
+   ```
+
+   Jika ingin memakai MySQL, ubah `.env` menjadi:
+
+   ```env
+   DB_CONNECTION=mysql
    DB_HOST=localhost
    DB_DATABASE=arjuna_multimedia
    DB_USERNAME=your_username
@@ -82,21 +98,55 @@ Website profil perusahaan dan sistem manajemen konten (CMS) untuk **Arjuna Multi
    ```
 
 4. **Jalankan migrasi database**
-   ```bash
+
+   ```powershell
+   New-Item -ItemType File -Path database/database.sqlite -Force
    php artisan migrate --seed
    ```
 
 5. **Build assets**
+
    ```bash
    npm run build
    ```
 
 6. **Jalankan development server**
+
    ```bash
    php artisan serve
    ```
 
    Website akan tersedia di `http://localhost:8000`
+
+## Workflow Development Ringan
+
+Untuk development harian, cukup jalankan Laravel:
+
+```bash
+php artisan serve
+```
+
+Tidak perlu menjalankan `npm run dev` terus-menerus selama tidak sedang mengubah `resources/css/app.css`, `resources/js/app.js`, atau class Tailwind baru yang belum masuk hasil build.
+
+Jika mengubah CSS/JS, rebuild asset sekali:
+
+```bash
+npm run build
+```
+
+Mode lokal bisa memakai SQLite supaya tidak perlu menjalankan MySQL:
+
+```env
+DB_CONNECTION=sqlite
+DB_DATABASE=database/database.sqlite
+```
+
+Pastikan file SQLite sudah ada:
+
+```powershell
+New-Item -ItemType File -Path database/database.sqlite -Force
+php artisan migrate --seed
+```
 
 ## Struktur Proyek
 
@@ -126,6 +176,7 @@ arjuna-multimedia-web/
 ## Routes
 
 ### Public Routes
+
 - `/` - Beranda
 - `/tentang` - Tentang Kami
 - `/paket` - Paket Internet
@@ -134,6 +185,7 @@ arjuna-multimedia-web/
 - `/kontak` - Kontak
 
 ### Admin Routes
+
 - `/admin/login` - Login Admin
 - `/admin/dashboard` - Dashboard
 - `/admin/packages` - Manajemen Paket
@@ -147,11 +199,12 @@ Project ini menggunakan GitHub Actions untuk auto-deployment ke server via SSH. 
 
 ## Lisensi
 
-Proyek ini adalah properti dari Arjuna Multimedia. Hak cipta dilindungi undang-undang.
+Proyek ini adalah properti dari Arjuna Net. Hak cipta dilindungi undang-undang.
 
 ## Dukungan
 
 Untuk pertanyaan atau dukungan, hubungi:
+
 - Email: info@arjunamultimedia.com
 - WhatsApp: +62 812-3456-7890
 

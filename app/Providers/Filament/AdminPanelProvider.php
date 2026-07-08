@@ -28,7 +28,7 @@ class AdminPanelProvider extends Panel
             ->id('admin')
             ->path('admin')
             ->login()
-            ->brandName('Arjuna Multimedia')
+            ->brandName('Arjuna Net')
             ->brandLogo(asset('logo.png'))
             ->favicon(asset('favicon.ico'))
             ->colors([

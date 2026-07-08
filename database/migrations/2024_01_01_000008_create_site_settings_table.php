@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('site_settings', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('site_name')->default('Arjuna Multimedia');
+            $table->string('site_name')->default('Arjuna Net');
             $table->text('site_url')->nullable();
             $table->text('logo_url')->nullable();
             $table->text('favicon_url')->nullable();

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Login Admin - Arjuna Multimedia</title>
+    <title>Login Admin - Arjuna Net</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Fonts -->
@@ -133,7 +133,7 @@
                 {{-- Copyright --}}
                 <div class="mt-12 text-center">
                     <p class="text-[0.7rem] text-slate-400 font-medium uppercase tracking-wider">
-                        &copy; {{ date('Y') }} Arjuna Multimedia. Terhubung Penuh.
+                        &copy; {{ date('Y') }} Arjuna Net. Terhubung Penuh.
                     </p>
                 </div>
             </div>

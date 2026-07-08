@@ -1,0 +1,23 @@
+{
+  "files.watcherExclude": {
+    "**/.git/**": true,
+    "**/node_modules/**": true,
+    "**/vendor/**": true,
+    "**/storage/framework/**": true,
+    "**/storage/logs/**": true,
+    "**/bootstrap/cache/**": true,
+    "**/public/build/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/vendor": true,
+    "**/storage/framework": true,
+    "**/storage/logs": true,
+    "**/bootstrap/cache": true,
+    "**/public/build": true
+  },
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/vendor": true
+  }
+}

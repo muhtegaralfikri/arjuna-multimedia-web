@@ -134,7 +134,7 @@ class DatabaseSeeder extends Seeder
         // Create FAQs
         $faqs = [
             [
-                'question' => 'Bagaimana cara daftar internet Arjuna Multimedia?',
+                'question' => 'Bagaimana cara daftar internet Arjuna Net?',
                 'answer' => 'Anda bisa menghubungi kami via WhatsApp di nomor yang tertera di halaman kontak. Admin kami akan membantu proses pendaftaran dengan cepat dan mudah.',
                 'category' => 'general',
                 'sort_order' => 1,
@@ -193,23 +193,23 @@ class DatabaseSeeder extends Seeder
                 'title' => 'Beranda',
                 'hero_title' => 'Internet Cepat & Stabil untuk Area Perkampungan',
                 'hero_subtitle' => 'Nikmati internet berkualitas dengan harga terjangkau. Langganan sekarang!',
-                'meta_title' => 'Arjuna Multimedia - Internet Lokal Cepat & Stabil',
+                'meta_title' => 'Arjuna Net - Internet Lokal Cepat & Stabil',
                 'meta_description' => 'Layanan internet lokal untuk area perkampungan. Cepat, stabil, dan terjangkau. Paket mulai Rp 150.000/bulan.',
             ],
             [
                 'slug' => 'about',
                 'title' => 'Tentang Kami',
-                'hero_title' => 'Tentang Arjuna Multimedia',
+                'hero_title' => 'Tentang Arjuna Net',
                 'hero_subtitle' => 'Mengenal lebih dekat penyedia internet lokal terpercaya',
-                'meta_title' => 'Tentang Arjuna Multimedia',
-                'meta_description' => 'Mengenal lebih dekat Arjuna Multimedia - penyedia layanan internet lokal terpercaya untuk area perkampungan.',
+                'meta_title' => 'Tentang Arjuna Net',
+                'meta_description' => 'Mengenal lebih dekat Arjuna Net - penyedia layanan internet lokal terpercaya untuk area perkampungan.',
             ],
             [
                 'slug' => 'package',
                 'title' => 'Paket Internet',
                 'hero_title' => 'Pilihan Paket Internet',
                 'hero_subtitle' => 'Pilih paket yang sesuai dengan kebutuhan Anda',
-                'meta_title' => 'Paket Internet Arjuna Multimedia',
+                'meta_title' => 'Paket Internet Arjuna Net',
                 'meta_description' => 'Pilihan paket internet terjangkau untuk kebutuhan rumah dan bisnis Anda. Mulai Rp 150.000/bulan.',
             ],
             [
@@ -217,15 +217,15 @@ class DatabaseSeeder extends Seeder
                 'title' => 'Area Layanan',
                 'hero_title' => 'Area Layanan Kami',
                 'hero_subtitle' => 'Cek apakah area Anda sudah tercover',
-                'meta_title' => 'Area Layanan Arjuna Multimedia',
-                'meta_description' => 'Cek apakah area Anda sudah tercover layanan internet Arjuna Multimedia. Terus meluas!',
+                'meta_title' => 'Area Layanan Arjuna Net',
+                'meta_description' => 'Cek apakah area Anda sudah tercover layanan internet Arjuna Net. Terus meluas!',
             ],
             [
                 'slug' => 'contact',
                 'title' => 'Kontak',
                 'hero_title' => 'Hubungi Kami',
                 'hero_subtitle' => 'Kami siap membantu Anda',
-                'meta_title' => 'Hubungi Arjuna Multimedia',
+                'meta_title' => 'Hubungi Arjuna Net',
                 'meta_description' => 'Hubungi kami untuk pemasangan internet baru atau pertanyaan lainnya. WhatsApp dan telepon tersedia.',
             ],
             [
@@ -233,8 +233,8 @@ class DatabaseSeeder extends Seeder
                 'title' => 'FAQ',
                 'hero_title' => 'Pertanyaan yang Sering Diajukan',
                 'hero_subtitle' => 'Jawaban untuk pertanyaan umum',
-                'meta_title' => 'FAQ - Arjuna Multimedia',
-                'meta_description' => 'Pertanyaan yang sering diajukan tentang layanan internet Arjuna Multimedia.',
+                'meta_title' => 'FAQ - Arjuna Net',
+                'meta_description' => 'Pertanyaan yang sering diajukan tentang layanan internet Arjuna Net.',
             ],
         ];
 
@@ -245,7 +245,7 @@ class DatabaseSeeder extends Seeder
         // Create Site Settings (singleton)
         SiteSettings::create([
             'id' => Str::uuid(),
-            'site_name' => 'Arjuna Multimedia',
+            'site_name' => 'Arjuna Net',
             'site_url' => 'https://arjuna-multimedia.com',
             'brand_color_primary' => '#2563EB',
             'brand_color_secondary' => '#1E40AF',
