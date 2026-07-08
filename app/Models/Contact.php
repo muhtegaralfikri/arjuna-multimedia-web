@@ -42,15 +42,26 @@ class Contact extends Model
 
     public function getWhatsappLinkAttribute()
     {
-        $number = $this->whatsapp_number;
+        $number = $this->getWhatsappNumberForLink();
         $message = urlencode('Halo Arjuna Net, saya tertarik dengan paket internet Anda. Mohon informasinya.');
         return "https://wa.me/{$number}?text={$message}";
     }
 
     public function whatsappLinkForPackage(string $packageName): string
     {
-        $number = $this->whatsapp_number;
+        $number = $this->getWhatsappNumberForLink();
         $message = urlencode("Halo Arjuna Net, saya tertarik dengan paket {$packageName}. Apakah area saya sudah tercover?");
         return "https://wa.me/{$number}?text={$message}";
+    }
+
+    private function getWhatsappNumberForLink(): string
+    {
+        $number = $this->whatsapp_number;
+
+        if (str_starts_with($number, '0')) {
+            return '62' . substr($number, 1);
+        }
+
+        return $number;
     }
 }

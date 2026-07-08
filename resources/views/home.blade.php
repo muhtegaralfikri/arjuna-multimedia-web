@@ -138,11 +138,9 @@
                         @endforeach
                     </ul>
                     @endif
-                    @if($contact)
-                        <a href="{{ $contact->whatsappLinkForPackage($package->name) }}" target="_blank" class="block w-full text-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
-                            Pesan {{ $package->speed }}
-                        </a>
-                    @endif
+                    <a href="{{ route('packages') }}#paket-list" class="block w-full text-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
+                        Lihat Detail Paket
+                    </a>
                 </div>
             </div>
             @endforeach
@@ -165,27 +163,11 @@
         <div class="max-w-3xl mx-auto text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Area Layanan Kami</h2>
             <p class="text-xl text-gray-600 mb-8">Saat ini kami telah melayani {{ $areasCount }} area dan terus terus berkembang</p>
-            @if($contact)
-                <a href="{{ $contact->whatsapp_link }}" target="_blank" class="inline-flex items-center px-6 py-3 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition">
-                    @include('partials.whatsapp-icon', ['class' => 'w-5 h-5 mr-2 object-contain'])
-                    Cek Area Anda
-                </a>
-            @endif
+            <a href="{{ route('areas') }}" class="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition">
+                Cek Area Layanan
+            </a>
         </div>
     </div>
 </section>
 
-{{-- CTA Section --}}
-@if($contact)
-<section class="py-16 bg-gradient-to-r from-primary-600 to-primary-800">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Siap untuk Internet Lebih Cepat?</h2>
-        <p class="text-xl text-primary-100 mb-8">Hubungi kami sekarang dan nikmati internet berkualitas</p>
-        <a href="{{ $contact->whatsapp_link }}" target="_blank" class="inline-flex items-center px-8 py-4 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition">
-            @include('partials.whatsapp-icon', ['class' => 'w-6 h-6 mr-2 object-contain'])
-            Chat WhatsApp Sekarang
-        </a>
-    </div>
-</section>
-@endif
 @endsection

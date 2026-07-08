@@ -136,6 +136,8 @@
     </div>
 </section>
 
+@include('partials.customer-service-info', ['contact' => $contact])
+
 {{-- Form Minat --}}
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">

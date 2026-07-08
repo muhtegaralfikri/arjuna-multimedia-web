@@ -88,6 +88,8 @@
 
 {!! $page->content ?? '' !!}
 
+@include('partials.customer-service-info')
+
 {{-- CTA --}}
 @php $contact = \App\Models\Contact::getContact(); @endphp
 @if($contact)
