@@ -6,7 +6,7 @@
 <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
     <div>
         <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Pengaturan Website</h1>
-        <p class="text-slate-500 text-sm mt-1">Kelola konfigurasi dasar, branding, analitik, dan status website.</p>
+        <p class="text-slate-500 text-sm mt-1">Kelola identitas, logo, favicon, dan analitik website.</p>
     </div>
 </div>
 
@@ -43,20 +43,6 @@
                             @enderror
                         </div>
 
-                        <div class="md:col-span-2">
-                            <label for="site_url" class="block text-slate-700 text-sm font-bold mb-2">URL Utama (Utama Domain)</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-                                </div>
-                                <input type="url" id="site_url" name="site_url" value="{{ old('site_url', $settings->site_url) }}"
-                                    class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm font-mono text-sm"
-                                    placeholder="https://arjuna-net.com">
-                            </div>
-                            @error('site_url')
-                                <p class="mt-1.5 text-sm text-rose-600 flex items-center"><svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>{{ $message }}</p>
-                            @enderror
-                        </div>
                     </div>
                 </div>
             </div>
@@ -112,7 +98,7 @@
             </div>
         </div>
 
-        {{-- Right Column: Display & Status --}}
+        {{-- Right Column: Visual Identity --}}
         <div class="lg:col-span-4 space-y-8">
             {{-- Branding Card --}}
             <div class="bg-indigo-50/50 rounded-2xl shadow-sm border border-indigo-100 overflow-hidden">
@@ -143,64 +129,7 @@
                             @enderror
                         </div>
 
-                        <div>
-                            <label for="brand_color_primary" class="block text-slate-700 text-sm font-bold mb-2">Kode Warna Utama (Hex)</label>
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-full border border-slate-200 shadow-sm shrink-0" style="background-color: {{ old('brand_color_primary', $settings->brand_color_primary ?: '#2563eb') }};"></div>
-                                <input type="text" id="brand_color_primary" name="brand_color_primary" value="{{ old('brand_color_primary', $settings->brand_color_primary) }}"
-                                    class="w-full px-3.5 py-2.5 bg-white border border-indigo-200 text-slate-900 rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm font-mono text-sm uppercase"
-                                    placeholder="#2563EB">
-                            </div>
-                            @error('brand_color_primary')
-                                <p class="mt-1 text-sm text-rose-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div>
-                            <label for="brand_color_secondary" class="block text-slate-700 text-sm font-bold mb-2">Kode Warna Sekunder</label>
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-full border border-slate-200 shadow-sm shrink-0" style="background-color: {{ old('brand_color_secondary', $settings->brand_color_secondary ?: '#1e40af') }};"></div>
-                                <input type="text" id="brand_color_secondary" name="brand_color_secondary" value="{{ old('brand_color_secondary', $settings->brand_color_secondary) }}"
-                                    class="w-full px-3.5 py-2.5 bg-white border border-indigo-200 text-slate-900 rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm font-mono text-sm uppercase"
-                                    placeholder="#1E40AF">
-                            </div>
-                            @error('brand_color_secondary')
-                                <p class="mt-1 text-sm text-rose-600">{{ $message }}</p>
-                            @enderror
-                        </div>
                     </div>
-                </div>
-            </div>
-
-            {{-- Maintenance Mode Card --}}
-            <div class="bg-rose-50/50 rounded-2xl shadow-sm border border-rose-100 overflow-hidden relative">
-                @if($settings->maintenance_mode)
-                <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-rose-400 to-rose-600"></div>
-                @endif
-                <div class="p-6">
-                    <h2 class="text-lg font-bold text-rose-900 flex items-center mb-4">
-                        <svg class="w-5 h-5 text-rose-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                        Status Website
-                    </h2>
-                    
-                    <label class="flex items-start p-4 border rounded-xl cursor-pointer transition-all hover:bg-white bg-white/50 border-rose-200 hover:border-rose-300 shadow-sm @if($settings->maintenance_mode) ring-2 ring-offset-1 ring-rose-500 border-rose-500 @endif relative overflow-hidden group">
-                        
-                        <div class="absolute right-0 top-0 h-full flex items-center pr-4">
-                            <div class="w-10 h-6 rounded-full transition-colors relative flex items-center
-                                {{ $settings->maintenance_mode ? 'bg-rose-500' : 'bg-slate-300' }}">
-                                <div class="bg-white w-4 h-4 rounded-full shadow-sm absolute transition-transform
-                                    {{ $settings->maintenance_mode ? 'translate-x-5' : 'translate-x-1' }}"></div>
-                            </div>
-                        </div>
-
-                        <input type="checkbox" name="maintenance_mode" value="1" {{ $settings->maintenance_mode ? 'checked' : '' }} class="sr-only">
-                        <div class="pr-12">
-                            <div class="font-bold text-slate-900 text-sm mb-1">Maintenance Mode</div>
-                            <div class="text-xs text-slate-600 leading-relaxed">
-                                Jika diaktifkan, halaman publik tidak dapat diakses sementara web dalam masa perbaikan.
-                            </div>
-                        </div>
-                    </label>
                 </div>
             </div>
 
@@ -211,30 +140,4 @@
         </div>
     </div>
 </form>
-
-<script>
-    // JS to toggle the visual state of the custom switch for Maintenance Mode
-    document.addEventListener('DOMContentLoaded', () => {
-        const maintLabel = document.querySelector('label input[name="maintenance_mode"]').closest('label');
-        const maintInput = maintLabel.querySelector('input');
-        const maintTrack = maintLabel.querySelector('.w-10');
-        const maintNob = maintLabel.querySelector('.bg-white.w-4');
-
-        maintInput.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                maintTrack.classList.remove('bg-slate-300');
-                maintTrack.classList.add('bg-rose-500');
-                maintNob.classList.remove('translate-x-1');
-                maintNob.classList.add('translate-x-5');
-                maintLabel.classList.add('ring-2', 'ring-offset-1', 'ring-rose-500', 'border-rose-500');
-            } else {
-                maintTrack.classList.add('bg-slate-300');
-                maintTrack.classList.remove('bg-rose-500');
-                maintNob.classList.add('translate-x-1');
-                maintNob.classList.remove('translate-x-5');
-                maintLabel.classList.remove('ring-2', 'ring-offset-1', 'ring-rose-500', 'border-rose-500');
-            }
-        });
-    });
-</script>
 @endsection

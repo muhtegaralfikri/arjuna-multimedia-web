@@ -26,15 +26,11 @@ class SettingController extends Controller
 
         $validated = $request->validate([
             'site_name' => 'required|string|max:255',
-            'site_url' => 'nullable|url|max:255',
             'logo_url' => 'nullable|string|max:500',
             'favicon_url' => 'nullable|string|max:500',
-            'brand_color_primary' => 'nullable|string|max:20',
-            'brand_color_secondary' => 'nullable|string|max:20',
             'google_analytics_id' => 'nullable|string|max:50',
             'gtm_id' => 'nullable|string|max:50',
             'google_business_profile_url' => 'nullable|url|max:500',
-            'maintenance_mode' => 'boolean',
         ]);
 
         if ($settings) {

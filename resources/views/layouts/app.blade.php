@@ -39,16 +39,6 @@
 
     @vite(['resources/css/app.css'])
 
-    {{-- Site Settings Color Override --}}
-    @if($settings = \App\Models\SiteSettings::first())
-        <style>
-            :root {
-                --color-primary: {{ $settings->brand_color_primary }};
-                --color-secondary: {{ $settings->brand_color_secondary }};
-            }
-        </style>
-    @endif
-
     {{-- Google Analytics --}}
     @if($settings && $settings->google_analytics_id)
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ $settings->google_analytics_id }}"></script>
