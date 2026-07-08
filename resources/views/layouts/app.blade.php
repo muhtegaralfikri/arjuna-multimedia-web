@@ -192,7 +192,7 @@
                         <li><a href="{{ route('home') }}" class="text-gray-400 hover:text-white transition">Beranda</a></li>
                         <li><a href="{{ route('about') }}" class="text-gray-400 hover:text-white transition">Tentang Kami</a></li>
                         <li><a href="{{ route('packages') }}" class="text-gray-400 hover:text-white transition">Paket Internet</a></li>
-                        <li><a href="{{ route('coverage') }}" class="text-gray-400 hover:text-white transition">Cek Coverage</a></li>
+                        <li><a href="{{ route('wa.coverage') }}" target="_blank" class="text-gray-400 hover:text-white transition">Cek Coverage</a></li>
                         <li><a href="{{ route('support') }}" class="text-gray-400 hover:text-white transition">Bantuan Gangguan</a></li>
                         <li><a href="{{ route('faq') }}" class="text-gray-400 hover:text-white transition">FAQ</a></li>
                         <li><a href="{{ route('policy') }}" class="text-gray-400 hover:text-white transition">Ketentuan Layanan</a></li>

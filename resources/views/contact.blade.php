@@ -150,8 +150,9 @@
                         <strong>Alamat:</strong> {{ $contact->address }}
                     </p>
                 </div>
-                <a href="{{ route('coverage') }}" class="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-primary-600 px-5 py-3 font-bold text-white transition hover:bg-primary-700">
-                    Cek Coverage Pemasangan
+                <a href="{{ route('wa.coverage') }}" target="_blank" class="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-green-500 px-5 py-3 font-bold text-white transition hover:bg-green-600">
+                    @include('partials.whatsapp-icon', ['class' => 'w-6 h-6 mr-2 object-contain'])
+                    Cek Coverage via WhatsApp
                 </a>
             </div>
         </div>
