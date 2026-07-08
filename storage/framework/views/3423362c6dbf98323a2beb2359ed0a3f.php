@@ -37,7 +37,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css']); ?>
 
     
     <?php if($settings = \App\Models\SiteSettings::first()): ?>
@@ -87,7 +87,7 @@
 
     
     <header class="sticky top-0 z-50 bg-white shadow-sm">
-        <nav class="container mx-auto px-4 sm:px-6 lg:px-8" x-data="{ open: false }">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-24 md:h-28">
                 
                 <a href="<?php echo e(route('home')); ?>" class="flex items-center space-x-2">
@@ -118,16 +118,16 @@
                 <?php endif; ?>
 
                 
-                <button type="button" @click="open = !open" class="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                <button type="button" id="publicMobileMenuButton" class="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100" aria-expanded="false" aria-controls="publicMobileMenu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                        <path x-show="open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" style="display: none;"/>
+                        <path id="publicMobileMenuOpenIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        <path id="publicMobileMenuCloseIcon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </button>
             </div>
 
             
-            <div x-show="open" @click.away="open = false" class="md:hidden" style="display: none;" x-transition>
+            <div id="publicMobileMenu" class="md:hidden hidden">
                 <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-100 shadow-md">
                     <a href="<?php echo e(route('home')); ?>" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 <?php if(request()->is('/')): ?> bg-primary-50 text-primary-600 <?php endif; ?>">Beranda</a>
                     <a href="<?php echo e(route('about')); ?>" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 <?php if(request()->is('tentang')): ?> bg-primary-50 text-primary-600 <?php endif; ?>">Tentang Kami</a>
@@ -238,6 +238,41 @@
             <?php echo $__env->make('partials.whatsapp-icon', ['class' => 'w-10 h-10 object-contain'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         </a>
     <?php endif; ?>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const button = document.getElementById('publicMobileMenuButton');
+            const menu = document.getElementById('publicMobileMenu');
+            const openIcon = document.getElementById('publicMobileMenuOpenIcon');
+            const closeIcon = document.getElementById('publicMobileMenuCloseIcon');
+
+            if (!button || !menu || !openIcon || !closeIcon) {
+                return;
+            }
+
+            const setOpen = (isOpen) => {
+                menu.classList.toggle('hidden', !isOpen);
+                openIcon.classList.toggle('hidden', isOpen);
+                closeIcon.classList.toggle('hidden', !isOpen);
+                button.setAttribute('aria-expanded', String(isOpen));
+            };
+
+            button.addEventListener('click', (event) => {
+                event.stopPropagation();
+                setOpen(menu.classList.contains('hidden'));
+            });
+
+            menu.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', () => setOpen(false));
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!menu.classList.contains('hidden') && !menu.contains(event.target) && !button.contains(event.target)) {
+                    setOpen(false);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
 <?php /**PATH D:\github_project\arjuna-multimedia-web\resources\views/layouts/app.blade.php ENDPATH**/ ?>

@@ -95,8 +95,8 @@
                 $speedNumber = preg_replace('/[^0-9]/', '', $package->speed);
                 $priceRb = number_format($package->price_monthly / 1000, 0, ',', '.');
             @endphp
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 relative">
-                <div class="p-6">
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 relative flex h-full flex-col">
+                <div class="p-6 flex h-full flex-col">
                     <div class="flex items-start justify-between gap-3">
                         <h3 class="text-xl font-black text-gray-900">{{ $package->name }}</h3>
                         @if($package->is_popular)
@@ -131,7 +131,7 @@
                         @endforeach
                     </ul>
                     @endif
-                    <a href="{{ route('packages') }}#paket-list" class="block w-full text-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
+                    <a href="{{ route('packages') }}#paket-list" class="mt-auto block w-full text-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
                         Lihat Detail Paket
                     </a>
                 </div>
