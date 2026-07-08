@@ -10,13 +10,13 @@
 @endphp
 
 {{-- Hero Section --}}
-<section class="relative bg-gradient-to-br from-primary-600 to-primary-800 text-white py-20 md:py-32">
+<section class="relative bg-gradient-to-br from-primary-700 to-primary-900 text-white py-14 md:py-16">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+        <div class="max-w-5xl">
+            <h1 class="text-4xl md:text-5xl font-black leading-tight mb-5">
                 {{ $page->hero_title ?? 'Internet Cepat & Stabil untuk Area Perkampungan' }}
             </h1>
-            <p class="text-xl md:text-2xl text-primary-100 mb-8">
+            <p class="text-lg md:text-xl text-primary-100 leading-relaxed max-w-3xl mb-8">
                 {{ $page->hero_subtitle ?? 'Nikmati internet berkualitas dengan harga terjangkau. Langganan sekarang!' }}
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
