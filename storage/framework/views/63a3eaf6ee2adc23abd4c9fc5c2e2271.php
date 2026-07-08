@@ -22,7 +22,7 @@
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
                 <?php if($contact): ?>
-                    <a href="<?php echo e($contact->whatsapp_link); ?>" target="_blank" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-600 rounded-lg font-semibold hover:bg-gray-100 transition">
+                    <a href="<?php echo e($contact->whatsapp_link); ?>" target="_blank" class="inline-flex items-center justify-center px-8 py-4 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition">
                         <?php echo $__env->make('partials.whatsapp-icon', ['class' => 'w-6 h-6 mr-2 object-contain'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         Hubungi WhatsApp
                     </a>
@@ -168,12 +168,9 @@
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Area Layanan Kami</h2>
             <p class="text-xl text-gray-600 mb-8">Saat ini kami telah melayani <?php echo e($areasCount); ?> area dan terus terus berkembang</p>
             <?php if($contact): ?>
-                <a href="<?php echo e($contact->whatsapp_link); ?>" target="_blank" class="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
+                <a href="<?php echo e($contact->whatsapp_link); ?>" target="_blank" class="inline-flex items-center px-6 py-3 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition">
+                    <?php echo $__env->make('partials.whatsapp-icon', ['class' => 'w-5 h-5 mr-2 object-contain'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                     Cek Area Anda
-                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    </svg>
                 </a>
             <?php endif; ?>
         </div>
@@ -186,7 +183,7 @@
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Siap untuk Internet Lebih Cepat?</h2>
         <p class="text-xl text-primary-100 mb-8">Hubungi kami sekarang dan nikmati internet berkualitas</p>
-        <a href="<?php echo e($contact->whatsapp_link); ?>" target="_blank" class="inline-flex items-center px-8 py-4 bg-white text-primary-600 rounded-lg font-semibold hover:bg-gray-100 transition">
+        <a href="<?php echo e($contact->whatsapp_link); ?>" target="_blank" class="inline-flex items-center px-8 py-4 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition">
             <?php echo $__env->make('partials.whatsapp-icon', ['class' => 'w-6 h-6 mr-2 object-contain'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             Chat WhatsApp Sekarang
         </a>

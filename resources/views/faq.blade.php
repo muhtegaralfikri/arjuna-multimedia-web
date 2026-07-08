@@ -95,7 +95,7 @@
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h3 class="text-2xl font-bold mb-4">Masih Ada Pertanyaan?</h3>
         <p class="text-gray-600 mb-8">Jangan ragu untuk menghubungi kami</p>
-        <a href="{{ $contact->whatsapp_link }}" target="_blank" class="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
+        <a href="{{ $contact->whatsapp_link }}" target="_blank" class="inline-flex items-center px-6 py-3 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition">
             @include('partials.whatsapp-icon', ['class' => 'w-5 h-5 mr-2 object-contain'])
             Tanya via WhatsApp
         </a>

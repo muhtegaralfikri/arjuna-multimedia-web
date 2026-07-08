@@ -51,14 +51,14 @@
 
                 {{-- WhatsApp --}}
                 <div class="mb-8">
-                    <a href="{{ $contact->whatsapp_link }}" target="_blank" class="flex items-center p-4 bg-green-50 rounded-xl hover:bg-green-100 transition group">
+                    <a href="{{ $contact->whatsapp_link }}" target="_blank" class="flex items-center p-4 bg-green-500 text-white rounded-xl hover:bg-green-600 transition group">
                         <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 flex-shrink-0 shadow-sm ring-1 ring-green-100">
                             @include('partials.whatsapp-icon', ['class' => 'w-10 h-10 object-contain'])
                         </div>
                         <div>
-                            <div class="font-semibold text-gray-900">WhatsApp</div>
-                            <div class="text-gray-600">{{ $contact->whatsapp_number }}</div>
-                            <div class="text-sm text-green-600 group-hover:underline">Chat sekarang →</div>
+                            <div class="font-semibold">WhatsApp</div>
+                            <div class="text-green-50">{{ $contact->whatsapp_number }}</div>
+                            <div class="text-sm text-white/90 group-hover:underline">Chat sekarang →</div>
                         </div>
                     </a>
                 </div>

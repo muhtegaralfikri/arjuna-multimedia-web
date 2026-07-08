@@ -111,7 +111,7 @@
                 {{-- CTA Button (Desktop) --}}
                 @if($contact = \App\Models\Contact::getContact())
                     <div class="hidden md:block">
-                        <a href="{{ $contact->whatsapp_link }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
+                        <a href="{{ $contact->whatsapp_link }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition">
                             @include('partials.whatsapp-icon', ['class' => 'w-5 h-5 mr-2 object-contain'])
                             Hubungi Kami
                         </a>
@@ -232,7 +232,7 @@
 
     {{-- Floating WhatsApp Button (Mobile) --}}
     @if($contact = \App\Models\Contact::getContact())
-        <a href="{{ $contact->whatsapp_link }}" target="_blank" class="fixed bottom-6 right-6 z-50 bg-white p-2 rounded-full shadow-lg ring-1 ring-green-100 hover:scale-105 transition md:hidden">
+        <a href="{{ $contact->whatsapp_link }}" target="_blank" class="fixed bottom-6 right-6 z-50 bg-green-500 p-2 rounded-full shadow-lg hover:bg-green-600 hover:scale-105 transition md:hidden">
             @include('partials.whatsapp-icon', ['class' => 'w-10 h-10 object-contain'])
         </a>
     @endif
