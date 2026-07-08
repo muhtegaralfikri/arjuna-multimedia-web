@@ -62,7 +62,7 @@
                             </div>
                         </div>
                         <div class="space-y-2">
-                            <a href="{{ $contact->whatsapp_link }}" target="_blank" class="block rounded-lg bg-white px-3 py-2 text-lg font-black text-gray-950 hover:text-green-700 transition">
+                            <a href="{{ route('wa.general') }}" target="_blank" class="block rounded-lg bg-white px-3 py-2 text-lg font-black text-gray-950 hover:text-green-700 transition">
                                 {{ $contact->whatsapp_number }}
                             </a>
                             @if($contact->phone_number)
@@ -150,6 +150,9 @@
                         <strong>Alamat:</strong> {{ $contact->address }}
                     </p>
                 </div>
+                <a href="{{ route('coverage') }}" class="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-primary-600 px-5 py-3 font-bold text-white transition hover:bg-primary-700">
+                    Cek Coverage Pemasangan
+                </a>
             </div>
         </div>
     </div>

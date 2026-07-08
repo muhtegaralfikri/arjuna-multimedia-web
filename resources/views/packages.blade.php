@@ -40,8 +40,8 @@
                 $speedNumber = preg_replace('/[^0-9]/', '', $package->speed);
                 $priceRb = number_format($package->price_monthly / 1000, 0, ',', '.');
             @endphp
-            <article class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-                <div class="p-6">
+            <article class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden flex h-full flex-col">
+                <div class="p-6 flex h-full flex-col">
                     <div class="flex items-center justify-between gap-3">
                         <h3 class="text-2xl font-black text-gray-950">{{ $package->name }}</h3>
                         <div class="flex flex-wrap justify-end gap-2">
@@ -84,9 +84,11 @@
                     @endif
 
                     @if($contact)
-                    <a href="{{ $contact->whatsappLinkForPackage($package->name) }}" target="_blank" class="mt-6 inline-flex w-full items-center justify-center px-5 py-3 bg-primary-600 text-white rounded-lg font-bold hover:bg-primary-700 transition">
-                        Pesan {{ $package->speed }}
-                    </a>
+                    <div class="mt-auto pt-7">
+                        <a href="{{ route('wa.package', $package->slug) }}" target="_blank" class="inline-flex w-full items-center justify-center px-5 py-3 bg-primary-600 text-white rounded-lg font-bold hover:bg-primary-700 transition">
+                            Pesan {{ $package->speed }}
+                        </a>
+                    </div>
                     @endif
                 </div>
             </article>
@@ -145,7 +147,7 @@
                     <div class="rounded-xl bg-gray-50 border border-gray-100 p-4">
                         <p class="text-xs text-gray-500 font-bold uppercase tracking-wide">WhatsApp</p>
                         <div class="mt-1 space-y-1">
-                            <a href="{{ $contact->whatsapp_link }}" target="_blank" class="block text-2xl font-black text-gray-950 hover:text-primary-700">{{ $primaryWa }}</a>
+                            <a href="{{ route('wa.general') }}" target="_blank" class="block text-2xl font-black text-gray-950 hover:text-primary-700">{{ $primaryWa }}</a>
                             @if($contact->phone_number)
                                 <a href="{{ $contact->whatsappLinkForNumber($contact->phone_number) }}" target="_blank" class="block text-2xl font-black text-gray-950 hover:text-primary-700">{{ $contact->phone_number }}</a>
                             @endif
@@ -161,7 +163,7 @@
                     </div>
                     @endif
                 </div>
-                <a href="{{ $contact->whatsapp_link }}" target="_blank" class="mt-6 inline-flex w-full items-center justify-center px-5 py-3 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600 transition">
+                <a href="{{ route('wa.general') }}" target="_blank" class="mt-6 inline-flex w-full items-center justify-center px-5 py-3 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600 transition">
                     @include('partials.whatsapp-icon', ['class' => 'w-6 h-6 mr-2 object-contain'])
                     Konsultasi via WhatsApp
                 </a>

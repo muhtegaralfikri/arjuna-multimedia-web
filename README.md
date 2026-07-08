@@ -1,213 +1,126 @@
-# Arjuna Net - Website & CMS
+# Arjuna Net - Website & CMS Ringan
 
-Website profil perusahaan dan sistem manajemen konten (CMS) untuk **Arjuna Net**, penyedia layanan internet (ISP) yang melayani area perumahan dan perkampungan.
+Website profil dan CMS ringan untuk Arjuna Net, penyedia layanan internet lokal. Fokus project ini adalah membantu calon pelanggan memahami paket, mengecek coverage, menghubungi admin via WhatsApp, dan mendapat bantuan gangguan dasar.
 
-## ![Laravel](https://img.shields.io/badge/Laravel-10.10-FF2D20?style=flat&logo=laravel) ![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=flat&logo=php) ![MySQL](https://img.shields.io/badge/MySQL-8.0+-4479A1?style=flat&logo=mysql) ![SQLite](https://img.shields.io/badge/SQLite-local-003B57?style=flat&logo=sqlite) ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-38B2AC?style=flat&logo=tailwind-css)
+## Stack
 
-## Fitur Utama
+- Laravel 10
+- PHP 8.2+
+- Blade template
+- Tailwind CSS 3
+- SQLite untuk development lokal
+- MySQL untuk production jika dibutuhkan
+- Vite hanya untuk build CSS
 
-### Website Publik
+Project ini tidak membutuhkan Node/Vite berjalan terus saat development harian. Jalankan Node hanya saat perlu rebuild asset.
 
-- **Profil Perusahaan** - Halaman beranda dengan hero section dan highlight layanan
-- **Daftar Paket Internet** - Menampilkan berbagai paket internet dengan kecepatan, harga, dan fitur
-- **Area Layanan** - Menampilkan jangkauan area dengan status ketersediaan
-- **FAQ** - Pertanyaan yang sering diajukan tentang layanan
-- **Kontak & Informasi** - Integrasi WhatsApp, telepon, email, dan jam operasional
-- **Formulir Minat** - Formulir untuk customer yang tertarik berlangganan
-- **SEO Friendly** - Meta tags kustom, Open Graph, sitemap, dan robots.txt
-- **Responsive Design** - Tampilan mobile-friendly dengan floating WhatsApp button
+## Fitur Publik
 
-### Admin CMS
+- Beranda dengan highlight layanan dan paket internet
+- Paket internet dinamis dari admin
+- Cek coverage via WhatsApp dengan format pesan siap isi
+- Bantuan gangguan internet
+- Ketentuan layanan, pembayaran, dan perangkat
+- FAQ
+- Kontak WhatsApp, telepon, email, jam operasional, dan peta
+- Testimoni pelanggan jika sudah diisi admin
+- Sitemap dan robots.txt
 
-- **Dashboard** - Ringkasan statistik website
-- **Manajemen Paket** - Tambah, edit, hapus paket internet
-- **Manajemen Area** - Kelola area layanan dengan status ketersediaan
-- **Manajemen FAQ** - Buat dan kelola pertanyaan umum
-- **Pengaturan Kontak** - Update informasi kontak dan link media sosial
-- **Manajemen Halaman** - Edit konten halaman melalui sistem slug
-- **Formulir Masukan** - Lihat dan kelola inquiry customer
-- **Pengaturan Website** - Konfigurasi nama situs, warna, logo, Google Analytics, dll
-- **Log Aktivitas** - Trek aksi dan perubahan admin
-- **Role-based Access** - Hak akses berbeda untuk admin (super_admin, editor, viewer)
+## Fitur Admin
 
-## Teknologi yang Digunakan
+- Login admin
+- Dashboard ringkas
+- Manajemen paket internet
+- Manajemen FAQ
+- Manajemen testimoni
+- Edit kontak
+- Edit halaman
+- Pengaturan website
+- Tracking klik WhatsApp 30 hari terakhir
+- Paket paling banyak diklik via WhatsApp
 
-### Backend
-
-- **Laravel 10.10** - PHP Framework
-- **MySQL 8.0+** - Database production
-- **SQLite** - Database lokal ringan untuk development
-- **Eloquent ORM** - Database interactions
-- **UUID Primary Keys** - Untuk semua model
-- **Laravel Vite** - Asset compilation saat CSS/JS berubah
-
-### Frontend
-
-- **Blade Template** - PHP templating engine
-- **Tailwind CSS 3.x** - Utility-first CSS framework
-- **Alpine.js** - Reactive UI components
-- **Vite** - Build tool, tidak perlu berjalan terus saat development biasa
-- **Inter Font** - Typography dari Google Fonts
-
-## Persyaratan Sistem
-
-- PHP >= 8.2
-- MySQL >= 8.0 untuk production, atau SQLite untuk development lokal
-- Node.js >= 18 hanya saat install/rebuild asset
-- Composer
-- NPM atau Yarn
-
-## Instalasi
-
-1. **Clone repository**
-
-   ```bash
-   git clone https://github.com/muhtegaralfikri/arjuna-multimedia-web.git
-   cd arjuna-multimedia-web
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   composer install
-   npm install
-   ```
-
-3. **Konfigurasi environment**
-
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
-
-   Default development lokal memakai SQLite:
-
-   ```env
-   DB_CONNECTION=sqlite
-   DB_DATABASE=database/database.sqlite
-   ```
-
-   Jika ingin memakai MySQL, ubah `.env` menjadi:
-
-   ```env
-   DB_CONNECTION=mysql
-   DB_HOST=localhost
-   DB_DATABASE=arjuna_multimedia
-   DB_USERNAME=your_username
-   DB_PASSWORD=your_password
-   ```
-
-4. **Jalankan migrasi database**
-
-   ```powershell
-   New-Item -ItemType File -Path database/database.sqlite -Force
-   php artisan migrate --seed
-   ```
-
-5. **Build assets**
-
-   ```bash
-   npm run build
-   ```
-
-6. **Jalankan development server**
-
-   ```bash
-   php artisan serve
-   ```
-
-   Website akan tersedia di `http://localhost:8000`
-
-## Workflow Development Ringan
-
-Untuk development harian, cukup jalankan Laravel:
+## Instalasi Lokal
 
 ```bash
-php artisan serve
+composer install
+npm install
+cp .env.example .env
+php artisan key:generate
 ```
 
-Tidak perlu menjalankan `npm run dev` terus-menerus selama tidak sedang mengubah `resources/css/app.css`, `resources/js/app.js`, atau class Tailwind baru yang belum masuk hasil build.
-
-Jika mengubah CSS/JS, rebuild asset sekali:
-
-```bash
-npm run build
-```
-
-Mode lokal bisa memakai SQLite supaya tidak perlu menjalankan MySQL:
+Gunakan SQLite untuk development ringan:
 
 ```env
 DB_CONNECTION=sqlite
 DB_DATABASE=database/database.sqlite
 ```
 
-Pastikan file SQLite sudah ada:
+Buat file database dan jalankan migration:
 
 ```powershell
 New-Item -ItemType File -Path database/database.sqlite -Force
 php artisan migrate --seed
 ```
 
-## Struktur Proyek
+Build CSS:
 
-```
-arjuna-multimedia-web/
-├── app/
-│   ├── Http/Controllers/
-│   │   ├── Admin/          # Admin controllers
-│   │   └── Public/         # Public-facing controllers
-│   └── Models/             # Eloquent models
-├── database/
-│   ├── migrations/         # Database migrations
-│   └── seeders/            # Database seeders
-├── resources/
-│   ├── views/
-│   │   ├── layouts/        # Master layouts
-│   │   ├── admin/          # Admin panel views
-│   │   └── public/         # Public pages
-│   ├── js/                 # JavaScript files
-│   └── css/                # CSS files
-├── routes/
-│   ├── web.php             # Public routes
-│   └── api.php             # API routes
-└── vite.config.js          # Vite configuration
+```bash
+npm run build
 ```
 
-## Routes
+Jalankan server:
 
-### Public Routes
+```bash
+php artisan serve
+```
+
+Website lokal tersedia di:
+
+```text
+http://127.0.0.1:8000
+```
+
+## Workflow Development Ringan
+
+Untuk perubahan konten dari admin, cukup jalankan:
+
+```bash
+php artisan serve
+```
+
+Jika mengubah Blade atau class Tailwind yang belum masuk build, jalankan:
+
+```bash
+npm run build
+```
+
+Tidak perlu menjalankan `npm run dev` terus-menerus kecuali sedang mengerjakan styling interaktif secara aktif.
+
+## Akun Admin Seed
+
+```text
+Email: admin@arjuna-multimedia.com
+Password: admin123
+```
+
+Ganti password sebelum production.
+
+## Route Utama
 
 - `/` - Beranda
 - `/tentang` - Tentang Kami
 - `/paket` - Paket Internet
-- `/area` - Area Layanan
+- `/cek-coverage` - Cek coverage pemasangan
+- `/bantuan` - Bantuan gangguan internet
+- `/ketentuan-layanan` - Ketentuan layanan
 - `/faq` - FAQ
 - `/kontak` - Kontak
+- `/admin/login` - Login admin
 
-### Admin Routes
+## Catatan Maintenance
 
-- `/admin/login` - Login Admin
-- `/admin/dashboard` - Dashboard
-- `/admin/packages` - Manajemen Paket
-- `/admin/areas` - Manajemen Area
-- `/admin/faqs` - Manajemen FAQ
-- `/admin/settings` - Pengaturan Website
+- Form minat publik sudah dipensiunkan karena alur utama diarahkan ke WhatsApp.
+- Area layanan publik belum dipakai, sehingga kode area lama dipensiunkan.
+- Sisa Filament sudah dihapus karena admin panel yang dipakai adalah Blade custom.
+- Tracking WhatsApp dibuat ringan melalui redirect internal, bukan analytics berat.
 
-## Deployment
-
-Project ini menggunakan GitHub Actions untuk auto-deployment ke server via SSH. Lihat `.github/workflows/deploy.yml` untuk konfigurasi.
-
-## Lisensi
-
-Proyek ini adalah properti dari Arjuna Net. Hak cipta dilindungi undang-undang.
-
-## Dukungan
-
-Untuk pertanyaan atau dukungan, hubungi:
-
-- Email: info@arjunamultimedia.com
-- WhatsApp: +62 812-3456-7890
-
----
-
-Dibuat dengan :heart: menggunakan [Laravel](https://laravel.com)

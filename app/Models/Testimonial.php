@@ -7,29 +7,28 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class ServiceArea extends Model
+class Testimonial extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'service_areas';
+    protected $table = 'testimonials';
     protected $keyType = 'uuid';
     public $incrementing = false;
 
     protected $fillable = [
         'id',
-        'name',
-        'slug',
-        'description',
-        'status',
-        'coverage_detail',
-        'estimated_available',
-        'is_active',
+        'customer_name',
+        'area',
+        'quote',
+        'rating',
+        'image_path',
+        'is_published',
         'sort_order',
     ];
 
     protected $casts = [
-        'estimated_available' => 'date',
-        'is_active' => 'boolean',
+        'rating' => 'integer',
+        'is_published' => 'boolean',
     ];
 
     protected static function boot()
@@ -43,23 +42,13 @@ class ServiceArea extends Model
         });
     }
 
-    public function scopeActive($query)
+    public function scopePublished($query)
     {
-        return $query->where('is_active', true);
-    }
-
-    public function scopeAvailable($query)
-    {
-        return $query->where('status', 'available');
-    }
-
-    public function scopeComingSoon($query)
-    {
-        return $query->where('status', 'coming_soon');
+        return $query->where('is_published', true);
     }
 
     public function scopeOrdered($query)
     {
-        return $query->orderBy('sort_order')->orderBy('name');
+        return $query->orderBy('sort_order')->orderByDesc('created_at');
     }
 }

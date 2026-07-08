@@ -7,6 +7,10 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ContactController as PublicContactController;
+use App\Http\Controllers\CoverageController;
+use App\Http\Controllers\ServicePolicyController;
+use App\Http\Controllers\SupportController;
+use App\Http\Controllers\WhatsAppRedirectController;
 
 // Admin controllers
 use App\Http\Controllers\Admin\AdminController;
@@ -16,8 +20,17 @@ use App\Http\Controllers\Admin\DashboardController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/tentang', [AboutController::class, 'index'])->name('about');
 Route::get('/paket', [PackageController::class, 'index'])->name('packages');
+Route::get('/cek-coverage', [CoverageController::class, 'index'])->name('coverage');
+Route::get('/bantuan', [SupportController::class, 'index'])->name('support');
+Route::get('/ketentuan-layanan', [ServicePolicyController::class, 'index'])->name('policy');
 Route::get('/kontak', [PublicContactController::class, 'index'])->name('contact');
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');
+
+// WhatsApp redirects with lightweight click tracking
+Route::get('/wa/paket/{package:slug}', [WhatsAppRedirectController::class, 'package'])->name('wa.package');
+Route::get('/wa/coverage', [WhatsAppRedirectController::class, 'coverage'])->name('wa.coverage');
+Route::get('/wa/support', [WhatsAppRedirectController::class, 'support'])->name('wa.support');
+Route::get('/wa/general', [WhatsAppRedirectController::class, 'general'])->name('wa.general');
 
 // Sitemap & Robots
 Route::get('/sitemap.xml', [HomeController::class, 'sitemap'])->name('sitemap');
@@ -56,6 +69,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::delete('/{id}', [\App\Http\Controllers\Admin\FaqController::class, 'destroy'])->name('destroy');
         });
 
+        // Testimonials
+        Route::prefix('testimonials')->name('testimonials.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\Admin\TestimonialController::class, 'index'])->name('index');
+            Route::get('/create', [\App\Http\Controllers\Admin\TestimonialController::class, 'create'])->name('create');
+            Route::post('/', [\App\Http\Controllers\Admin\TestimonialController::class, 'store'])->name('store');
+            Route::get('/{id}/edit', [\App\Http\Controllers\Admin\TestimonialController::class, 'edit'])->name('edit');
+            Route::put('/{id}', [\App\Http\Controllers\Admin\TestimonialController::class, 'update'])->name('update');
+            Route::delete('/{id}', [\App\Http\Controllers\Admin\TestimonialController::class, 'destroy'])->name('destroy');
+        });
+
         // Contact (singleton - edit only)
         Route::prefix('contact')->name('contacts.')->group(function () {
             Route::get('/edit', [\App\Http\Controllers\Admin\ContactController::class, 'edit'])->name('edit');
@@ -73,14 +96,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::prefix('settings')->name('settings.')->group(function () {
             Route::get('/edit', [\App\Http\Controllers\Admin\SettingController::class, 'edit'])->name('edit');
             Route::put('/', [\App\Http\Controllers\Admin\SettingController::class, 'update'])->name('update');
-        });
-
-        // Form Submissions
-        Route::prefix('forms')->name('forms.')->group(function () {
-            Route::get('/', [\App\Http\Controllers\Admin\FormSubmissionController::class, 'index'])->name('index');
-            Route::get('/{id}', [\App\Http\Controllers\Admin\FormSubmissionController::class, 'show'])->name('show');
-            Route::put('/{id}', [\App\Http\Controllers\Admin\FormSubmissionController::class, 'update'])->name('update');
-            Route::delete('/{id}', [\App\Http\Controllers\Admin\FormSubmissionController::class, 'destroy'])->name('destroy');
         });
     });
 });

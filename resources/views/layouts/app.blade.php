@@ -99,10 +99,11 @@
                 </a>
 
                 {{-- Desktop Menu --}}
-                <div class="hidden md:flex items-center space-x-8">
+                <div class="hidden md:flex items-center space-x-6">
                     <a href="{{ route('home') }}" class="text-gray-700 hover:text-primary-600 transition @if(request()->is('/')) text-primary-600 font-semibold @endif">Beranda</a>
                     <a href="{{ route('about') }}" class="text-gray-700 hover:text-primary-600 transition @if(request()->is('tentang')) text-primary-600 font-semibold @endif">Tentang Kami</a>
                     <a href="{{ route('packages') }}" class="text-gray-700 hover:text-primary-600 transition @if(request()->is('paket')) text-primary-600 font-semibold @endif">Paket</a>
+                    <a href="{{ route('support') }}" class="text-gray-700 hover:text-primary-600 transition @if(request()->is('bantuan')) text-primary-600 font-semibold @endif">Bantuan</a>
                     <a href="{{ route('faq') }}" class="text-gray-700 hover:text-primary-600 transition @if(request()->is('faq')) text-primary-600 font-semibold @endif">FAQ</a>
                     <a href="{{ route('contact') }}" class="text-gray-700 hover:text-primary-600 transition @if(request()->is('kontak')) text-primary-600 font-semibold @endif">Kontak</a>
                 </div>
@@ -110,7 +111,7 @@
                 {{-- CTA Button (Desktop) --}}
                 @if($contact = \App\Models\Contact::getContact())
                     <div class="hidden md:block">
-                        <a href="{{ $contact->whatsapp_link }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition">
+                        <a href="{{ route('wa.general') }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition">
                             @include('partials.whatsapp-icon', ['class' => 'w-5 h-5 mr-2 object-contain'])
                             Hubungi Kami
                         </a>
@@ -132,8 +133,15 @@
                     <a href="{{ route('home') }}" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 @if(request()->is('/')) bg-primary-50 text-primary-600 @endif">Beranda</a>
                     <a href="{{ route('about') }}" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 @if(request()->is('tentang')) bg-primary-50 text-primary-600 @endif">Tentang Kami</a>
                     <a href="{{ route('packages') }}" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 @if(request()->is('paket')) bg-primary-50 text-primary-600 @endif">Paket</a>
+                    <a href="{{ route('support') }}" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 @if(request()->is('bantuan')) bg-primary-50 text-primary-600 @endif">Bantuan</a>
                     <a href="{{ route('faq') }}" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 @if(request()->is('faq')) bg-primary-50 text-primary-600 @endif">FAQ</a>
                     <a href="{{ route('contact') }}" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 @if(request()->is('kontak')) bg-primary-50 text-primary-600 @endif">Kontak</a>
+                    @if($contact = \App\Models\Contact::getContact())
+                        <a href="{{ route('wa.general') }}" target="_blank" class="flex items-center px-3 py-2 rounded-lg bg-green-50 text-green-700 font-semibold hover:bg-green-100">
+                            @include('partials.whatsapp-icon', ['class' => 'w-5 h-5 mr-2 object-contain'])
+                            Hubungi Kami
+                        </a>
+                    @endif
                 </div>
             </div>
         </nav>
@@ -184,7 +192,10 @@
                         <li><a href="{{ route('home') }}" class="text-gray-400 hover:text-white transition">Beranda</a></li>
                         <li><a href="{{ route('about') }}" class="text-gray-400 hover:text-white transition">Tentang Kami</a></li>
                         <li><a href="{{ route('packages') }}" class="text-gray-400 hover:text-white transition">Paket Internet</a></li>
+                        <li><a href="{{ route('coverage') }}" class="text-gray-400 hover:text-white transition">Cek Coverage</a></li>
+                        <li><a href="{{ route('support') }}" class="text-gray-400 hover:text-white transition">Bantuan Gangguan</a></li>
                         <li><a href="{{ route('faq') }}" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                        <li><a href="{{ route('policy') }}" class="text-gray-400 hover:text-white transition">Ketentuan Layanan</a></li>
                     </ul>
                 </div>
 
@@ -196,7 +207,7 @@
                         <li class="flex items-start">
                             <svg class="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                             <span class="space-y-1">
-                                <a href="{{ $contact->whatsapp_link }}" target="_blank" class="block hover:text-white transition">{{ $contact->whatsapp_number }}</a>
+                                <a href="{{ route('wa.general') }}" target="_blank" class="block hover:text-white transition">{{ $contact->whatsapp_number }}</a>
                                 @if($contact->phone_number)
                                     <a href="tel:{{ $contact->phone_number }}" class="block hover:text-white transition">{{ $contact->phone_number }}</a>
                                 @endif
@@ -234,7 +245,7 @@
 
     {{-- Floating WhatsApp Button (Mobile) --}}
     @if($contact = \App\Models\Contact::getContact())
-        <a href="{{ $contact->whatsapp_link }}" target="_blank" class="fixed bottom-6 right-6 z-50 bg-green-500 p-2 rounded-full shadow-lg hover:bg-green-600 hover:scale-105 transition md:hidden">
+        <a href="{{ route('wa.general') }}" target="_blank" class="fixed bottom-6 right-6 z-50 bg-green-500 p-2 rounded-full shadow-lg hover:bg-green-600 hover:scale-105 transition md:hidden">
             @include('partials.whatsapp-icon', ['class' => 'w-10 h-10 object-contain'])
         </a>
     @endif

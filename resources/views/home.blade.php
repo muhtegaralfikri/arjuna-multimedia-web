@@ -7,6 +7,7 @@
     $settings = \App\Models\SiteSettings::getSettings();
     $contact = \App\Models\Contact::getContact();
     $popularPackages = \App\Models\Package::active()->ordered()->take(4)->get();
+    $testimonials = \App\Models\Testimonial::published()->ordered()->take(3)->get();
 @endphp
 
 {{-- Hero Section --}}
@@ -16,14 +17,9 @@
             <h1 class="text-4xl md:text-5xl font-black leading-tight mb-5">
                 {{ $page->hero_title ?? 'Internet Cepat & Stabil untuk Area Perkampungan' }}
             </h1>
-            <p class="text-lg md:text-xl text-primary-100 leading-relaxed max-w-3xl mb-8">
+            <p class="text-lg md:text-xl text-primary-100 leading-relaxed max-w-3xl">
                 {{ $page->hero_subtitle ?? 'Nikmati internet berkualitas dengan harga terjangkau. Langganan sekarang!' }}
             </p>
-            <div class="flex flex-col sm:flex-row gap-4">
-                <a href="{{ route('packages') }}" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-700 rounded-lg font-semibold hover:bg-primary-50 transition">
-                    Lihat Paket
-                </a>
-            </div>
         </div>
     </div>
 </section>
@@ -139,12 +135,64 @@
             @endforeach
         </div>
         <div class="text-center mt-8">
-            <a href="{{ route('packages') }}" class="inline-flex items-center text-primary-600 hover:text-primary-700 font-semibold">
-                                Lihat Semua Paket
-                                <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                                </svg>
-                            </a>
+            <a href="{{ route('packages') }}" class="inline-flex items-center justify-center rounded-xl bg-primary-600 px-6 py-3 font-bold text-white shadow-sm transition hover:bg-primary-700">
+                Lihat Semua Paket
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+@endif
+
+{{-- Cek Coverage --}}
+@if($contact)
+<section class="py-14 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="rounded-2xl bg-gradient-to-br from-primary-700 to-primary-900 p-6 md:p-10 text-white">
+            <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 items-center">
+                <div>
+                    <p class="text-sm font-bold uppercase tracking-[0.2em] text-primary-100">Cek Coverage</p>
+                    <h2 class="mt-3 text-3xl md:text-4xl font-black">Mau pasang internet? Cek alamat dulu.</h2>
+                    <p class="mt-3 text-primary-100 text-lg max-w-3xl">
+                        Kirim nama, alamat lengkap, patokan rumah, dan paket diminati. Admin akan membantu mengecek ketersediaan jaringan dan jadwal pemasangan.
+                    </p>
+                </div>
+                <a href="{{ route('coverage') }}" class="inline-flex items-center justify-center rounded-xl bg-white px-6 py-4 font-bold text-primary-700 transition hover:bg-primary-50">
+                    Cek Coverage
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+@endif
+
+{{-- Testimoni --}}
+@if($testimonials->count() > 0)
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Cerita Pelanggan</h2>
+            <p class="text-xl text-gray-600">Bukti layanan dari pelanggan yang sudah menggunakan Arjuna Net.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            @foreach($testimonials as $testimonial)
+                <article class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                    <div class="flex items-center gap-1 text-amber-500">
+                        @for($rating = 1; $rating <= $testimonial->rating; $rating++)
+                            <svg class="h-5 w-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        @endfor
+                    </div>
+                    <p class="mt-4 text-gray-700 leading-relaxed">"{{ $testimonial->quote }}"</p>
+                    <div class="mt-5 border-t border-gray-100 pt-4">
+                        <p class="font-black text-gray-950">{{ $testimonial->customer_name }}</p>
+                        @if($testimonial->area)
+                            <p class="mt-1 text-sm text-gray-500">{{ $testimonial->area }}</p>
+                        @endif
+                    </div>
+                </article>
+            @endforeach
         </div>
     </div>
 </section>

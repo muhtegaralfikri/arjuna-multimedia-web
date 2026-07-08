@@ -213,7 +213,7 @@ class DatabaseSeeder extends Seeder
         SiteSettings::create([
             'id' => Str::uuid(),
             'site_name' => 'Arjuna Net',
-            'site_url' => 'https://arjuna-multimedia.com',
+            'site_url' => 'https://arjunanet.id',
             'logo_url' => 'logo.png',
             'favicon_url' => 'favicon.ico',
             'brand_color_primary' => '#2563EB',

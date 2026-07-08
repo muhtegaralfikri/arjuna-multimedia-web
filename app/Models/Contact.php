@@ -66,6 +66,15 @@ class Contact extends Model
         return "https://wa.me/{$number}?text={$message}";
     }
 
+    public function whatsappLinkForMessage(string $message, ?string $phoneNumber = null): string
+    {
+        $number = $phoneNumber
+            ? $this->normalizeWhatsappNumber($phoneNumber)
+            : $this->getWhatsappNumberForLink();
+
+        return "https://wa.me/{$number}?text=" . urlencode($message);
+    }
+
     public function getSafeGoogleMapsEmbedAttribute(): ?string
     {
         $embed = trim((string) $this->google_maps_embed);

@@ -57,7 +57,7 @@
             <div class="rounded-2xl bg-gray-50 border border-gray-200 p-6">
                 <h3 class="text-2xl font-black text-gray-950">Periode Bayar</h3>
                 <p class="mt-3 text-gray-700 text-lg">
-                    Tanggal <span class="font-black text-primary-700">2-20</span>. Lakukan pembayaran sebelum tanggal 20 untuk menghindari isolir layanan.
+                    Tanggal <span class="font-black text-primary-700">2-20</span>. Lakukan pembayaran sebelum tanggal 20 untuk menghindari <span class="font-black text-red-600">isolir</span> layanan.
                 </p>
             </div>
         </div>

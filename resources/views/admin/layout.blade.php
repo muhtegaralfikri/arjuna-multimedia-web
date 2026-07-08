@@ -57,6 +57,14 @@
                     <span class="font-medium text-sm">FAQ</span>
                 </a>
 
+                <a href="{{ route('admin.testimonials.index') }}"
+                    class="flex items-center px-4 py-3 rounded-xl transition-all duration-200 group {{ request()->routeIs('admin.testimonials.*') ? 'bg-indigo-600 shadow-md shadow-indigo-600/20 text-white' : 'hover:bg-slate-800 hover:text-white' }}">
+                    <svg class="w-5 h-5 mr-3 {{ request()->routeIs('admin.testimonials.*') ? 'text-white' : 'text-slate-400 group-hover:text-white' }} transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 4v-4z"/>
+                    </svg>
+                    <span class="font-medium text-sm">Testimoni</span>
+                </a>
+
                 <div class="pt-6 pb-2">
                     <p class="px-4 text-[0.65rem] font-bold text-slate-500 uppercase tracking-wider">Konten</p>
                 </div>
