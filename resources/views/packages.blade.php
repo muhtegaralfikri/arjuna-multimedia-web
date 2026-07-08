@@ -149,9 +149,23 @@
                         <p class="mt-1 text-lg font-black text-gray-950">{{ $contact->address }}</p>
                     </div>
                     <div class="rounded-xl bg-gray-50 border border-gray-100 p-4">
-                        <p class="text-xs text-gray-500 font-bold uppercase tracking-wide">WhatsApp utama</p>
-                        <p class="mt-1 text-2xl font-black text-gray-950">{{ $primaryWa }}</p>
+                        <p class="text-xs text-gray-500 font-bold uppercase tracking-wide">WhatsApp</p>
+                        <div class="mt-1 space-y-1">
+                            <a href="{{ $contact->whatsapp_link }}" target="_blank" class="block text-2xl font-black text-gray-950 hover:text-primary-700">{{ $primaryWa }}</a>
+                            @if($contact->phone_number)
+                                <a href="{{ $contact->whatsappLinkForNumber($contact->phone_number) }}" target="_blank" class="block text-2xl font-black text-gray-950 hover:text-primary-700">{{ $contact->phone_number }}</a>
+                            @endif
+                        </div>
                     </div>
+                    @if($contact->phone_number)
+                    <div class="rounded-xl bg-gray-50 border border-gray-100 p-4">
+                        <p class="text-xs text-gray-500 font-bold uppercase tracking-wide">Telepon</p>
+                        <div class="mt-1 space-y-1">
+                            <a href="tel:{{ $contact->whatsapp_number }}" class="block text-2xl font-black text-gray-950 hover:text-primary-700">{{ $contact->whatsapp_number }}</a>
+                            <a href="tel:{{ $contact->phone_number }}" class="block text-2xl font-black text-gray-950 hover:text-primary-700">{{ $contact->phone_number }}</a>
+                        </div>
+                    </div>
+                    @endif
                 </div>
                 <a href="{{ $contact->whatsapp_link }}" target="_blank" class="mt-6 inline-flex w-full items-center justify-center px-5 py-3 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600 transition">
                     @include('partials.whatsapp-icon', ['class' => 'w-6 h-6 mr-2 object-contain'])

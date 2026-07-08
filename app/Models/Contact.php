@@ -47,6 +47,18 @@ class Contact extends Model
         return "https://wa.me/{$number}?text={$message}";
     }
 
+    public function whatsappLinkForNumber(?string $phoneNumber): ?string
+    {
+        if (!$phoneNumber) {
+            return null;
+        }
+
+        $number = $this->normalizeWhatsappNumber($phoneNumber);
+        $message = urlencode('Halo Arjuna Net, saya tertarik dengan paket internet Anda. Mohon informasinya.');
+
+        return "https://wa.me/{$number}?text={$message}";
+    }
+
     public function whatsappLinkForPackage(string $packageName): string
     {
         $number = $this->getWhatsappNumberForLink();
@@ -56,7 +68,12 @@ class Contact extends Model
 
     private function getWhatsappNumberForLink(): string
     {
-        $number = $this->whatsapp_number;
+        return $this->normalizeWhatsappNumber($this->whatsapp_number);
+    }
+
+    private function normalizeWhatsappNumber(string $number): string
+    {
+        $number = str_replace(['+', ' ', '-'], '', $number);
 
         if (str_starts_with($number, '0')) {
             return '62' . substr($number, 1);

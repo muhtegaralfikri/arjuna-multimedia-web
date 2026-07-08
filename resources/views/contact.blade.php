@@ -12,20 +12,20 @@
         'address' => [
             '@type' => 'PostalAddress',
             'streetAddress' => $contact->address,
-            'addressCountry' => 'ID'
+            'addressCountry' => 'ID',
         ],
         'openingHoursSpecification' => [
             '@type' => 'OpeningHoursSpecification',
             'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
             'opens' => '08:00',
-            'closes' => '17:00'
+            'closes' => '17:00',
         ],
         'url' => url('/'),
         'sameAs' => [
             $contact->instagram_url,
             $contact->facebook_url,
-            $contact->tiktok_url
-        ]
+            $contact->tiktok_url,
+        ],
     ];
 @endphp
 <script type="application/ld+json">
@@ -49,40 +49,61 @@
             <div>
                 <h3 class="text-2xl font-bold mb-8">Hubungi Kami</h3>
 
-                {{-- WhatsApp --}}
-                <div class="mb-8">
-                    <a href="{{ $contact->whatsapp_link }}" target="_blank" class="flex items-center p-4 bg-green-500 text-white rounded-xl hover:bg-green-600 transition group">
-                        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 flex-shrink-0 shadow-sm ring-1 ring-green-100">
-                            @include('partials.whatsapp-icon', ['class' => 'w-10 h-10 object-contain'])
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                    {{-- WhatsApp --}}
+                    <div class="rounded-xl border border-green-200 bg-green-50 p-5">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-11 h-11 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                                @include('partials.whatsapp-icon', ['class' => 'w-7 h-7 object-contain'])
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold uppercase tracking-wide text-green-700">WhatsApp</div>
+                                <div class="text-xs text-green-700/80">Chat admin</div>
+                            </div>
                         </div>
-                        <div>
-                            <div class="font-semibold">WhatsApp</div>
-                            <div class="text-green-50">{{ $contact->whatsapp_number }}</div>
-                            <div class="text-sm text-white/90 group-hover:underline">Chat sekarang →</div>
+                        <div class="space-y-2">
+                            <a href="{{ $contact->whatsapp_link }}" target="_blank" class="block rounded-lg bg-white px-3 py-2 text-lg font-black text-gray-950 hover:text-green-700 transition">
+                                {{ $contact->whatsapp_number }}
+                            </a>
+                            @if($contact->phone_number)
+                                <a href="{{ $contact->whatsappLinkForNumber($contact->phone_number) }}" target="_blank" class="block rounded-lg bg-white px-3 py-2 text-lg font-black text-gray-950 hover:text-green-700 transition">
+                                    {{ $contact->phone_number }}
+                                </a>
+                            @endif
                         </div>
-                    </a>
-                </div>
+                    </div>
 
-                {{-- Telepon --}}
-                <div class="mb-8">
-                    <div class="flex items-center p-4 bg-blue-50 rounded-xl">
-                        <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                            </svg>
+                    {{-- Telepon --}}
+                    <div class="rounded-xl border border-blue-200 bg-blue-50 p-5">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-11 h-11 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold uppercase tracking-wide text-primary-700">Telepon</div>
+                                <div class="text-xs text-primary-700/80">Panggilan langsung</div>
+                            </div>
                         </div>
-                        <div>
-                            <div class="font-semibold text-gray-900">Telepon</div>
-                            <div class="text-gray-600">{{ $contact->phone_number }}</div>
+                        <div class="space-y-2">
+                            <a href="tel:{{ $contact->whatsapp_number }}" class="block rounded-lg bg-white px-3 py-2 text-lg font-black text-gray-950 hover:text-primary-700 transition">
+                                {{ $contact->whatsapp_number }}
+                            </a>
+                            @if($contact->phone_number)
+                                <a href="tel:{{ $contact->phone_number }}" class="block rounded-lg bg-white px-3 py-2 text-lg font-black text-gray-950 hover:text-primary-700 transition">
+                                    {{ $contact->phone_number }}
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
 
-                {{-- Email --}}
-                @if($contact->email)
-                <div class="mb-8">
-                    <div class="flex items-center p-4 bg-gray-50 rounded-xl">
-                        <div class="w-12 h-12 bg-gray-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                <div class="grid grid-cols-1 gap-4">
+                    {{-- Email --}}
+                    @if($contact->email)
+                    <div class="flex items-center p-4 bg-white border border-gray-200 rounded-xl">
+                        <div class="w-11 h-11 bg-slate-500 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                             </svg>
@@ -92,13 +113,11 @@
                             <div class="text-gray-600">{{ $contact->email }}</div>
                         </div>
                     </div>
-                </div>
-                @endif
+                    @endif
 
-                {{-- Jam Operasional --}}
-                <div class="mb-8">
-                    <div class="flex items-center p-4 bg-orange-50 rounded-xl">
-                        <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                    {{-- Jam Operasional --}}
+                    <div class="flex items-center p-4 bg-white border border-gray-200 rounded-xl">
+                        <div class="w-11 h-11 bg-amber-500 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
@@ -137,47 +156,5 @@
 </section>
 
 @include('partials.customer-service-info', ['contact' => $contact])
-
-{{-- Form Minat --}}
-<section class="py-16 bg-gray-50">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-2xl mx-auto">
-            <h3 class="text-2xl font-bold text-center mb-8">Form Minat Pemasangan</h3>
-            <form action="{{ route('form.submit') }}" method="POST" class="bg-white p-8 rounded-2xl shadow-lg">
-                @csrf
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Nama *</label>
-                        <input type="text" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">No. WhatsApp *</label>
-                        <input type="tel" name="whatsapp" required placeholder="628xxxxxxxx" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-                    </div>
-                </div>
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Paket Diminati</label>
-                    <select name="package_interest" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-                        <option value="">-- Pilih Paket --</option>
-                        @foreach(\App\Models\Package::active()->ordered()->get() as $pkg)
-                        <option value="{{ $pkg->name }}">{{ $pkg->name }} - {{ $pkg->speed }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Alamat *</label>
-                    <textarea name="address" required rows="2" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"></textarea>
-                </div>
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Pesan</label>
-                    <textarea name="message" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"></textarea>
-                </div>
-                <button type="submit" class="w-full px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition font-semibold">
-                    Kirim
-                </button>
-            </form>
-        </div>
-    </div>
-</section>
 @endif
 @endsection

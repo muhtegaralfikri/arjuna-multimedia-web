@@ -1,6 +1,5 @@
 @php
     $contact = $contact ?? \App\Models\Contact::getContact();
-    $primaryWa = $contact ? preg_replace('/^62/', '0', $contact->whatsapp_number) : null;
 @endphp
 
 <section class="py-14 bg-white">
@@ -48,10 +47,10 @@
         </div>
 
         <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-5">
-            <div class="lg:col-span-2 rounded-2xl bg-blue-950 text-white p-6">
-                <h3 class="text-2xl font-black text-yellow-300">Info Perangkat</h3>
-                <p class="mt-3 text-blue-50 text-lg">
-                    Perangkat modem yang terpasang di rumah pelanggan sepenuhnya milik Arjuna Net. Apabila pelanggan sudah tidak berlangganan, perangkat akan kami ambil kembali.
+            <div class="lg:col-span-2 rounded-2xl bg-white border border-gray-200 p-6">
+                <h3 class="text-2xl font-black text-gray-950">Info Perangkat</h3>
+                <p class="mt-3 text-gray-700 text-lg">
+                    Perangkat modem yang terpasang di rumah pelanggan sepenuhnya milik <span class="font-black text-amber-500">Arjuna Net</span>. Apabila pelanggan sudah tidak berlangganan, perangkat akan kami ambil kembali.
                 </p>
             </div>
 
@@ -63,26 +62,5 @@
             </div>
         </div>
 
-        @if($contact)
-        <div class="mt-6 rounded-2xl bg-gray-950 text-white p-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 items-center">
-                <div>
-                    <p class="text-sm font-bold uppercase tracking-wide text-gray-400">Teknisi</p>
-                    <p class="text-2xl font-black">Arjuna Net</p>
-                </div>
-                <div>
-                    <p class="text-sm font-bold uppercase tracking-wide text-gray-400">WhatsApp</p>
-                    <p class="text-2xl font-black text-yellow-300">{{ $primaryWa }}</p>
-                    @if($contact->phone_number)
-                        <p class="text-2xl font-black text-yellow-300">{{ $contact->phone_number }}</p>
-                    @endif
-                </div>
-                <div>
-                    <p class="text-sm font-bold uppercase tracking-wide text-gray-400">Alamat</p>
-                    <p class="text-2xl font-black">{{ $contact->address }}</p>
-                </div>
-            </div>
-        </div>
-        @endif
     </div>
 </section>
