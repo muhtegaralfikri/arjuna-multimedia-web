@@ -34,7 +34,6 @@ class PageResource extends Resource
                                 'home' => 'Beranda',
                                 'about' => 'Tentang Kami',
                                 'package' => 'Paket Internet',
-                                'area' => 'Area Layanan',
                                 'contact' => 'Kontak',
                                 'faq' => 'FAQ',
                             ])
@@ -105,7 +104,6 @@ class PageResource extends Resource
                         'home' => 'Beranda',
                         'about' => 'Tentang Kami',
                         'package' => 'Paket Internet',
-                        'area' => 'Area Layanan',
                         'contact' => 'Kontak',
                         'faq' => 'FAQ',
                     })

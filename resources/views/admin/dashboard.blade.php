@@ -7,7 +7,7 @@
 @section('content')
 
 {{-- Stats Cards --}}
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
     {{-- Packages Card --}}
     <div class="bg-white rounded-2xl border border-slate-200/60 p-6 shadow-sm hover:shadow-md hover:border-indigo-300 transition-all duration-300 group relative overflow-hidden">
         <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
@@ -29,33 +29,6 @@
             </div>
         </div>
         <a href="{{ route('admin.packages.index') }}" class="absolute inset-0"></a>
-    </div>
-
-    {{-- Areas Card --}}
-    <div class="bg-white rounded-2xl border border-slate-200/60 p-6 shadow-sm hover:shadow-md hover:border-emerald-300 transition-all duration-300 group relative overflow-hidden">
-        <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-            <svg class="w-24 h-24 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-        </div>
-        <div class="flex flex-col h-full justify-between relative z-10">
-            <div class="flex items-start justify-between mb-4">
-                <div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    </svg>
-                </div>
-                <span class="inline-flex items-center px-2 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-md border border-emerald-100">
-                    {{ $stats['active_areas'] }} Aktif
-                </span>
-            </div>
-            <div>
-                <p class="text-slate-500 text-sm font-medium">Total Area</p>
-                <div class="flex items-end space-x-2 mt-1">
-                    <p class="text-3xl font-extrabold text-slate-800 tracking-tight">{{ $stats['areas'] }}</p>
-                </div>
-            </div>
-        </div>
-        <a href="{{ route('admin.areas.index') }}" class="absolute inset-0"></a>
     </div>
 
     {{-- FAQs Card --}}

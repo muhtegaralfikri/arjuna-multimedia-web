@@ -55,7 +55,12 @@
                 <div class="p-6">
                     <div class="flex items-center justify-between gap-3">
                         <h3 class="text-2xl font-black text-gray-950">{{ $package->name }}</h3>
-                        <span class="px-3 py-1 rounded-full bg-blue-50 text-primary-700 text-sm font-bold">Unlimited</span>
+                        <div class="flex flex-wrap justify-end gap-2">
+                            @if($package->is_popular)
+                                <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-sm font-bold">Populer</span>
+                            @endif
+                            <span class="px-3 py-1 rounded-full bg-blue-50 text-primary-700 text-sm font-bold">Unlimited</span>
+                        </div>
                     </div>
 
                     <div class="mt-6 rounded-2xl bg-gradient-to-br from-blue-50 to-sky-100 p-5 text-center">

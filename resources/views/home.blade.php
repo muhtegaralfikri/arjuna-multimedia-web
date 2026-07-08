@@ -97,7 +97,12 @@
             @endphp
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 relative">
                 <div class="p-6">
-                    <h3 class="text-xl font-black text-gray-900">{{ $package->name }}</h3>
+                    <div class="flex items-start justify-between gap-3">
+                        <h3 class="text-xl font-black text-gray-900">{{ $package->name }}</h3>
+                        @if($package->is_popular)
+                            <span class="shrink-0 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold">Populer</span>
+                        @endif
+                    </div>
                     <div class="mt-5 rounded-2xl bg-gradient-to-br from-primary-50 to-sky-100 p-5 text-center">
                         <p class="text-xs font-black uppercase tracking-wide text-primary-700">Kecepatan</p>
                         <div class="mt-1 flex items-end justify-center gap-2 text-blue-950">

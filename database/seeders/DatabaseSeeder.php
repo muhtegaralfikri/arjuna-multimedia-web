@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\AdminUser;
 use App\Models\Package;
-use App\Models\ServiceArea;
 use App\Models\Faq;
 use App\Models\Contact;
 use App\Models\Page;
@@ -93,32 +92,6 @@ class DatabaseSeeder extends Seeder
 
         foreach ($packages as $package) {
             Package::create(array_merge($package, ['id' => Str::uuid()]));
-        }
-
-        // Create Service Areas
-        $areas = [
-            [
-                'name' => 'Desa Bunde',
-                'slug' => 'desa-bunde',
-                'description' => 'Area layanan utama Arjuna Net.',
-                'status' => 'available',
-                'coverage_detail' => 'Desa Bunde, Kec. Sampaga',
-                'is_active' => true,
-                'sort_order' => 1,
-            ],
-            [
-                'name' => 'Kec. Sampaga dan Sekitar',
-                'slug' => 'kec-sampaga-dan-sekitar',
-                'description' => 'Cakupan layanan terus dikembangkan di sekitar Sampaga.',
-                'status' => 'available',
-                'coverage_detail' => 'Hubungi admin untuk cek titik pemasangan',
-                'is_active' => true,
-                'sort_order' => 2,
-            ],
-        ];
-
-        foreach ($areas as $area) {
-            ServiceArea::create(array_merge($area, ['id' => Str::uuid()]));
         }
 
         // Create FAQs
@@ -213,14 +186,6 @@ class DatabaseSeeder extends Seeder
                 'hero_subtitle' => 'Internet kencang, bebas batas kuota untuk rumah dan kantor',
                 'meta_title' => 'Paket Internet Arjuna Net',
                 'meta_description' => 'Paket internet Arjuna Net 7 Mbps, 10 Mbps, 15 Mbps, dan 20 Mbps. Mulai Rp 150.000/bulan tanpa FUP.',
-            ],
-            [
-                'slug' => 'area',
-                'title' => 'Area Layanan',
-                'hero_title' => 'Area Layanan Kami',
-                'hero_subtitle' => 'Cek apakah area Anda sudah tercover',
-                'meta_title' => 'Area Layanan Arjuna Net',
-                'meta_description' => 'Cek apakah area Anda sudah tercover layanan internet Arjuna Net. Terus meluas!',
             ],
             [
                 'slug' => 'contact',

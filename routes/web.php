@@ -47,17 +47,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::delete('/{id}', [\App\Http\Controllers\Admin\PackageController::class, 'destroy'])->name('destroy');
         });
 
-        // Areas
-        Route::prefix('areas')->name('areas.')->group(function () {
-            Route::get('/', [\App\Http\Controllers\Admin\AreaController::class, 'index'])->name('index');
-            Route::get('/create', [\App\Http\Controllers\Admin\AreaController::class, 'create'])->name('create');
-            Route::post('/', [\App\Http\Controllers\Admin\AreaController::class, 'store'])->name('store');
-            Route::post('/reorder', [\App\Http\Controllers\Admin\AreaController::class, 'reorder'])->name('reorder');
-            Route::get('/{id}/edit', [\App\Http\Controllers\Admin\AreaController::class, 'edit'])->name('edit');
-            Route::put('/{id}', [\App\Http\Controllers\Admin\AreaController::class, 'update'])->name('update');
-            Route::delete('/{id}', [\App\Http\Controllers\Admin\AreaController::class, 'destroy'])->name('destroy');
-        });
-
         // FAQs
         Route::prefix('faqs')->name('faqs.')->group(function () {
             Route::get('/', [\App\Http\Controllers\Admin\FaqController::class, 'index'])->name('index');
