@@ -4,7 +4,7 @@
     $page = \App\Models\Page::bySlug('home')->first();
     $settings = \App\Models\SiteSettings::getSettings();
     $contact = \App\Models\Contact::getContact();
-    $popularPackages = \App\Models\Package::active()->popular()->ordered()->take(3)->get();
+    $popularPackages = \App\Models\Package::active()->ordered()->take(4)->get();
     $areasCount = \App\Models\ServiceArea::active()->available()->count();
 ?>
 
@@ -23,9 +23,7 @@
             <div class="flex flex-col sm:flex-row gap-4">
                 <?php if($contact): ?>
                     <a href="<?php echo e($contact->whatsapp_link); ?>" target="_blank" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-600 rounded-lg font-semibold hover:bg-gray-100 transition">
-                        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-1.454-.001-2.866.32-4.171.877l-2.633-1.629 1.736 5.737z"/>
-                        </svg>
+                        <?php echo $__env->make('partials.whatsapp-icon', ['class' => 'w-6 h-6 mr-2 object-contain'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         Hubungi WhatsApp
                     </a>
                 <?php endif; ?>
@@ -95,35 +93,44 @@
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Paket Populer</h2>
-            <p class="text-xl text-gray-600">Pilihan paket terfavorit untuk pelanggan kami</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Pilih Paket Berdasarkan Kecepatan</h2>
+            <p class="text-xl text-gray-600">Mbps adalah hal utama yang dicari pelanggan, jadi kami tampilkan paling jelas.</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <?php $__currentLoopData = $popularPackages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $package): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-primary-500 relative">
+            <?php
+                $speedNumber = preg_replace('/[^0-9]/', '', $package->speed);
+                $priceRb = number_format($package->price_monthly / 1000, 0, ',', '.');
+            ?>
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border <?php echo e($package->is_popular ? 'border-primary-500' : 'border-gray-200'); ?> relative">
                 <?php if($package->is_popular): ?>
                     <div class="absolute top-0 right-0 bg-primary-500 text-white px-4 py-1 text-sm font-semibold rounded-bl-lg">
-                        Popular
+                        Favorit
                     </div>
                 <?php endif; ?>
                 <div class="p-6">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-2"><?php echo e($package->name); ?></h3>
-                    <div class="mb-4">
-                        <span class="text-4xl font-bold text-primary-600">Rp <?php echo e(number_format($package->price_monthly, 0, ',', '.')); ?></span>
-                        <span class="text-gray-600">/bulan</span>
+                    <h3 class="text-xl font-black text-gray-900"><?php echo e($package->name); ?></h3>
+                    <div class="mt-5 rounded-2xl bg-gradient-to-br from-primary-50 to-sky-100 p-5 text-center">
+                        <p class="text-xs font-black uppercase tracking-wide text-primary-700">Kecepatan</p>
+                        <div class="mt-1 flex items-end justify-center gap-2 text-blue-950">
+                            <span class="text-7xl font-black leading-none"><?php echo e($speedNumber); ?></span>
+                            <span class="mb-2 text-xl font-black">Mbps</span>
+                        </div>
                     </div>
-                    <div class="mb-4">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 text-primary-700">
-                            <?php echo e($package->speed); ?>
-
-                        </span>
+                    <div class="mt-5 mb-4">
+                        <p class="text-sm font-bold text-gray-500 uppercase">Harga</p>
+                        <div class="flex items-end gap-1">
+                            <span class="text-4xl font-black text-primary-600"><?php echo e($priceRb); ?></span>
+                            <span class="mb-1 text-xl font-black text-primary-600">RB</span>
+                            <span class="mb-1 text-gray-600">/bulan</span>
+                        </div>
                     </div>
                     <p class="text-gray-600 mb-4"><?php echo e($package->description); ?></p>
                     <?php if($package->features): ?>
-                    <ul class="mb-6 space-y-2">
-                        <?php $__currentLoopData = $package->features; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $feature): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <ul class="mb-6 space-y-2 text-sm">
+                        <?php $__currentLoopData = array_slice($package->features, 0, 3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $feature): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <li class="flex items-center text-gray-700">
-                            <svg class="w-5 h-5 text-success-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-success-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                             </svg>
                             <?php echo e($feature); ?>
@@ -133,8 +140,9 @@
                     </ul>
                     <?php endif; ?>
                     <?php if($contact): ?>
-                        <a href="<?php echo e($contact->whatsapp_link_for_package); ?>?text=Halo%20saya%20tertarik%20dengan%20<?php echo e(urlencode($package->name)); ?>" target="_blank" class="block w-full text-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
-                            Pesan Sekarang
+                        <a href="<?php echo e($contact->whatsappLinkForPackage($package->name)); ?>" target="_blank" class="block w-full text-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
+                            Pesan <?php echo e($package->speed); ?>
+
                         </a>
                     <?php endif; ?>
                 </div>
@@ -179,9 +187,7 @@
         <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Siap untuk Internet Lebih Cepat?</h2>
         <p class="text-xl text-primary-100 mb-8">Hubungi kami sekarang dan nikmati internet berkualitas</p>
         <a href="<?php echo e($contact->whatsapp_link); ?>" target="_blank" class="inline-flex items-center px-8 py-4 bg-white text-primary-600 rounded-lg font-semibold hover:bg-gray-100 transition">
-            <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-1.454-.001-2.866.32-4.171.877l-2.633-1.629 1.736 5.737z"/>
-            </svg>
+            <?php echo $__env->make('partials.whatsapp-icon', ['class' => 'w-6 h-6 mr-2 object-contain'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             Chat WhatsApp Sekarang
         </a>
     </div>

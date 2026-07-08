@@ -47,7 +47,7 @@ class Contact extends Model
         return "https://wa.me/{$number}?text={$message}";
     }
 
-    public function getWhatsappLinkForPackageAttribute($packageName)
+    public function whatsappLinkForPackage(string $packageName): string
     {
         $number = $this->whatsapp_number;
         $message = urlencode("Halo Arjuna Net, saya tertarik dengan paket {$packageName}. Apakah area saya sudah tercover?");

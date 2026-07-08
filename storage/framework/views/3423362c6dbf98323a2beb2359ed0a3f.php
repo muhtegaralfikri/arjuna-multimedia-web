@@ -20,8 +20,17 @@
         <link rel="canonical" href="<?php echo e(url()->current()); ?>">
     <?php endif; ?>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="<?php echo e(asset('favicon.ico')); ?>">
+    <?php
+        $settings = $settings ?? \App\Models\SiteSettings::first();
+        $faviconUrl = $settings?->favicon_url ?: (file_exists(public_path('favicon.ico')) ? 'favicon.ico' : null);
+    ?>
+
+    <?php if($faviconUrl): ?>
+        <link rel="icon" type="image/x-icon" href="<?php echo e(asset($faviconUrl)); ?>">
+        <link rel="icon" type="image/png" href="<?php echo e(asset('favicon.png')); ?>">
+        <link rel="shortcut icon" href="<?php echo e(asset($faviconUrl)); ?>">
+        <link rel="apple-touch-icon" href="<?php echo e(asset('favicon.png')); ?>">
+    <?php endif; ?>
 
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,6 +73,12 @@
     <?php echo $__env->yieldContent('seo'); ?>
 </head>
 <body class="font-sans antialiased text-gray-900 bg-gray-50">
+    <?php
+        $settings = $settings ?? \App\Models\SiteSettings::first();
+        $brandName = $settings->site_name ?? 'Arjuna Net';
+        $logoUrl = $settings->logo_url ?: (file_exists(public_path('logo.png')) ? 'logo.png' : null);
+    ?>
+
     
     <?php if($settings && $settings->gtm_id): ?>
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?php echo e($settings->gtm_id); ?>"
@@ -73,13 +88,13 @@
     
     <header class="sticky top-0 z-50 bg-white shadow-sm">
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8" x-data="{ open: false }">
-            <div class="flex items-center justify-between h-16">
+            <div class="flex items-center justify-between h-24 md:h-28">
                 
                 <a href="<?php echo e(route('home')); ?>" class="flex items-center space-x-2">
-                    <?php if($settings && $settings->logo_url): ?>
-                        <img src="<?php echo e(asset($settings->logo_url)); ?>" alt="<?php echo e($settings->site_name); ?>" class="h-8 w-auto">
+                    <?php if($logoUrl): ?>
+                        <img src="<?php echo e(asset($logoUrl)); ?>" alt="<?php echo e($brandName); ?>" class="h-20 md:h-24 w-auto max-w-[240px] object-contain">
                     <?php else: ?>
-                        <span class="text-xl font-bold text-primary-600"><?php echo e($settings->site_name ?? 'Arjuna Net'); ?></span>
+                        <span class="text-xl font-bold text-primary-600"><?php echo e($brandName); ?></span>
                     <?php endif; ?>
                 </a>
 
@@ -97,9 +112,7 @@
                 <?php if($contact = \App\Models\Contact::getContact()): ?>
                     <div class="hidden md:block">
                         <a href="<?php echo e($contact->whatsapp_link); ?>" target="_blank" class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
-                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-1.454-.001-2.866.32-4.171.877l-2.633-1.629 1.736 5.737z"/>
-                            </svg>
+                            <?php echo $__env->make('partials.whatsapp-icon', ['class' => 'w-5 h-5 mr-2 object-contain'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                             Hubungi Kami
                         </a>
                     </div>
@@ -139,10 +152,10 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 
                 <div>
-                    <?php if($settings && $settings->logo_url): ?>
-                        <img src="<?php echo e(asset($settings->logo_url)); ?>" alt="<?php echo e($settings->site_name); ?>" class="h-10 w-auto mb-4 brightness-0 invert">
+                    <?php if($logoUrl): ?>
+                        <img src="<?php echo e(asset($logoUrl)); ?>" alt="<?php echo e($brandName); ?>" class="h-16 w-auto mb-4">
                     <?php else: ?>
-                        <h3 class="text-xl font-bold mb-4"><?php echo e($settings->site_name ?? 'Arjuna Net'); ?></h3>
+                        <h3 class="text-xl font-bold mb-4"><?php echo e($brandName); ?></h3>
                     <?php endif; ?>
                     <p class="text-gray-400 mb-4">Layanan internet lokal cepat, stabil, dan terjangkau untuk area perkampungan.</p>
                     <?php if($contact = \App\Models\Contact::getContact()): ?>
@@ -206,7 +219,7 @@
 
             
             <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm">&copy; <?php echo e(date('Y')); ?> <?php echo e($settings->site_name ?? 'Arjuna Net'); ?>. All rights reserved.</p>
+                <p class="text-gray-400 text-sm">&copy; <?php echo e(date('Y')); ?> <?php echo e($brandName); ?>. All rights reserved.</p>
                 <?php if($settings && $settings->google_business_profile_url): ?>
                     <a href="<?php echo e($settings->google_business_profile_url); ?>" target="_blank" class="text-gray-400 hover:text-white text-sm flex items-center mt-4 md:mt-0 transition">
                         <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.73-1.73-.69-.33-1.43-.59-2.17-.69-.29-.04-.59-.06-.89-.06h-.1c-.27 0-.53.05-.77.14-.27.11-.52.28-.73.51-.14.15-.25.34-.33.54l-.35.87c-.11.26-.14.55-.08.83.05.24.18.45.36.6.18.14.4.23.64.25.24.03.49.01.72-.05.21-.06.41-.17.56-.33l.73-.73c.15-.15.34-.25.54-.33.28-.11.57-.14.85-.08.24.05.45.18.6.36.14.18.23.4.25.64.03.24.01.49-.05.72-.06.21-.17.41-.33.56l-.3.3c-.09-.09-.22-.14-.37-.14h-.1c-.15 0-.3.03-.43.08l-.01.01c-.06.03-.12.07-.17.12-.28.26-.54.54-.77.85-.23.31-.43.64-.58.99-.15.35-.26.72-.31 1.11-.05.39-.03.8.06 1.18.09.38.23.74.43 1.07l.12.2c.12.2.27.43.43.66.16.23.35.43.57.58.22.15.47.25.73.3.26.05.53.07.8.05.27-.03.53-.11.75-.25.22-.14.41-.33.55-.57.14-.24.23-.52.25-.8.02-.28-.02-.57-.07-.83-.05-.26-.14-.5-.27-.71l-.2-.33c-.13-.22-.22-.47-.25-.74-.03-.27.01-.55.12-.79.11-.24.28-.45.5-.6.22-.15.48-.25.77-.3.29-.05.59-.06.89-.06h.1c.15 0 .3.03.43.08.13.05.26.12.37.21l.01.01c.05.04.11.08.17.12.23.18.5.35.8.48z"/></svg>
@@ -219,10 +232,8 @@
 
     
     <?php if($contact = \App\Models\Contact::getContact()): ?>
-        <a href="<?php echo e($contact->whatsapp_link); ?>" target="_blank" class="fixed bottom-6 right-6 z-50 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition md:hidden">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-1.454-.001-2.866.32-4.171.877l-2.633-1.629 1.736 5.737z"/>
-            </svg>
+        <a href="<?php echo e($contact->whatsapp_link); ?>" target="_blank" class="fixed bottom-6 right-6 z-50 bg-white p-2 rounded-full shadow-lg ring-1 ring-green-100 hover:scale-105 transition md:hidden">
+            <?php echo $__env->make('partials.whatsapp-icon', ['class' => 'w-10 h-10 object-contain'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         </a>
     <?php endif; ?>
 </body>
