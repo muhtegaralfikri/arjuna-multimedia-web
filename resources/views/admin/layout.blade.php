@@ -12,27 +12,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="font-sans antialiased bg-slate-50 text-slate-900">
+<body class="font-sans antialiased bg-slate-100 text-slate-900">
     <div class="flex h-screen overflow-hidden">
         
         {{-- Mobile Overlay (Backdrop) --}}
         <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 hidden lg:hidden transition-opacity opacity-0" aria-hidden="true"></div>
 
         {{-- Sidebar --}}
-        <aside id="mainSidebar" class="w-64 bg-slate-900 text-slate-300 flex flex-col shadow-2xl z-40 flex-shrink-0 transition-transform duration-300 ease-in-out fixed inset-y-0 left-0 -translate-x-full lg:relative lg:translate-x-0">
+        <aside id="mainSidebar" class="w-64 bg-white text-slate-700 flex flex-col border-r border-slate-200 shadow-xl z-40 flex-shrink-0 transition-transform duration-300 ease-in-out fixed inset-y-0 left-0 -translate-x-full lg:relative lg:translate-x-0">
             {{-- Logo --}}
-            <div class="p-6 border-b border-slate-800/60">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-600/30">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
+            <div class="p-5 border-b border-slate-200 bg-white">
+                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3">
+                    <img src="{{ asset('logo.png') }}" alt="Arjuna Net" class="h-14 w-auto max-w-[118px] object-contain">
+                    <div class="min-w-0">
+                        <h1 class="text-lg font-black text-slate-950 tracking-tight leading-tight">Arjuna Net</h1>
+                        <p class="text-[0.68rem] font-bold text-primary-600 uppercase tracking-widest">Admin Panel</p>
                     </div>
-                    <div>
-                        <h1 class="text-lg font-bold text-white tracking-tight">Arjuna Multi</h1>
-                        <p class="text-[0.65rem] font-medium text-slate-400 uppercase tracking-widest">Admin Panel</p>
-                    </div>
-                </div>
+                </a>
             </div>
 
             {{-- Navigation --}}
@@ -104,22 +100,22 @@
             </nav>
 
             {{-- User Info & Logout --}}
-            <div class="p-4 border-t border-slate-800/60 bg-slate-900/50 backdrop-blur-sm">
+            <div class="p-4 border-t border-slate-200 bg-slate-50">
                 <div class="flex items-center justify-between mb-4 px-2">
                     <div class="flex items-center space-x-3">
-                        <div class="w-9 h-9 bg-indigo-500/20 text-indigo-400 rounded-full flex items-center justify-center font-bold text-sm ring-1 ring-indigo-500/50">
+                        <div class="w-9 h-9 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center font-bold text-sm ring-1 ring-primary-200">
                             {{ substr(auth('admin')->user()->name ?? 'A', 0, 1) }}
                         </div>
                         <div>
-                            <p class="font-medium text-sm text-white truncate max-w-[100px]">{{ auth('admin')->user()->name ?? 'Admin' }}</p>
-                            <p class="text-[0.65rem] text-slate-400">{{ auth('admin')->user()->role ?? 'Super Admin' }}</p>
+                            <p class="font-semibold text-sm text-slate-900 truncate max-w-[100px]">{{ auth('admin')->user()->name ?? 'Admin' }}</p>
+                            <p class="text-[0.65rem] text-slate-500">{{ auth('admin')->user()->role ?? 'Super Admin' }}</p>
                         </div>
                     </div>
                 </div>
 
                 <form action="{{ route('admin.logout') }}" method="POST" class="w-full">
                     @csrf
-                    <button type="submit" class="w-full flex items-center justify-center px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-xl transition-all duration-200 group border border-red-500/20">
+                    <button type="submit" class="w-full flex items-center justify-center px-4 py-2 bg-white hover:bg-red-50 text-red-600 rounded-xl transition-all duration-200 group border border-red-200 shadow-sm">
                         <svg class="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
                         </svg>
@@ -130,35 +126,31 @@
         </aside>
 
         {{-- Main Content --}}
-        <main class="flex-1 flex flex-col overflow-y-auto bg-slate-50 relative w-full">
+        <main class="flex-1 flex flex-col overflow-y-auto bg-slate-100 relative w-full">
             
             {{-- Mobile Navbar (Header for Small Screens) --}}
-            <div class="lg:hidden sticky top-0 z-20 flex items-center justify-between px-4 py-3 bg-indigo-600 text-white shadow-md">
+            <div class="lg:hidden sticky top-0 z-20 flex items-center justify-between px-4 py-3 bg-white text-slate-900 border-b border-slate-200 shadow-sm">
                 <div class="flex items-center space-x-3">
-                    <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
-                    </div>
-                    <h1 class="text-base font-bold tracking-tight">Arjuna Multi</h1>
+                    <img src="{{ asset('logo.png') }}" alt="Arjuna Net" class="h-10 w-auto object-contain">
+                    <h1 class="text-base font-black tracking-tight">Admin</h1>
                 </div>
-                <button id="openSidebarBtn" class="p-2 -mr-2 text-white hover:bg-indigo-700 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-white/50">
+                <button id="openSidebarBtn" class="p-2 -mr-2 text-primary-700 hover:bg-primary-50 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-200">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
             </div>
 
             {{-- Decorative Background (Hidden on small screens since Mobile Navbar replaces it conceptually) --}}
-            <div class="absolute top-0 left-0 right-0 h-48 bg-indigo-600 z-0 hidden lg:block"></div>
+            <div class="absolute top-0 left-0 right-0 h-40 bg-gradient-to-br from-primary-50 via-white to-sky-50 z-0 hidden lg:block"></div>
 
             {{-- Header (Desktop mostly, adjusted for mobile) --}}
-            <header class="relative z-10 px-4 sm:px-6 pt-6 pb-2 lg:pt-8 lg:pb-4 lg:mb-2 text-white">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-indigo-600 lg:bg-white/10 lg:backdrop-blur-md lg:border lg:border-white/20 p-5 lg:p-6 rounded-2xl shadow-sm lg:shadow-sm space-y-4 sm:space-y-0 text-white">
+            <header class="relative z-10 px-4 sm:px-6 pt-6 pb-2 lg:pt-8 lg:pb-4 lg:mb-2 text-slate-900">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white border border-slate-200 p-5 lg:p-6 rounded-lg shadow-sm space-y-4 sm:space-y-0">
                     <div>
-                        <h1 class="text-2xl font-bold tracking-tight">{{ $pageTitle ?? 'Dashboard' }}</h1>
-                        <p class="text-indigo-100 text-sm mt-0.5 opacity-90 block">Kelola dan pantau kinerja website Anda</p>
+                        <h1 class="text-2xl font-black tracking-tight text-slate-950">{{ $pageTitle ?? 'Dashboard' }}</h1>
+                        <p class="text-slate-500 text-sm mt-0.5 block">Kelola paket, FAQ, kontak, dan konten website Arjuna Net.</p>
                     </div>
                     <div class="flex items-center space-x-4">
-                        <a href="{{ route('home') }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-white text-indigo-600 rounded-xl hover:bg-indigo-50 transition-colors text-sm font-semibold shadow-sm">
+                        <a href="{{ route('home') }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-semibold shadow-sm">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                             </svg>
@@ -176,6 +168,36 @@
     </div>
 
     <style>
+        #mainSidebar nav a {
+            color: rgb(71 85 105);
+            box-shadow: none;
+        }
+
+        #mainSidebar nav a:hover {
+            background: rgb(248 250 252);
+            color: rgb(29 78 216);
+        }
+
+        #mainSidebar nav a.bg-indigo-600 {
+            background: rgb(239 246 255) !important;
+            color: rgb(29 78 216) !important;
+            box-shadow: none !important;
+            border: 1px solid rgb(191 219 254);
+        }
+
+        #mainSidebar nav a svg {
+            color: rgb(148 163 184);
+        }
+
+        #mainSidebar nav a:hover svg,
+        #mainSidebar nav a.bg-indigo-600 svg {
+            color: rgb(37 99 235) !important;
+        }
+
+        #mainSidebar nav p {
+            color: rgb(148 163 184);
+        }
+
         .custom-scrollbar::-webkit-scrollbar {
             width: 4px;
         }
@@ -183,11 +205,11 @@
             background: transparent;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgb(203 213 225);
             border-radius: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgb(148 163 184);
         }
     </style>
     

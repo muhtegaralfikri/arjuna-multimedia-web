@@ -60,11 +60,19 @@
                                     </span>
                                 @endif
                             </td>
-                            <td class="py-4 px-6 whitespace-nowrap text-center text-slate-600 font-medium">
-                                <div class="inline-flex items-center justify-center p-2 hover:bg-slate-100 rounded-lg cursor-move drag-handle" title="Tarik untuk Mengurutkan">
-                                    <svg class="w-5 h-5 text-slate-400 group-hover:text-indigo-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/>
-                                    </svg>
+                            <td class="py-4 px-6 whitespace-nowrap text-center">
+                                <div class="inline-flex items-center justify-center gap-1 rounded-xl border border-slate-200 bg-white p-1 shadow-sm">
+                                    <button type="button" class="move-up inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-slate-500" title="Naikkan urutan">
+                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                                        </svg>
+                                    </button>
+                                    <span class="sort-index min-w-8 rounded-lg bg-slate-100 px-2 py-1 text-xs font-bold text-slate-700">{{ $loop->iteration }}</span>
+                                    <button type="button" class="move-down inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-slate-500" title="Turunkan urutan">
+                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    </button>
                                 </div>
                             </td>
                             <td class="py-4 px-6 whitespace-nowrap">
@@ -114,40 +122,87 @@
     @endif
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var el = document.getElementById('sortable-list');
-        if (el) {
-            Sortable.create(el, {
-                handle: '.drag-handle',
-                animation: 150,
-                ghostClass: 'bg-indigo-50',
-                onEnd: function (evt) {
-                    let order = [];
-                    document.querySelectorAll('#sortable-list > tr').forEach((row, index) => {
-                        order.push({
-                            id: row.dataset.id,
-                            position: index + 1
-                        });
-                    });
-                    
-                    fetch('{{ route("admin.faqs.reorder") }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify({ order: order })
-                    }).then(res => res.json()).then(data => {
-                        if(data.success) {
-                            console.log('Order saved successfully.');
-                        }
-                    });
-                }
-            });
+        const list = document.getElementById('sortable-list');
+        const token = document.querySelector('meta[name="csrf-token"]')?.content;
+
+        if (!list || !token) {
+            return;
         }
+
+        const rows = () => Array.from(list.querySelectorAll('tr[data-id]'));
+
+        const updateControls = () => {
+            const currentRows = rows();
+
+            currentRows.forEach((row, index) => {
+                row.querySelector('.sort-index').textContent = index + 1;
+                row.querySelector('.move-up').disabled = index === 0;
+                row.querySelector('.move-down').disabled = index === currentRows.length - 1;
+            });
+        };
+
+        const saveOrder = async () => {
+            const order = rows().map((row, index) => ({
+                id: row.dataset.id,
+                position: index + 1,
+            }));
+
+            try {
+                const response = await fetch('{{ route("admin.faqs.reorder") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': token,
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({ order }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Request gagal');
+                }
+
+                const data = await response.json();
+
+                if (!data.success) {
+                    throw new Error('Response tidak valid');
+                }
+            } catch (error) {
+                alert('Urutan FAQ gagal disimpan. Silakan refresh halaman dan coba lagi.');
+            }
+
+            updateControls();
+        };
+
+        list.addEventListener('click', function (event) {
+            const upButton = event.target.closest('.move-up');
+            const downButton = event.target.closest('.move-down');
+
+            if (!upButton && !downButton) {
+                return;
+            }
+
+            const row = event.target.closest('tr[data-id]');
+
+            if (!row) {
+                return;
+            }
+
+            if (upButton && row.previousElementSibling) {
+                list.insertBefore(row, row.previousElementSibling);
+            }
+
+            if (downButton && row.nextElementSibling) {
+                list.insertBefore(row.nextElementSibling, row);
+            }
+
+            updateControls();
+            saveOrder();
+        });
+
+        updateControls();
     });
 </script>
 @endsection
