@@ -4,6 +4,7 @@ node_modules/
 /public/js
 /public/hot
 /public/storage
+/bootstrap/cache/*.php
 /storage/framework/sessions/*
 /storage/framework/views/*
 /vendor
