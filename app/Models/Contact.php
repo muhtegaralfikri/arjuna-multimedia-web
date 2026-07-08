@@ -66,6 +66,26 @@ class Contact extends Model
         return "https://wa.me/{$number}?text={$message}";
     }
 
+    public function getSafeGoogleMapsEmbedAttribute(): ?string
+    {
+        $embed = trim((string) $this->google_maps_embed);
+
+        if ($embed === '') {
+            return null;
+        }
+
+        $isGoogleMapsIframe = preg_match(
+            '/\A<iframe\b(?=[^>]*\bsrc="https:\/\/www\.google\.com\/maps\/embed\?[^"]+")[^>]*><\/iframe>\z/i',
+            $embed
+        );
+
+        if (!$isGoogleMapsIframe) {
+            return null;
+        }
+
+        return preg_replace('/\s+on[a-z]+\s*=\s*"[^"]*"/i', '', $embed);
+    }
+
     private function getWhatsappNumberForLink(): string
     {
         return $this->normalizeWhatsappNumber($this->whatsapp_number);

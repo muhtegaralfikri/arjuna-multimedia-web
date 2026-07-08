@@ -6,7 +6,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\FaqController;
-use App\Http\Controllers\FormController;
 use App\Http\Controllers\ContactController as PublicContactController;
 
 // Admin controllers
@@ -19,7 +18,6 @@ Route::get('/tentang', [AboutController::class, 'index'])->name('about');
 Route::get('/paket', [PackageController::class, 'index'])->name('packages');
 Route::get('/kontak', [PublicContactController::class, 'index'])->name('contact');
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');
-Route::post('/form-submit', [FormController::class, 'submit'])->name('form.submit');
 
 // Sitemap & Robots
 Route::get('/sitemap.xml', [HomeController::class, 'sitemap'])->name('sitemap');

@@ -133,9 +133,9 @@
             {{-- Map --}}
             <div>
                 <h3 class="text-2xl font-bold mb-8">Lokasi Kami</h3>
-                @if($contact->google_maps_embed)
+                @if($contact->safe_google_maps_embed)
                 <div class="rounded-xl overflow-hidden shadow-lg">
-                    {!! $contact->google_maps_embed !!}
+                    {!! $contact->safe_google_maps_embed !!}
                 </div>
                 @elseif($contact->google_maps_link)
                 <a href="{{ $contact->google_maps_link }}" target="_blank" class="block w-full h-64 bg-gray-200 rounded-xl flex items-center justify-center hover:bg-gray-300 transition">

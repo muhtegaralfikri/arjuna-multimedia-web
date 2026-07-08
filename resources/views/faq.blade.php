@@ -69,7 +69,7 @@
                     </svg>
                 </button>
                 <div id="faq-answer-{{ $index }}" class="faq-answer hidden px-6 pb-4 text-gray-600">
-                    {!! $faq->answer !!}
+                    {!! nl2br(e($faq->answer)) !!}
                     @if($faq->category !== 'general')
                     <span class="inline-block mt-2 px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded">{{ $categories[$faq->category] }}</span>
                     @endif
