@@ -103,7 +103,6 @@
                     <a href="{{ route('home') }}" class="text-gray-700 hover:text-primary-600 transition @if(request()->is('/')) text-primary-600 font-semibold @endif">Beranda</a>
                     <a href="{{ route('about') }}" class="text-gray-700 hover:text-primary-600 transition @if(request()->is('tentang')) text-primary-600 font-semibold @endif">Tentang Kami</a>
                     <a href="{{ route('packages') }}" class="text-gray-700 hover:text-primary-600 transition @if(request()->is('paket')) text-primary-600 font-semibold @endif">Paket</a>
-                    <a href="{{ route('areas') }}" class="text-gray-700 hover:text-primary-600 transition @if(request()->is('area')) text-primary-600 font-semibold @endif">Area</a>
                     <a href="{{ route('faq') }}" class="text-gray-700 hover:text-primary-600 transition @if(request()->is('faq')) text-primary-600 font-semibold @endif">FAQ</a>
                     <a href="{{ route('contact') }}" class="text-gray-700 hover:text-primary-600 transition @if(request()->is('kontak')) text-primary-600 font-semibold @endif">Kontak</a>
                 </div>
@@ -133,7 +132,6 @@
                     <a href="{{ route('home') }}" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 @if(request()->is('/')) bg-primary-50 text-primary-600 @endif">Beranda</a>
                     <a href="{{ route('about') }}" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 @if(request()->is('tentang')) bg-primary-50 text-primary-600 @endif">Tentang Kami</a>
                     <a href="{{ route('packages') }}" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 @if(request()->is('paket')) bg-primary-50 text-primary-600 @endif">Paket</a>
-                    <a href="{{ route('areas') }}" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 @if(request()->is('area')) bg-primary-50 text-primary-600 @endif">Area</a>
                     <a href="{{ route('faq') }}" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 @if(request()->is('faq')) bg-primary-50 text-primary-600 @endif">FAQ</a>
                     <a href="{{ route('contact') }}" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 @if(request()->is('kontak')) bg-primary-50 text-primary-600 @endif">Kontak</a>
                 </div>
@@ -186,7 +184,6 @@
                         <li><a href="{{ route('home') }}" class="text-gray-400 hover:text-white transition">Beranda</a></li>
                         <li><a href="{{ route('about') }}" class="text-gray-400 hover:text-white transition">Tentang Kami</a></li>
                         <li><a href="{{ route('packages') }}" class="text-gray-400 hover:text-white transition">Paket Internet</a></li>
-                        <li><a href="{{ route('areas') }}" class="text-gray-400 hover:text-white transition">Area Layanan</a></li>
                         <li><a href="{{ route('faq') }}" class="text-gray-400 hover:text-white transition">FAQ</a></li>
                     </ul>
                 </div>
@@ -198,7 +195,7 @@
                     <ul class="space-y-3 text-gray-400">
                         <li class="flex items-start">
                             <svg class="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                            <span>{{ $contact->phone_number }}</span>
+                            <span>{{ $contact->whatsapp_number }}</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>

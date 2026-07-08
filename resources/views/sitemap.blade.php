@@ -14,15 +14,9 @@
     </url>
     <url>
         <loc>{{ url('/paket') }}</loc>
-        <lastmod>{{ max($packages->pluck('updated_at'))->format('Y-m-d') }}</lastmod>
+        <lastmod>{{ ($packages->max('updated_at') ?? now())->format('Y-m-d') }}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>{{ url('/area') }}</loc>
-        <lastmod>{{ max($areas->pluck('updated_at'))->format('Y-m-d') }}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
     </url>
     <url>
         <loc>{{ url('/kontak') }}</loc>

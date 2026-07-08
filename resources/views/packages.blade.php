@@ -82,10 +82,7 @@
                 $speedNumber = preg_replace('/[^0-9]/', '', $package->speed);
                 $priceRb = number_format($package->price_monthly / 1000, 0, ',', '.');
             @endphp
-            <article class="bg-white rounded-2xl border {{ $package->is_popular ? 'border-primary-500 shadow-xl' : 'border-gray-200 shadow-sm' }} overflow-hidden">
-                @if($package->is_popular)
-                    <div class="bg-primary-600 text-white text-center py-2 text-sm font-black uppercase tracking-wide">Paling Diminati</div>
-                @endif
+            <article class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
                 <div class="p-6">
                     <div class="flex items-center justify-between gap-3">
                         <h3 class="text-2xl font-black text-gray-950">{{ $package->name }}</h3>

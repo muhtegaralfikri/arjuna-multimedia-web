@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
                 'price_monthly' => 250000,
                 'installation_fee' => 300000,
                 'quota' => 'Unlimited',
-                'description' => 'Paket favorit untuk rumah dan kantor kecil.',
+                'description' => 'Paket untuk rumah dan kantor kecil.',
                 'features' => ['Tanpa FUP', 'Streaming lancar', 'Gaming lancar', 'Cocok untuk rumah & kantor'],
                 'category' => 'home',
                 'is_popular' => true,
@@ -204,7 +204,7 @@ class DatabaseSeeder extends Seeder
                 'hero_title' => 'Tentang Arjuna Net',
                 'hero_subtitle' => 'Mengenal lebih dekat penyedia internet lokal terpercaya',
                 'meta_title' => 'Tentang Arjuna Net',
-                'meta_description' => 'Mengenal lebih dekat Arjuna Net - penyedia layanan internet lokal terpercaya untuk area perkampungan.',
+                'meta_description' => 'Mengenal lebih dekat Arjuna Net - penyedia layanan internet lokal terpercaya untuk rumah dan usaha kecil.',
             ],
             [
                 'slug' => 'package',

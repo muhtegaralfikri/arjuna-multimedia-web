@@ -14,11 +14,10 @@ class HomeController extends Controller
 
     public function sitemap()
     {
-        $pages = \App\Models\Page::all(['slug', 'updated_at']);
+        $pages = \App\Models\Page::where('slug', '!=', 'area')->get(['slug', 'updated_at']);
         $packages = \App\Models\Package::active()->get(['slug', 'updated_at']);
-        $areas = \App\Models\ServiceArea::active()->get(['slug', 'updated_at']);
 
-        return response()->view('sitemap', compact('pages', 'packages', 'areas'))
+        return response()->view('sitemap', compact('pages', 'packages'))
             ->header('Content-Type', 'application/xml');
     }
 

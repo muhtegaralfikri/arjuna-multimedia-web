@@ -7,7 +7,6 @@
     $settings = \App\Models\SiteSettings::getSettings();
     $contact = \App\Models\Contact::getContact();
     $popularPackages = \App\Models\Package::active()->ordered()->take(4)->get();
-    $areasCount = \App\Models\ServiceArea::active()->available()->count();
 @endphp
 
 {{-- Hero Section --}}
@@ -21,13 +20,7 @@
                 {{ $page->hero_subtitle ?? 'Nikmati internet berkualitas dengan harga terjangkau. Langganan sekarang!' }}
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
-                @if($contact)
-                    <a href="{{ $contact->whatsapp_link }}" target="_blank" class="inline-flex items-center justify-center px-8 py-4 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition">
-                        @include('partials.whatsapp-icon', ['class' => 'w-6 h-6 mr-2 object-contain'])
-                        Hubungi WhatsApp
-                    </a>
-                @endif
-                <a href="{{ route('packages') }}" class="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-primary-600 transition">
+                <a href="{{ route('packages') }}" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-700 rounded-lg font-semibold hover:bg-primary-50 transition">
                     Lihat Paket
                 </a>
             </div>
@@ -55,7 +48,7 @@
             </div>
             {{-- Card 2 --}}
             <div class="text-center p-6">
-                <div class="w-16 h-16 bg-success-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg class="w-8 h-8 text-success-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
@@ -65,7 +58,7 @@
             </div>
             {{-- Card 3 --}}
             <div class="text-center p-6">
-                <div class="w-16 h-16 bg-warning-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg class="w-8 h-8 text-warning-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -76,8 +69,8 @@
             </div>
             {{-- Card 4 --}}
             <div class="text-center p-6">
-                <div class="w-16 h-16 bg-info-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-info-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
                     </svg>
                 </div>
@@ -102,12 +95,7 @@
                 $speedNumber = preg_replace('/[^0-9]/', '', $package->speed);
                 $priceRb = number_format($package->price_monthly / 1000, 0, ',', '.');
             @endphp
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border {{ $package->is_popular ? 'border-primary-500' : 'border-gray-200' }} relative">
-                @if($package->is_popular)
-                    <div class="absolute top-0 right-0 bg-primary-500 text-white px-4 py-1 text-sm font-semibold rounded-bl-lg">
-                        Favorit
-                    </div>
-                @endif
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 relative">
                 <div class="p-6">
                     <h3 class="text-xl font-black text-gray-900">{{ $package->name }}</h3>
                     <div class="mt-5 rounded-2xl bg-gradient-to-br from-primary-50 to-sky-100 p-5 text-center">
@@ -156,18 +144,5 @@
     </div>
 </section>
 @endif
-
-{{-- Area Coverage --}}
-<section class="py-16 bg-white">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl mx-auto text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Area Layanan Kami</h2>
-            <p class="text-xl text-gray-600 mb-8">Saat ini kami telah melayani {{ $areasCount }} area dan terus terus berkembang</p>
-            <a href="{{ route('areas') }}" class="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition">
-                Cek Area Layanan
-            </a>
-        </div>
-    </div>
-</section>
 
 @endsection

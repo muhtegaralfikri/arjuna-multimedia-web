@@ -78,8 +78,6 @@
                     <span class="text-gray-300">|</span>
                     <a href="{{ url('/paket') }}" class="text-primary-600 hover:text-primary-700 transition">Paket Internet</a>
                     <span class="text-gray-300">|</span>
-                    <a href="{{ url('/area') }}" class="text-primary-600 hover:text-primary-700 transition">Area Layanan</a>
-                    <span class="text-gray-300">|</span>
                     <a href="{{ url('/faq') }}" class="text-primary-600 hover:text-primary-700 transition">FAQ</a>
                 </div>
             </div>
