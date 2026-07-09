@@ -5,6 +5,8 @@ node_modules/
 /public/hot
 /public/storage
 /bootstrap/cache/*.php
+/storage/framework/cache/*
+!/storage/framework/cache/.gitignore
 /storage/framework/sessions/*
 /storage/framework/views/*
 /vendor
