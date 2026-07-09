@@ -44,7 +44,7 @@
             <div class="w-full max-w-md">
                 <div class="mb-8 text-center">
                     <a href="{{ route('home') }}" class="inline-flex justify-center">
-                        <img src="{{ asset('logo.png') }}" alt="Arjuna Net" class="h-28 w-auto object-contain">
+                        <img src="{{ asset(file_exists(public_path('logo.webp')) ? 'logo.webp' : 'logo.png') }}" alt="Arjuna Net" class="h-28 w-auto object-contain">
                     </a>
                     <p class="mt-4 text-sm font-bold uppercase tracking-[0.2em] text-primary-700">Admin Panel</p>
                     <h2 class="mt-3 text-3xl font-black text-slate-950">Masuk ke dashboard</h2>

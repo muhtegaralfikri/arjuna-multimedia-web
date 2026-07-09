@@ -113,7 +113,7 @@
                             <label for="logo_url" class="block text-slate-700 text-sm font-bold mb-2">URL Logo Website</label>
                             <input type="text" id="logo_url" name="logo_url" value="{{ old('logo_url', $settings->logo_url) }}"
                                 class="w-full px-3.5 py-2.5 bg-white border border-indigo-200 text-slate-900 rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm font-mono text-sm"
-                                placeholder="/images/logo.png">
+                                placeholder="logo.webp">
                             @error('logo_url')
                                 <p class="mt-1 text-sm text-rose-600">{{ $message }}</p>
                             @enderror

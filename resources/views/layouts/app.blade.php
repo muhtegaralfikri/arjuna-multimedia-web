@@ -66,7 +66,14 @@
     @php
         $settings = $settings ?? \App\Models\SiteSettings::getSettings();
         $brandName = $settings->site_name ?? 'Arjuna Net';
-        $logoUrl = $settings->logo_url ?: (file_exists(public_path('logo.png')) ? 'logo.png' : null);
+        $defaultLogoUrl = file_exists(public_path('logo.webp'))
+            ? 'logo.webp'
+            : (file_exists(public_path('logo.png')) ? 'logo.png' : null);
+        $logoUrl = $settings->logo_url ?: $defaultLogoUrl;
+        $logoUrl = $logoUrl === 'logo.png' ? $defaultLogoUrl : $logoUrl;
+        $navbarLogoUrl = file_exists(public_path('nama-logo.webp'))
+            ? 'nama-logo.webp'
+            : (file_exists(public_path('nama-logo.jpeg')) ? 'nama-logo.jpeg' : $logoUrl);
     @endphp
 
     {{-- GTM noscript --}}
@@ -81,8 +88,8 @@
             <div class="flex items-center justify-between h-24 md:h-28">
                 {{-- Logo --}}
                 <a href="{{ route('home') }}" class="flex items-center space-x-2">
-                    @if($logoUrl)
-                        <img src="{{ asset($logoUrl) }}" alt="{{ $brandName }}" class="h-20 md:h-24 w-auto max-w-[240px] object-contain">
+                    @if($navbarLogoUrl)
+                        <img src="{{ asset($navbarLogoUrl) }}" alt="{{ $brandName }}" class="h-16 md:h-20 w-auto max-w-[220px] md:max-w-[260px] object-contain">
                     @else
                         <span class="text-xl font-bold text-primary-600">{{ $brandName }}</span>
                     @endif

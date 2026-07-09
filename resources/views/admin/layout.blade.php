@@ -23,7 +23,7 @@
             {{-- Logo --}}
             <div class="p-5 border-b border-slate-200 bg-white">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3">
-                    <img src="{{ asset('logo.png') }}" alt="Arjuna Net" class="h-14 w-auto max-w-[118px] object-contain">
+                    <img src="{{ asset(file_exists(public_path('logo.webp')) ? 'logo.webp' : 'logo.png') }}" alt="Arjuna Net" class="h-14 w-auto max-w-[118px] object-contain">
                     <div class="min-w-0">
                         <h1 class="text-lg font-black text-slate-950 tracking-tight leading-tight">Arjuna Net</h1>
                         <p class="text-[0.68rem] font-bold text-primary-600 uppercase tracking-widest">Admin Panel</p>
@@ -131,7 +131,7 @@
             {{-- Mobile Navbar (Header for Small Screens) --}}
             <div class="lg:hidden sticky top-0 z-20 flex items-center justify-between px-4 py-3 bg-white text-slate-900 border-b border-slate-200 shadow-sm">
                 <div class="flex items-center space-x-3">
-                    <img src="{{ asset('logo.png') }}" alt="Arjuna Net" class="h-10 w-auto object-contain">
+                    <img src="{{ asset(file_exists(public_path('logo.webp')) ? 'logo.webp' : 'logo.png') }}" alt="Arjuna Net" class="h-10 w-auto object-contain">
                     <h1 class="text-base font-black tracking-tight">Admin</h1>
                 </div>
                 <button id="openSidebarBtn" class="p-2 -mr-2 text-primary-700 hover:bg-primary-50 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-200">
