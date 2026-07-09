@@ -29,7 +29,7 @@
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Kenapa Memilih Kami?</h2>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Kami memberikan layanan internet terbaik untuk kebutuhan rumah dan bisnis Anda</p>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Informasi paket jelas, pemakaian bebas kuota, dan bantuan mudah lewat tim lokal.</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {{-- Card 1 --}}
@@ -39,8 +39,8 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>
                 </div>
-                <h3 class="text-xl font-semibold mb-2">Cepat & Stabil</h3>
-                <p class="text-gray-600">Koneksi internet cepat dengan stabilitas terjamin untuk aktivitas sehari-hari Anda.</p>
+                <h3 class="text-xl font-semibold mb-2">Speed Jelas</h3>
+                <p class="text-gray-600">Pilihan paket ditampilkan berdasarkan Mbps agar mudah disesuaikan dengan kebutuhan perangkat di rumah.</p>
             </div>
             {{-- Card 2 --}}
             <div class="text-center p-6">
@@ -49,8 +49,8 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                 </div>
-                <h3 class="text-xl font-semibold mb-2">Harga Terjangkau</h3>
-                <p class="text-gray-600">Paket harga yang bersahabat dengan kualitas internet yang memuaskan.</p>
+                <h3 class="text-xl font-semibold mb-2">Biaya Transparan</h3>
+                <p class="text-gray-600">Harga bulanan dan biaya penyambungan dibuat jelas sejak awal sebelum pelanggan berlangganan.</p>
             </div>
             {{-- Card 3 --}}
             <div class="text-center p-6">
@@ -60,8 +60,8 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                     </svg>
                 </div>
-                <h3 class="text-xl font-semibold mb-2">Area Luas</h3>
-                <p class="text-gray-600">Jangkauan layanan yang terus meluas untuk melayani lebih banyak area.</p>
+                <h3 class="text-xl font-semibold mb-2">Tanpa FUP</h3>
+                <p class="text-gray-600">Semua paket bebas batas kuota bulanan untuk pemakaian normal harian di rumah atau usaha kecil.</p>
             </div>
             {{-- Card 4 --}}
             <div class="text-center p-6">
@@ -71,7 +71,7 @@
                     </svg>
                 </div>
                 <h3 class="text-xl font-semibold mb-2">Support Lokal</h3>
-                <p class="text-gray-600">Tim support yang siap membantu dengan respon cepat dan solusi tepat.</p>
+                <p class="text-gray-600">Admin dan teknisi mudah dihubungi melalui WhatsApp untuk pemasangan maupun bantuan gangguan.</p>
             </div>
         </div>
     </div>
@@ -105,6 +105,9 @@
                             <span class="text-7xl font-black leading-none">{{ $speedNumber }}</span>
                             <span class="mb-2 text-xl font-black">Mbps</span>
                         </div>
+                        @if($package->installation_fee)
+                            <p class="mt-2 text-sm text-gray-500">Biaya pasang Rp {{ number_format($package->installation_fee, 0, ',', '.') }}</p>
+                        @endif
                     </div>
                     <div class="mt-5 mb-4">
                         <p class="text-sm font-bold text-gray-500 uppercase">Harga</p>
@@ -146,9 +149,41 @@
 </section>
 @endif
 
+{{-- Cara Berlangganan --}}
+<section class="py-14 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-10 items-start">
+            <div>
+                <p class="text-sm font-bold uppercase tracking-[0.2em] text-primary-600">Cara Berlangganan</p>
+                <h2 class="mt-3 text-3xl md:text-4xl font-black text-gray-950">Proses pasang internet dibuat sederhana.</h2>
+                <p class="mt-4 text-lg text-gray-600 leading-relaxed">
+                    Calon pelanggan cukup memilih paket, mengirim alamat, lalu admin membantu mengecek jaringan dan jadwal pemasangan.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="rounded-xl border border-gray-200 bg-gray-50 p-5">
+                    <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600 text-white font-black">1</span>
+                    <h3 class="mt-4 text-lg font-black text-gray-950">Pilih paket</h3>
+                    <p class="mt-2 text-gray-600">Tentukan kecepatan yang sesuai untuk rumah, keluarga, atau usaha kecil.</p>
+                </div>
+                <div class="rounded-xl border border-gray-200 bg-gray-50 p-5">
+                    <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600 text-white font-black">2</span>
+                    <h3 class="mt-4 text-lg font-black text-gray-950">Cek alamat</h3>
+                    <p class="mt-2 text-gray-600">Kirim alamat lengkap dan patokan rumah agar admin mengecek coverage jaringan.</p>
+                </div>
+                <div class="rounded-xl border border-gray-200 bg-gray-50 p-5">
+                    <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600 text-white font-black">3</span>
+                    <h3 class="mt-4 text-lg font-black text-gray-950">Jadwal pasang</h3>
+                    <p class="mt-2 text-gray-600">Jika area tersedia, admin mengatur jadwal pemasangan dan konfirmasi biaya.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 {{-- Cek Coverage --}}
 @if($contact)
-<section class="py-14 bg-white">
+<section class="py-14 bg-gray-50">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="rounded-2xl bg-gradient-to-br from-primary-700 to-primary-900 p-6 md:p-10 text-white">
             <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 items-center">
