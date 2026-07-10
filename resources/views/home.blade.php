@@ -222,7 +222,7 @@
         <div class="grid grid-cols-1 gap-6 rounded-2xl bg-gradient-to-br from-primary-700 to-primary-900 p-6 text-white md:grid-cols-[1fr_auto] md:items-center md:p-8">
             <div>
                 <p class="text-sm font-bold uppercase tracking-[0.2em] text-primary-100">Area Layanan & Coverage</p>
-                <h2 class="mt-3 text-3xl md:text-4xl font-black">Melayani Bunde, Mariri, Tarailu dan sekitarnya.</h2>
+                <h2 class="mt-3 text-3xl md:text-4xl font-black">Melayani Wilayah Bunde, Mariri, Tarailu dan sekitarnya.</h2>
                 <p class="mt-3 max-w-3xl text-lg text-primary-100">
                     Kirim nama, alamat lengkap, patokan rumah, dan paket diminati. Admin akan mengecek ketersediaan jaringan dan membantu jadwal pemasangan.
                 </p>
