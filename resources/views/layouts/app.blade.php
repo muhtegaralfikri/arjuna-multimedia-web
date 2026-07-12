@@ -4,21 +4,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @php
+        $canonicalUrl = isset($page) && $page?->canonical_url
+            ? $page->canonical_url
+            : url()->current();
+    @endphp
 
     @isset($page)
         <title>{{ $page->meta_title ?? $page->title }} - {{ config('app.name') }}</title>
         <meta name="description" content="{{ $page->meta_description }}">
-        @if($page->canonical_url)
-            <link rel="canonical" href="{{ $page->canonical_url }}">
-        @endif
         @if($page->og_image)
             <meta property="og:image" content="{{ asset($page->og_image) }}">
         @endif
     @else
         <title>{{ config('app.name') }}</title>
         <meta name="description" content="{{ config('app.description', 'Arjuna Net - Layanan Internet Lokal') }}">
-        <link rel="canonical" href="{{ url()->current() }}">
     @endisset
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ $canonicalUrl }}">
+    <meta property="og:url" content="{{ $canonicalUrl }}">
 
     @php
         $settings = $settings ?? \App\Models\SiteSettings::getSettings();
