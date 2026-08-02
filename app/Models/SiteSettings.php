@@ -17,7 +17,6 @@ class SiteSettings extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'id',
         'site_name',
         'site_url',
         'logo_url',
@@ -49,6 +48,14 @@ class SiteSettings extends Model
 
     public static function getSettings()
     {
-        return self::$cachedSettings ??= self::first();
+        return self::$cachedSettings ??= \Illuminate\Support\Facades\Cache::remember('site_settings', 86400, function () {
+            return self::first();
+        });
+    }
+
+    public static function clearCache(): void
+    {
+        self::$cachedSettings = null;
+        \Illuminate\Support\Facades\Cache::forget('site_settings');
     }
 }

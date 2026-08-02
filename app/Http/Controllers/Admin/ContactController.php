@@ -22,16 +22,18 @@ class ContactController extends Controller
             'whatsapp_number' => 'required|string|max:255',
             'phone_number' => 'required|string|max:255',
             'email' => ['nullable', 'string', 'max:255', 'regex:/\A[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}\z/'],
-            'address' => 'required|string',
-            'google_maps_link' => 'nullable|string',
-            'google_maps_embed' => 'nullable|string',
-            'operating_hours' => 'nullable|string',
-            'instagram_url' => 'nullable|string',
-            'facebook_url' => 'nullable|string',
-            'tiktok_url' => 'nullable|string',
+            'address' => 'required|string|max:1000',
+            'google_maps_link' => 'nullable|url|max:1000',
+            'google_maps_embed' => 'nullable|string|max:2000',
+            'operating_hours' => 'nullable|string|max:500',
+            'instagram_url' => 'nullable|url|max:500',
+            'facebook_url' => 'nullable|url|max:500',
+            'tiktok_url' => 'nullable|url|max:500',
         ]);
 
         $contact->update($validated);
+
+        Contact::clearCache();
 
         return redirect()->route('admin.contacts.edit')->with('success', 'Kontak berhasil diperbarui');
     }

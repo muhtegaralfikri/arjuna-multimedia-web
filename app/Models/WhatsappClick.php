@@ -15,7 +15,6 @@ class WhatsappClick extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'id',
         'source',
         'package_id',
         'target_number',

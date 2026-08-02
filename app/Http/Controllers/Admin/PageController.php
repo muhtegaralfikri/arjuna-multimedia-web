@@ -27,12 +27,12 @@ class PageController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'hero_title' => 'nullable|string|max:255',
-            'hero_subtitle' => 'nullable|string',
-            'content' => 'nullable|string',
+            'hero_subtitle' => 'nullable|string|max:1000',
+            'content' => 'nullable|string|max:10000',
             'meta_title' => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string',
-            'og_image' => 'nullable|string',
-            'canonical_url' => 'nullable|string',
+            'meta_description' => 'nullable|string|max:500',
+            'og_image' => 'nullable|string|max:500',
+            'canonical_url' => 'nullable|url|max:500',
         ]);
 
         $page->update($validated);

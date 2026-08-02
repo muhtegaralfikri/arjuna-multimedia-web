@@ -41,10 +41,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Login (no auth required)
     Route::get('/login', [AdminController::class, 'loginForm'])->name('login');
     Route::post('/login', [AdminController::class, 'login'])->middleware('throttle:5,1')->name('login.submit');
-    Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
 
     // Protected routes (auth required)
     Route::middleware(['admin'])->group(function () {
+        Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // Packages

@@ -14,7 +14,6 @@ class Page extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'id',
         'slug',
         'title',
         'hero_title',
@@ -29,5 +28,16 @@ class Page extends Model
     public function scopeBySlug($query, $slug)
     {
         return $query->where('slug', $slug);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->id)) {
+                $model->id = (string) \Illuminate\Support\Str::uuid();
+            }
+        });
     }
 }

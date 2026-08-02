@@ -14,7 +14,6 @@ class ActivityLog extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'id',
         'admin_user_id',
         'action',
         'entity_type',
@@ -33,5 +32,16 @@ class ActivityLog extends Model
     public function adminUser()
     {
         return $this->belongsTo(AdminUser::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->id)) {
+                $model->id = (string) \Illuminate\Support\Str::uuid();
+            }
+        });
     }
 }

@@ -22,8 +22,8 @@ class FaqController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'question' => 'required|string',
-            'answer' => 'required|string',
+            'question' => 'required|string|max:1000',
+            'answer' => 'required|string|max:5000',
             'category' => 'required|in:general,technical,billing,installation',
             'sort_order' => 'nullable|integer',
             'is_published' => 'nullable|boolean',
@@ -48,8 +48,8 @@ class FaqController extends Controller
         $faq = Faq::findOrFail($id);
 
         $validated = $request->validate([
-            'question' => 'required|string',
-            'answer' => 'required|string',
+            'question' => 'required|string|max:1000',
+            'answer' => 'required|string|max:5000',
             'category' => 'required|in:general,technical,billing,installation',
             'sort_order' => 'nullable|integer',
             'is_published' => 'nullable|boolean',

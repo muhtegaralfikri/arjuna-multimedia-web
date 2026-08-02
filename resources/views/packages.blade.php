@@ -2,9 +2,6 @@
 
 @section('content')
 @php
-    $page = \App\Models\Page::bySlug('package')->first();
-    $packages = \App\Models\Package::active()->ordered()->get();
-    $contact = \App\Models\Contact::getContact();
     $primaryWa = $contact ? preg_replace('/^62/', '0', $contact->whatsapp_number) : null;
 @endphp
 

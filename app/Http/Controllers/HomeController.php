@@ -9,7 +9,11 @@ class HomeController extends Controller
     public function index()
     {
         $page = \App\Models\Page::bySlug('home')->first();
-        return view('home', compact('page'));
+        $popularPackages = \App\Models\Package::active()->ordered()->take(4)->get();
+        $testimonials = \App\Models\Testimonial::published()->ordered()->take(3)->get();
+        $homeFaqs = \App\Models\Faq::published()->ordered()->take(4)->get();
+
+        return view('home', compact('page', 'popularPackages', 'testimonials', 'homeFaqs'));
     }
 
     public function sitemap()

@@ -16,7 +16,6 @@ class Testimonial extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'id',
         'customer_name',
         'area',
         'quote',

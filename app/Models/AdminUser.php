@@ -16,7 +16,6 @@ class AdminUser extends Authenticatable
     public $incrementing = false;
 
     protected $fillable = [
-        'id',
         'name',
         'email',
         'password',
@@ -39,5 +38,16 @@ class AdminUser extends Authenticatable
     public function activityLogs()
     {
         return $this->hasMany(ActivityLog::class, 'admin_user_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->id)) {
+                $model->id = (string) \Illuminate\Support\Str::uuid();
+            }
+        });
     }
 }

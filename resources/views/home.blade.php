@@ -1,16 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-{{-- Get Page & Settings --}}
-@php
-    $page = \App\Models\Page::bySlug('home')->first();
-    $settings = \App\Models\SiteSettings::getSettings();
-    $contact = \App\Models\Contact::getContact();
-    $popularPackages = \App\Models\Package::active()->ordered()->take(4)->get();
-    $testimonials = \App\Models\Testimonial::published()->ordered()->take(3)->get();
-    $homeFaqs = \App\Models\Faq::published()->ordered()->take(4)->get();
-@endphp
-
 {{-- Hero Section --}}
 <section class="relative overflow-x-hidden bg-gradient-to-br from-primary-700 to-primary-900 text-white py-14 md:py-16">
     <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">

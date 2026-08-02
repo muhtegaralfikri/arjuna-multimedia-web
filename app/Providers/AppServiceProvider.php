@@ -22,5 +22,11 @@ class AppServiceProvider extends ServiceProvider
             URL::forceRootUrl(rtrim($appUrl, '/'));
             URL::forceScheme('https');
         }
+
+        // Globally share settings & contact to all views (cached)
+        \Illuminate\Support\Facades\View::composer('*', function ($view) {
+            $view->with('settings', \App\Models\SiteSettings::getSettings());
+            $view->with('contact', \App\Models\Contact::getContact());
+        });
     }
 }

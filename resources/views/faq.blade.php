@@ -26,8 +26,6 @@
 
 @section('content')
 @php
-    $page = \App\Models\Page::bySlug('faq')->first();
-    $faqs = \App\Models\Faq::published()->ordered()->get();
     $categories = [
         'general' => 'Umum',
         'technical' => 'Teknis',
@@ -99,7 +97,6 @@
 @include('partials.customer-service-info')
 
 {{-- CTA --}}
-@php $contact = \App\Models\Contact::getContact(); @endphp
 @if($contact)
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">

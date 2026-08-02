@@ -34,11 +34,6 @@
 @endsection
 
 @section('content')
-@php
-    $page = \App\Models\Page::bySlug('contact')->first();
-    $contact = \App\Models\Contact::getContact();
-@endphp
-
 @include('partials.hero-page', ['page' => $page])
 
 @if($contact)

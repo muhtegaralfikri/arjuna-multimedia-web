@@ -25,7 +25,6 @@
     <meta property="og:url" content="{{ $canonicalUrl }}">
 
     @php
-        $settings = $settings ?? \App\Models\SiteSettings::getSettings();
         $faviconUrl = $settings?->favicon_url ?: (file_exists(public_path('favicon.ico')) ? 'favicon.ico' : null);
     @endphp
 
@@ -68,13 +67,8 @@
 </head>
 <body class="font-sans antialiased text-gray-900 bg-gray-50">
     @php
-        $settings = $settings ?? \App\Models\SiteSettings::getSettings();
-        $brandName = $settings->site_name ?? 'Arjuna Net';
-        $defaultLogoUrl = file_exists(public_path('logo.webp'))
-            ? 'logo.webp'
-            : (file_exists(public_path('logo.png')) ? 'logo.png' : null);
-        $logoUrl = $settings->logo_url ?: $defaultLogoUrl;
-        $logoUrl = $logoUrl === 'logo.png' ? $defaultLogoUrl : $logoUrl;
+        $brandName = $settings?->site_name ?? 'Arjuna Net';
+        $logoUrl = $settings?->logo_url ?: (file_exists(public_path('logo.webp')) ? 'logo.webp' : (file_exists(public_path('logo.png')) ? 'logo.png' : null));
         $navbarLogoUrl = file_exists(public_path('nama-logo.webp'))
             ? 'nama-logo.webp'
             : (file_exists(public_path('nama-logo.jpeg')) ? 'nama-logo.jpeg' : $logoUrl);
@@ -110,7 +104,7 @@
                 </div>
 
                 {{-- CTA Button (Desktop) --}}
-                @if($contact = \App\Models\Contact::getContact())
+                @if($contact)
                     <div class="hidden md:block">
                         <a href="{{ route('wa.general') }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition">
                             @include('partials.whatsapp-icon', ['class' => 'w-5 h-5 mr-2 object-contain'])
@@ -137,7 +131,7 @@
                     <a href="{{ route('support') }}" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 @if(request()->is('bantuan')) bg-primary-50 text-primary-600 @endif">Bantuan</a>
                     <a href="{{ route('faq') }}" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 @if(request()->is('faq')) bg-primary-50 text-primary-600 @endif">FAQ</a>
                     <a href="{{ route('contact') }}" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 @if(request()->is('kontak')) bg-primary-50 text-primary-600 @endif">Kontak</a>
-                    @if($contact = \App\Models\Contact::getContact())
+                    @if($contact)
                         <a href="{{ route('wa.general') }}" target="_blank" rel="noopener noreferrer" class="flex items-center px-3 py-2 rounded-lg bg-green-50 text-green-700 font-semibold hover:bg-green-100">
                             @include('partials.whatsapp-icon', ['class' => 'w-5 h-5 mr-2 object-contain'])
                             Hubungi Kami
@@ -165,7 +159,7 @@
                         <h3 class="text-xl font-bold mb-4">{{ $brandName }}</h3>
                     @endif
                     <p class="text-gray-400 mb-4">Layanan internet lokal cepat, stabil, dan terjangkau untuk area perkampungan.</p>
-                    @if($contact = \App\Models\Contact::getContact())
+                    @if($contact)
                         <div class="flex space-x-4">
                             @if($contact->instagram_url)
                                 <a href="{{ $contact->instagram_url }}" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition">
@@ -201,7 +195,7 @@
                 </div>
 
                 {{-- Contact --}}
-                @if($contact = \App\Models\Contact::getContact())
+                @if($contact)
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Hubungi Kami</h4>
                     <ul class="space-y-3 text-gray-400">
@@ -245,7 +239,7 @@
     </footer>
 
     {{-- Floating WhatsApp Button (Mobile) --}}
-    @if($contact = \App\Models\Contact::getContact())
+    @if($contact)
         <a href="{{ route('wa.general') }}" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-green-500 p-2 rounded-full shadow-lg hover:bg-green-600 hover:scale-105 transition md:hidden">
             @include('partials.whatsapp-icon', ['class' => 'w-10 h-10 object-contain'])
         </a>

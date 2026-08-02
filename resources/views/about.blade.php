@@ -1,12 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-@php
-    $page = \App\Models\Page::bySlug('about')->first();
-    $settings = \App\Models\SiteSettings::getSettings();
-    $contact = \App\Models\Contact::getContact();
-@endphp
-
 {{-- Hero --}}
 <section class="bg-gradient-to-br from-primary-700 to-primary-900 text-white py-14 md:py-16">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">

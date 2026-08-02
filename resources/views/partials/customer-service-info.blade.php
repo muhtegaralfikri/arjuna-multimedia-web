@@ -1,7 +1,3 @@
-@php
-    $contact = $contact ?? \App\Models\Contact::getContact();
-@endphp
-
 <section class="py-14 bg-white">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-8 text-center">

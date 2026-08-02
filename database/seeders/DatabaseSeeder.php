@@ -18,10 +18,9 @@ class DatabaseSeeder extends Seeder
     {
         // Create Admin User
         AdminUser::create([
-            'id' => Str::uuid(),
             'name' => 'Super Admin',
             'email' => 'admin@arjuna-multimedia.com',
-            'password' => Hash::make('admin123'), // Change this!
+            'password' => Hash::make(env('ADMIN_DEFAULT_PASSWORD', 'ChangeMe!ArjunaNet2024#')),
             'role' => 'super_admin',
             'is_active' => true,
         ]);
@@ -91,7 +90,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($packages as $package) {
-            Package::create(array_merge($package, ['id' => Str::uuid()]));
+            Package::create($package);
         }
 
         // Create FAQs
@@ -147,12 +146,11 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($faqs as $faq) {
-            Faq::create(array_merge($faq, ['id' => Str::uuid()]));
+            Faq::create($faq);
         }
 
         // Create Contact (singleton)
         Contact::create([
-            'id' => Str::uuid(),
             'whatsapp_number' => '08972367999',
             'phone_number' => '081342785222',
             'email' => 'info@arjunanet.id',
@@ -206,12 +204,11 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($pages as $page) {
-            Page::create(array_merge($page, ['id' => Str::uuid()]));
+            Page::create($page);
         }
 
         // Create Site Settings (singleton)
         SiteSettings::create([
-            'id' => Str::uuid(),
             'site_name' => 'Arjuna Net',
             'logo_url' => 'logo.webp',
             'favicon_url' => 'favicon.ico',

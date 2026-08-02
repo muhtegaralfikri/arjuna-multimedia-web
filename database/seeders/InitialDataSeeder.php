@@ -12,7 +12,6 @@ class InitialDataSeeder extends Seeder
     {
         if (DB::table('contacts')->count() === 0) {
             DB::table('contacts')->insert([
-                'id' => Str::uuid()->toString(),
                 'whatsapp_number' => '08972367999',
                 'phone_number' => '081342785222',
                 'email' => 'info@arjunanet.id',
@@ -64,7 +63,6 @@ class InitialDataSeeder extends Seeder
             }
 
             DB::table('pages')->insert([
-                'id' => Str::uuid()->toString(),
                 'slug' => $page['slug'],
                 'title' => $page['title'],
                 'hero_title' => $page['hero_title'],

@@ -16,7 +16,6 @@ class Contact extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'id',
         'whatsapp_number',
         'phone_number',
         'email',
@@ -33,7 +32,26 @@ class Contact extends Model
 
     public static function getContact()
     {
-        return self::$cachedContact ??= self::first();
+        return self::$cachedContact ??= \Illuminate\Support\Facades\Cache::remember('site_contact', 86400, function () {
+            return self::first();
+        });
+    }
+
+    public static function clearCache(): void
+    {
+        self::$cachedContact = null;
+        \Illuminate\Support\Facades\Cache::forget('site_contact');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->id)) {
+                $model->id = (string) \Illuminate\Support\Str::uuid();
+            }
+        });
     }
 
     public function getWhatsappNumberAttribute($value)
@@ -85,16 +103,15 @@ class Contact extends Model
             return null;
         }
 
-        $isGoogleMapsIframe = preg_match(
-            '/\A<iframe\b(?=[^>]*\bsrc="https:\/\/www\.google\.com\/maps\/embed\?[^"]+")[^>]*><\/iframe>\z/i',
-            $embed
-        );
-
-        if (!$isGoogleMapsIframe) {
+        // Extract the src URL from the iframe — only allow Google Maps embed URLs
+        if (!preg_match('/\bsrc="(https:\/\/www\.google\.com\/maps\/embed\?[^"]+)"/i', $embed, $matches)) {
             return null;
         }
 
-        return preg_replace('/\s+on[a-z]+\s*=\s*"[^"]*"/i', '', $embed);
+        $src = htmlspecialchars($matches[1], ENT_QUOTES, 'UTF-8');
+
+        // Reconstruct a clean iframe with only safe attributes — no untrusted HTML passes through
+        return '<iframe src="' . $src . '" width="100%" height="100%" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>';
     }
 
     private function getWhatsappNumberForLink(): string
