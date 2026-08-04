@@ -31,64 +31,9 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
             @foreach($packages as $package)
-            @php
-                $speedNumber = preg_replace('/[^0-9]/', '', $package->speed);
-                $priceRb = number_format($package->price_monthly / 1000, 0, ',', '.');
-            @endphp
-            <article class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden flex h-full flex-col">
-                <div class="p-6 flex h-full flex-col">
-                    <div class="flex items-center justify-between gap-3">
-                        <h3 class="text-2xl font-black text-gray-950">{{ $package->name }}</h3>
-                        <div class="flex flex-wrap justify-end gap-2">
-                            @if($package->is_popular)
-                                <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-sm font-bold">Populer</span>
-                            @endif
-                            <span class="px-3 py-1 rounded-full bg-blue-50 text-primary-700 text-sm font-bold">Unlimited</span>
-                        </div>
-                    </div>
-
-                    <div class="mt-6 rounded-2xl bg-gradient-to-br from-blue-50 to-sky-100 p-5 text-center">
-                        <p class="text-sm font-black uppercase tracking-wide text-primary-700">Kecepatan</p>
-                        <div class="mt-1 flex items-end justify-center gap-2 text-blue-950">
-                            <span class="text-8xl font-black leading-none">{{ $speedNumber }}</span>
-                            <span class="mb-3 text-2xl font-black">Mbps</span>
-                        </div>
-                    </div>
-
-                    <div class="mt-6">
-                        <p class="text-sm font-bold text-gray-500 uppercase">Harga bulanan</p>
-                        <div class="flex items-end gap-2">
-                            <span class="text-5xl font-black text-gray-950">{{ $priceRb }}</span>
-                            <span class="mb-2 text-xl font-black text-gray-950">RB</span>
-                            <span class="mb-2 text-gray-500">/bulan</span>
-                        </div>
-                        <p class="mt-1 text-sm text-gray-500">Biaya penyambungan Rp {{ number_format($package->installation_fee, 0, ',', '.') }}</p>
-                    </div>
-
-                    @if($package->features)
-                    <ul class="mt-6 space-y-2">
-                        @foreach(array_slice($package->features, 0, 4) as $feature)
-                        <li class="flex items-center gap-2 text-sm text-gray-700">
-                            <span class="w-5 h-5 rounded-full bg-green-100 text-green-700 flex items-center justify-center flex-shrink-0">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                            </span>
-                            {{ $feature }}
-                        </li>
-                        @endforeach
-                    </ul>
-                    @endif
-
-                    @if($contact)
-                    <div class="mt-auto pt-7">
-                        <a href="{{ route('wa.package', $package->slug) }}" target="_blank" rel="noopener noreferrer" class="inline-flex w-full items-center justify-center px-5 py-3 bg-primary-600 text-white rounded-lg font-bold hover:bg-primary-700 transition">
-                            Pesan {{ $package->speed }}
-                        </a>
-                    </div>
-                    @endif
-                </div>
-            </article>
+                @include('partials.package-card', ['package' => $package, 'contact' => $contact])
             @endforeach
         </div>
     </div>
@@ -133,37 +78,68 @@
             </div>
 
             @if($contact)
-            <div class="bg-white rounded-2xl p-6 md:p-8 border border-gray-200">
-                <h2 class="text-2xl font-black text-gray-950">Konsultasi pemasangan</h2>
-                <p class="mt-2 text-gray-600 leading-relaxed">Diskusikan kebutuhan paket, alamat pemasangan, dan jadwal penyambungan melalui admin resmi Arjuna Net.</p>
-                <div class="mt-6 space-y-4">
-                    <div class="rounded-xl bg-gray-50 border border-gray-100 p-4">
-                        <p class="text-xs text-gray-500 font-bold uppercase tracking-wide">Alamat layanan</p>
-                        <p class="mt-1 text-lg font-black text-gray-950">{{ $contact->address }}</p>
-                    </div>
-                    <div class="rounded-xl bg-gray-50 border border-gray-100 p-4">
-                        <p class="text-xs text-gray-500 font-bold uppercase tracking-wide">WhatsApp</p>
-                        <div class="mt-1 space-y-1">
-                            <a href="{{ route('wa.general') }}" target="_blank" rel="noopener noreferrer" class="block text-2xl font-black text-gray-950 hover:text-primary-700">{{ $primaryWa }}</a>
-                            @if($contact->phone_number)
-                                <a href="{{ $contact->whatsappLinkForNumber($contact->phone_number) }}" target="_blank" rel="noopener noreferrer" class="block text-2xl font-black text-gray-950 hover:text-primary-700">{{ $contact->phone_number }}</a>
-                            @endif
+            <div class="bg-gray-50 rounded-2xl p-6 md:p-8 border border-gray-200/80 flex flex-col justify-between">
+                <div>
+                    <h2 class="text-2xl font-black text-gray-950">Konsultasi pemasangan</h2>
+                    <p class="mt-2 text-sm text-gray-600 leading-relaxed">Diskusikan kebutuhan paket, alamat pemasangan, dan jadwal penyambungan melalui admin resmi Arjuna Net.</p>
+
+                    <div class="mt-6 space-y-4">
+                        {{-- Alamat Layanan --}}
+                        <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm flex items-start gap-3.5">
+                            <span class="w-10 h-10 rounded-lg bg-primary-50 text-primary-600 flex items-center justify-center shrink-0 mt-0.5">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                            </span>
+                            <div>
+                                <p class="text-xs font-extrabold uppercase tracking-wider text-gray-400">Alamat layanan</p>
+                                <p class="mt-1 text-base font-bold text-gray-900 leading-snug">{{ $contact->address }}</p>
+                            </div>
+                        </div>
+
+                        {{-- WhatsApp --}}
+                        <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm flex items-start gap-3.5">
+                            <span class="w-10 h-10 rounded-lg bg-green-50 text-green-600 flex items-center justify-center shrink-0 mt-0.5">
+                                @include('partials.whatsapp-icon', ['class' => 'w-5 h-5 object-contain'])
+                            </span>
+                            <div>
+                                <p class="text-xs font-extrabold uppercase tracking-wider text-green-600">WhatsApp</p>
+                                <div class="mt-1 space-y-1">
+                                    <a href="{{ route('wa.general') }}" target="_blank" rel="noopener noreferrer" class="block text-base font-bold text-gray-900 hover:text-green-600 transition">{{ $primaryWa }}</a>
+                                    @if($contact->phone_number)
+                                        <a href="{{ $contact->whatsappLinkForNumber($contact->phone_number) }}" target="_blank" rel="noopener noreferrer" class="block text-base font-bold text-gray-900 hover:text-green-600 transition">{{ $contact->phone_number }}</a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Telepon --}}
+                        <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm flex items-start gap-3.5">
+                            <span class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-0.5">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.826-1.47-5.111-3.756-6.58-6.582l1.293-.97c.362-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
+                                </svg>
+                            </span>
+                            <div>
+                                <p class="text-xs font-extrabold uppercase tracking-wider text-blue-600">Telepon</p>
+                                <div class="mt-1 space-y-1">
+                                    <a href="tel:{{ $contact->whatsapp_number }}" class="block text-base font-bold text-gray-900 hover:text-blue-600 transition">{{ $whatsappNumberFormatted ?? $contact->whatsapp_number }}</a>
+                                    @if($contact->phone_number)
+                                        <a href="tel:{{ $contact->phone_number }}" class="block text-base font-bold text-gray-900 hover:text-blue-600 transition">{{ $contact->phone_number }}</a>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    @if($contact->phone_number)
-                    <div class="rounded-xl bg-gray-50 border border-gray-100 p-4">
-                        <p class="text-xs text-gray-500 font-bold uppercase tracking-wide">Telepon</p>
-                        <div class="mt-1 space-y-1">
-                            <a href="tel:{{ $contact->whatsapp_number }}" class="block text-2xl font-black text-gray-950 hover:text-primary-700">{{ $contact->whatsapp_number }}</a>
-                            <a href="tel:{{ $contact->phone_number }}" class="block text-2xl font-black text-gray-950 hover:text-primary-700">{{ $contact->phone_number }}</a>
-                        </div>
-                    </div>
-                    @endif
                 </div>
-                <a href="{{ route('wa.general') }}" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex w-full items-center justify-center px-5 py-3 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600 transition">
-                    @include('partials.whatsapp-icon', ['class' => 'w-6 h-6 mr-2 object-contain'])
-                    Konsultasi via WhatsApp
-                </a>
+
+                <div class="mt-6">
+                    <a href="{{ route('wa.general') }}" target="_blank" rel="noopener noreferrer" class="inline-flex w-full items-center justify-center gap-2.5 rounded-xl bg-green-500 hover:bg-green-600 px-5 py-3.5 text-base font-bold text-white shadow-sm transition">
+                        @include('partials.whatsapp-icon', ['class' => 'w-5 h-5 object-contain flex-shrink-0'])
+                        <span>Konsultasi via WhatsApp</span>
+                    </a>
+                </div>
             </div>
             @endif
         </div>

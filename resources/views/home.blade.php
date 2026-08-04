@@ -69,98 +69,23 @@
 
 {{-- Paket Internet --}}
 @if($popularPackages->count() > 0)
-<section class="py-16 bg-gray-50">
+<section class="py-16 bg-gray-50/80 relative">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Pilih Paket Berdasarkan Kecepatan</h2>
-            <p class="text-xl text-gray-600">Mbps adalah hal utama yang dicari pelanggan, jadi kami tampilkan paling jelas.</p>
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <h2 class="text-3xl sm:text-4xl font-black text-gray-950 tracking-tight mb-4">Pilih Paket Sesuai Kebutuhan</h2>
+            <p class="text-base sm:text-lg text-gray-600 leading-relaxed">
+                Nikmati koneksi internet super kencang, stabil, tanpa batas kuota (FUP), dan transparan tanpa biaya tersembunyi.
+            </p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8 items-stretch">
             @foreach($popularPackages as $package)
-            @php
-                $speedNumber = preg_replace('/[^0-9]/', '', $package->speed);
-                $priceRb = number_format($package->price_monthly / 1000, 0, ',', '.');
-                $usageGuide = match ((int) $speedNumber) {
-                    7 => 'Cocok untuk 1-3 perangkat, WhatsApp, browsing, dan YouTube ringan.',
-                    10 => 'Cocok untuk keluarga kecil, belajar online, streaming, dan kerja ringan.',
-                    15 => 'Cocok untuk rumah aktif, meeting online, streaming, dan beberapa perangkat.',
-                    20 => 'Cocok untuk multi-perangkat, usaha kecil, meeting, dan hiburan harian.',
-                    default => 'Cocok untuk kebutuhan internet harian sesuai jumlah perangkat di rumah.',
-                };
-            @endphp
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 relative flex h-full flex-col">
-                <div class="p-6 flex h-full flex-col">
-                    <div class="flex items-start justify-between gap-3">
-                        <h3 class="text-xl font-black text-gray-900">{{ $package->name }}</h3>
-                        @if($package->is_popular)
-                            <span class="shrink-0 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold">Populer</span>
-                        @endif
-                    </div>
-                    <div class="mt-5 rounded-2xl bg-gradient-to-br from-primary-50 to-sky-100 p-5 text-center">
-                        <p class="text-xs font-black uppercase tracking-wide text-primary-700">Kecepatan</p>
-                        <div class="mt-1 flex items-end justify-center gap-2 text-blue-950">
-                            <span class="text-7xl font-black leading-none">{{ $speedNumber }}</span>
-                            <span class="mb-2 text-xl font-black">Mbps</span>
-                        </div>
-                        @if($package->installation_fee)
-                            <p class="mt-2 text-sm text-gray-500">Biaya pasang Rp {{ number_format($package->installation_fee, 0, ',', '.') }}</p>
-                        @endif
-                    </div>
-                    <div class="mt-5 mb-4">
-                        <p class="text-sm font-bold text-gray-500 uppercase">Harga</p>
-                        <div class="flex items-end gap-1">
-                            <span class="text-4xl font-black text-primary-600">{{ $priceRb }}</span>
-                            <span class="mb-1 text-xl font-black text-primary-600">RB</span>
-                            <span class="mb-1 text-gray-600">/bulan</span>
-                        </div>
-                    </div>
-                    <div class="mb-4 rounded-xl border border-gray-100 bg-gray-50 p-3">
-                        <p class="text-xs font-black uppercase tracking-wide text-gray-500">Rekomendasi</p>
-                        <p class="mt-1 text-sm leading-relaxed text-gray-700">{{ $usageGuide }}</p>
-                    </div>
-                    <p class="text-gray-600 mb-4">{{ $package->description }}</p>
-                    @if($package->features)
-                    <ul class="mb-6 space-y-2 text-sm">
-                        @foreach(array_slice($package->features, 0, 3) as $feature)
-                        <li class="flex items-center text-gray-700">
-                            <svg class="w-4 h-4 text-success-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            {{ $feature }}
-                        </li>
-                        @endforeach
-                    </ul>
-                    @endif
-                    @if($contact)
-                        <a href="{{ route('wa.package', $package->slug) }}" target="_blank" rel="noopener noreferrer" class="mt-auto block w-full text-center px-6 py-3 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600 transition">
-                            Tanya {{ $package->speed }} via WhatsApp
-                        </a>
-                    @else
-                        <a href="{{ route('packages') }}#paket-list" class="mt-auto block w-full text-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
-                            Lihat Detail Paket
-                        </a>
-                    @endif
-                </div>
-            </div>
+                @include('partials.package-card', ['package' => $package, 'contact' => $contact])
             @endforeach
         </div>
-        <div class="mt-8 rounded-2xl border border-primary-100 bg-white p-5 md:p-6">
-            <div class="grid grid-cols-1 gap-5 md:grid-cols-[1fr_auto] md:items-center">
-                <div>
-                    <h3 class="text-2xl font-black text-gray-950">Bingung pilih paket?</h3>
-                    <p class="mt-2 text-gray-600">Kirim jumlah perangkat, kebutuhan pemakaian, dan alamat. Admin akan bantu sarankan paket yang paling masuk akal.</p>
-                </div>
-                @if($contact)
-                    <a href="{{ route('wa.general') }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-xl bg-primary-600 px-5 py-3 font-bold text-white transition hover:bg-primary-700">
-                        Tanya Paket yang Cocok
-                    </a>
-                @endif
-            </div>
-        </div>
-        <div class="text-center mt-8">
-            <a href="{{ route('packages') }}" class="inline-flex items-center justify-center rounded-xl bg-primary-600 px-6 py-3 font-bold text-white shadow-sm transition hover:bg-primary-700">
-                Lihat Semua Paket
-                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="text-center mt-10">
+            <a href="{{ route('packages') }}" class="inline-flex items-center justify-center gap-2 rounded-xl bg-primary-600 px-6 py-3.5 font-extrabold text-white shadow-md shadow-primary-600/20 transition hover:bg-primary-700 hover:shadow-lg">
+                Lihat Semua Paket Internet
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                 </svg>
             </a>

@@ -37,134 +37,154 @@
 @include('partials.hero-page', ['page' => $page])
 
 @if($contact)
-<section class="overflow-x-hidden bg-gray-50 py-14 md:py-16">
+<section class="overflow-x-hidden bg-gray-50 py-12 md:py-16">
     <div class="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div class="mx-auto grid w-full max-w-[calc(100vw-2rem)] min-w-0 grid-cols-1 gap-10 lg:max-w-6xl lg:grid-cols-[0.95fr_1.05fr] xl:gap-12 items-start">
-            {{-- Contact Info --}}
-            <div class="min-w-0">
-                <div class="mb-6">
-                    <p class="text-sm font-bold uppercase tracking-[0.18em] text-primary-600">Kontak Resmi</p>
-                    <h3 class="mt-2 text-2xl md:text-3xl font-black text-gray-950">Hubungi Kami</h3>
-                    <p class="mt-2 max-w-xl text-gray-600">Pilih WhatsApp untuk chat admin atau telepon untuk panggilan langsung.</p>
-                </div>
+        <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12 items-stretch">
+            
+            {{-- Kolom Kiri: Kontak Resmi --}}
+            <div class="flex flex-col justify-between rounded-3xl bg-white p-6 sm:p-8 border border-gray-200/80 shadow-sm">
+                <div>
+                    {{-- Header --}}
+                    <div class="border-b border-gray-100 pb-5 mb-6">
+                        <span class="inline-block text-xs font-bold uppercase tracking-wider text-primary-600 bg-primary-50 px-3 py-1 rounded-md">Kontak Resmi</span>
+                        <h2 class="mt-2 text-2xl md:text-3xl font-black text-gray-950">Hubungi Kami</h2>
+                        <p class="mt-1.5 text-sm text-gray-600">Admin resmi Arjuna Net siap melayani konsultasi dan bantuan Anda.</p>
+                    </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                    {{-- WhatsApp --}}
-                    <div class="min-w-0 rounded-xl border border-green-200 bg-green-50 p-4 md:p-5">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="w-11 h-11 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                                @include('partials.whatsapp-icon', ['class' => 'w-7 h-7 object-contain'])
+                    {{-- Layanan WhatsApp & Telepon --}}
+                    <div class="space-y-4">
+                        {{-- Seksi WhatsApp --}}
+                        <div class="rounded-2xl bg-gray-50/80 p-4 border border-gray-100">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-9 h-9 bg-green-500 text-white rounded-xl flex items-center justify-center shrink-0">
+                                    @include('partials.whatsapp-icon', ['class' => 'w-5 h-5 object-contain'])
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-green-700">Layanan WhatsApp</h4>
+                                    <p class="text-[11px] text-gray-500">Respon cepat via chat</p>
+                                </div>
                             </div>
-                            <div>
-                                <div class="text-sm font-bold uppercase tracking-wide text-green-700">WhatsApp</div>
-                                <div class="text-xs text-green-700/80">Chat admin</div>
-                            </div>
-                        </div>
-                        <div class="space-y-2">
-                            <a href="{{ route('wa.general') }}" target="_blank" rel="noopener noreferrer" class="block max-w-full rounded-lg bg-white px-3 py-2 text-lg font-black text-gray-950 shadow-sm transition hover:text-green-700">
-                                {{ $contact->whatsapp_number }}
-                            </a>
-                            @if($contact->phone_number)
-                                <a href="{{ $contact->whatsappLinkForNumber($contact->phone_number) }}" target="_blank" rel="noopener noreferrer" class="block max-w-full rounded-lg bg-white px-3 py-2 text-lg font-black text-gray-950 shadow-sm transition hover:text-green-700">
-                                    {{ $contact->phone_number }}
+                            <div class="space-y-2">
+                                <a href="{{ route('wa.general') }}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-gray-900 border border-gray-200/70 shadow-2xs transition hover:border-green-400 hover:text-green-600">
+                                    <span>{{ $contact->whatsapp_number }}</span>
+                                    <span class="text-xs font-bold text-green-600 flex items-center gap-1">Chat <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></span>
                                 </a>
-                            @endif
+                                @if($contact->phone_number)
+                                    <a href="{{ $contact->whatsappLinkForNumber($contact->phone_number) }}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-gray-900 border border-gray-200/70 shadow-2xs transition hover:border-green-400 hover:text-green-600">
+                                        <span>{{ $contact->phone_number }}</span>
+                                        <span class="text-xs font-bold text-green-600 flex items-center gap-1">Chat <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></span>
+                                    </a>
+                                @endif
+                            </div>
                         </div>
-                    </div>
 
-                    {{-- Telepon --}}
-                    <div class="min-w-0 rounded-xl border border-blue-200 bg-blue-50 p-4 md:p-5">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="w-11 h-11 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                                </svg>
+                        {{-- Seksi Telepon --}}
+                        <div class="rounded-2xl bg-gray-50/80 p-4 border border-gray-100">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-9 h-9 bg-blue-600 text-white rounded-xl flex items-center justify-center shrink-0">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.826-1.47-5.111-3.756-6.58-6.582l1.293-.97c.362-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-blue-700">Panggilan Telepon</h4>
+                                    <p class="text-[11px] text-gray-500">Panggilan Telkom / Seluler</p>
+                                </div>
                             </div>
-                            <div>
-                                <div class="text-sm font-bold uppercase tracking-wide text-primary-700">Telepon</div>
-                                <div class="text-xs text-primary-700/80">Panggilan langsung</div>
+                            <div class="space-y-2">
+                                <a href="tel:{{ $contact->whatsapp_number }}" class="flex items-center justify-between rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-gray-900 border border-gray-200/70 shadow-2xs transition hover:border-blue-400 hover:text-blue-600">
+                                    <span>{{ $contact->whatsapp_number }}</span>
+                                    <span class="text-xs font-bold text-blue-600 flex items-center gap-1">Panggil <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></span>
+                                </a>
+                                @if($contact->phone_number)
+                                    <a href="tel:{{ $contact->phone_number }}" class="flex items-center justify-between rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-gray-900 border border-gray-200/70 shadow-2xs transition hover:border-blue-400 hover:text-blue-600">
+                                        <span>{{ $contact->phone_number }}</span>
+                                        <span class="text-xs font-bold text-blue-600 flex items-center gap-1">Panggil <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></span>
+                                    </a>
+                                @endif
                             </div>
                         </div>
-                        <div class="space-y-2">
-                            <a href="tel:{{ $contact->whatsapp_number }}" class="block max-w-full rounded-lg bg-white px-3 py-2 text-lg font-black text-gray-950 shadow-sm transition hover:text-primary-700">
-                                {{ $contact->whatsapp_number }}
-                            </a>
-                            @if($contact->phone_number)
-                                <a href="tel:{{ $contact->phone_number }}" class="block max-w-full rounded-lg bg-white px-3 py-2 text-lg font-black text-gray-950 shadow-sm transition hover:text-primary-700">
-                                    {{ $contact->phone_number }}
-                                </a>
+
+                        {{-- Email & Jam Operasional Grid --}}
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                            @if($contact->email)
+                            <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                                <div class="w-9 h-9 rounded-xl bg-slate-200/80 text-slate-700 flex items-center justify-center shrink-0">
+                                    <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                    </svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-xs font-extrabold uppercase tracking-wider text-gray-400">Email</p>
+                                    <p class="text-sm font-bold text-gray-900 truncate mt-0.5">{{ $contact->email }}</p>
+                                </div>
+                            </div>
                             @endif
+
+                            <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                                <div class="w-9 h-9 rounded-xl bg-amber-100/80 text-amber-700 flex items-center justify-center shrink-0">
+                                    <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-xs font-extrabold uppercase tracking-wider text-gray-400">Jam Operasional</p>
+                                    <p class="text-sm font-bold text-gray-900 mt-0.5">{{ $contact->operating_hours }}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="grid grid-cols-1 gap-4">
-                    {{-- Email --}}
-                    @if($contact->email)
-                    <div class="flex min-w-0 items-center p-4 bg-gray-50 border border-gray-200 rounded-xl">
-                        <div class="w-11 h-11 bg-slate-500 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <div class="font-semibold text-gray-900">Email</div>
-                            <div class="text-gray-600">{{ $contact->email }}</div>
-                        </div>
+            {{-- Kolom Kanan: Lokasi Kami & Map --}}
+            <div class="flex flex-col justify-between rounded-3xl bg-white p-6 sm:p-8 border border-gray-200/80 shadow-sm">
+                <div>
+                    {{-- Header --}}
+                    <div class="border-b border-gray-100 pb-5 mb-6">
+                        <span class="inline-block text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-md">Alamat Layanan</span>
+                        <h2 class="mt-2 text-2xl md:text-3xl font-black text-gray-950">Lokasi Kami</h2>
+                        <p class="mt-1.5 text-sm text-gray-600">Lokasi acuan untuk pengecekan jaringan dan jangkauan pemasangan.</p>
                     </div>
+
+                    {{-- Google Maps Embed --}}
+                    @if($contact->safe_google_maps_embed)
+                    <div class="overflow-hidden rounded-2xl border border-gray-200 shadow-2xs [&_iframe]:block [&_iframe]:h-[260px] md:[&_iframe]:h-[280px] [&_iframe]:w-full">
+                        {!! $contact->safe_google_maps_embed !!}
+                    </div>
+                    @elseif($contact->google_maps_link)
+                    <a href="{{ $contact->google_maps_link }}" target="_blank" rel="noopener noreferrer" class="flex h-[260px] w-full items-center justify-center rounded-2xl border border-gray-200 bg-gray-50 transition hover:bg-gray-100">
+                        <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </a>
                     @endif
 
-                    {{-- Jam Operasional --}}
-                    <div class="flex min-w-0 items-center p-4 bg-gray-50 border border-gray-200 rounded-xl">
-                        <div class="w-11 h-11 bg-amber-500 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    {{-- Info Alamat --}}
+                    <div class="mt-4 flex items-center gap-3.5 rounded-2xl bg-gray-50 p-4 border border-gray-100">
+                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                             </svg>
                         </div>
                         <div>
-                            <div class="font-semibold text-gray-900">Jam Operasional</div>
-                            <div class="text-gray-600">{{ $contact->operating_hours }}</div>
+                            <p class="text-[10px] font-extrabold uppercase tracking-wider text-gray-400">Alamat Lengkap</p>
+                            <p class="text-sm font-bold text-gray-900 leading-snug">{{ $contact->address }}</p>
                         </div>
                     </div>
                 </div>
+
+                {{-- CTA Button Coverage --}}
+                <div class="mt-6">
+                    <a href="{{ route('wa.coverage') }}" target="_blank" rel="noopener noreferrer" class="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 px-5 py-3.5 text-sm font-bold text-white shadow-sm transition">
+                        @include('partials.whatsapp-icon', ['class' => 'w-5 h-5 object-contain shrink-0'])
+                        <span>Cek Coverage Lokasi via WhatsApp</span>
+                    </a>
+                </div>
             </div>
 
-            {{-- Map --}}
-            <div class="min-w-0">
-                <div class="mb-6">
-                    <p class="text-sm font-bold uppercase tracking-[0.18em] text-primary-600">Alamat Layanan</p>
-                    <h3 class="mt-2 text-2xl md:text-3xl font-black text-gray-950">Lokasi Kami</h3>
-                    <p class="mt-2 text-gray-600">Gunakan lokasi ini sebagai patokan saat menanyakan coverage pemasangan.</p>
-                </div>
-                @if($contact->safe_google_maps_embed)
-                <div class="overflow-hidden rounded-xl border border-gray-200 bg-gray-100 shadow-sm [&_iframe]:block [&_iframe]:h-[360px] md:[&_iframe]:h-[420px] [&_iframe]:w-full">
-                    {!! $contact->safe_google_maps_embed !!}
-                </div>
-                @elseif($contact->google_maps_link)
-                <a href="{{ $contact->google_maps_link }}" target="_blank" rel="noopener noreferrer" class="flex h-[360px] w-full items-center justify-center rounded-xl border border-gray-200 bg-gray-100 transition hover:bg-gray-200">
-                    <svg class="w-12 h-12 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    </svg>
-                </a>
-                @endif
-                <div class="mt-4 flex items-start gap-3 rounded-xl border border-amber-100 bg-amber-50 p-4">
-                    <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-amber-500 text-white">
-                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        </svg>
-                    </div>
-                    <p class="text-sm leading-relaxed text-gray-700">
-                        <span class="block font-black text-gray-950">Alamat</span>
-                        {{ $contact->address }}
-                    </p>
-                </div>
-                <a href="{{ route('wa.coverage') }}" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-green-500 px-5 py-3 font-bold text-white transition hover:bg-green-600">
-                    @include('partials.whatsapp-icon', ['class' => 'w-6 h-6 mr-2 object-contain'])
-                    Cek Coverage via WhatsApp
-                </a>
-            </div>
         </div>
     </div>
 </section>
